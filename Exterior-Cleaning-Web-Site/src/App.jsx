@@ -1,11 +1,11 @@
-import React from 'react'
-import Header from './components/Layout/Header'
-import './App.scss';
+import React, { Fragment } from 'react';
 
 
 const App = () => {
   return (
-   <Header />
+    <Fragment>
+      <h1>Hello World!</h1>
+    </Fragment>
   )
 }
 
