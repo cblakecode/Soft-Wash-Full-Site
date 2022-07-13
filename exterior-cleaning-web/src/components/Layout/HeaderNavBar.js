@@ -36,7 +36,10 @@ const HeaderNavBar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar
+      position="absolute"
+      sx={{ maxWidth: "xl", backgroundColor: "#002A66", borderRadius: "12px" }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <HouseIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -48,9 +51,9 @@ const HeaderNavBar = () => {
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 600,
-              letterSpacing: ".2rem",
+              fontFamily: "roboto",
+              fontWeight: 550,
+              letterSpacing: ".1rem",
               color: "inherit",
               textDecoration: "none",
             }}
@@ -58,7 +61,13 @@ const HeaderNavBar = () => {
             Exterior Cleaning of SC
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              justifyContent: "center",
+              display: { xs: "flex", md: "none" },
+            }}
+          >
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -95,7 +104,7 @@ const HeaderNavBar = () => {
             </Menu>
           </Box>
           <HouseIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
+          {/* <Typography
             variant="h5"
             noWrap
             component="a"
@@ -111,9 +120,16 @@ const HeaderNavBar = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            Exterior Cleaning of SC
+          </Typography> */}
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              justifyContent: "flex-start",
+              pl: "19%",
+            }}
+          >
             {pages.map((page) => (
               <Button
                 key={page}
