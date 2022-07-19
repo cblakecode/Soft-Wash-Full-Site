@@ -1,8 +1,10 @@
 import React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import Header from "./components/Header";
+import Hero from "./components/Hero";
+import Services from "./components/Services";
 
 function App() {
   const theme = createTheme({
@@ -24,9 +26,11 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container>
+      <Box>
         <Header />
-      </Container>
+        <Hero />
+        <Services />
+      </Box>
     </ThemeProvider>
   );
 }

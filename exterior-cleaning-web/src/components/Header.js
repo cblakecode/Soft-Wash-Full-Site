@@ -75,7 +75,7 @@ const Header = (props) => {
                 endIcon={<EmailIcon />}
                 color="secondary"
                 size="small"
-                sx={{ mx: 1 }}
+                sx={{ mx: 1, display: { xs: "none", md: "flex" } }}
               >
                 Contact
               </Button>
@@ -84,7 +84,7 @@ const Header = (props) => {
                 endIcon={<RequestQuoteIcon />}
                 color="secondary"
                 size="small"
-                sx={{ mx: 1 }}
+                sx={{ mx: 1, display: { xs: "none", md: "flex" } }}
               >
                 Free Quote
               </Button>
@@ -93,10 +93,28 @@ const Header = (props) => {
                 endIcon={<AccountBoxIcon />}
                 color="secondary"
                 size="small"
-                sx={{ mx: 1 }}
+                sx={{ mx: 1, display: { xs: "none", md: "flex" } }}
               >
                 Membership
               </Button>
+              <IconButton
+                sx={{ display: { xs: "flex", md: "none" } }}
+                color="secondary"
+              >
+                <EmailIcon />
+              </IconButton>
+              <IconButton
+                sx={{ display: { xs: "flex", md: "none" } }}
+                color="secondary"
+              >
+                <RequestQuoteIcon />
+              </IconButton>
+              <IconButton
+                sx={{ display: { xs: "flex", md: "none" } }}
+                color="secondary"
+              >
+                <AccountBoxIcon />
+              </IconButton>
             </Box>
           </Toolbar>
         </AppBar>
