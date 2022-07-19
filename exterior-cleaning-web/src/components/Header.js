@@ -20,16 +20,24 @@ const Header = (props) => {
         <AppBar position="fixed">
           <Toolbar
             disableGutters
-            sx={{ display: "flex", justifyContent: "space-around" }}
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              mx: "1rem",
+            }}
           >
             <Box
               sx={{
                 display: "flex",
-                justifyContent: "space-around",
-                flexGrow: 1,
+                justifyContent: "flex-start",
               }}
             >
-              <IconButton href="/" color="inherit" size="large" sx={{ p: 0 }}>
+              <IconButton
+                href="/"
+                color="inherit"
+                size="large"
+                sx={{ p: 0, mr: "1rem" }}
+              >
                 <HouseIcon fontSize="inherit" />
               </IconButton>
               <Typography
@@ -65,9 +73,9 @@ const Header = (props) => {
             </Box>
             <Box
               sx={{
-                flexGrow: 1,
                 display: "flex",
-                justifyContent: "flex-end",
+                justifyContent: { xs: "flex-start", lg: "flex-end" },
+                flexDirection: { xs: "row-reverse", lg: "row" },
               }}
             >
               <Button
@@ -75,7 +83,7 @@ const Header = (props) => {
                 endIcon={<EmailIcon />}
                 color="secondary"
                 size="small"
-                sx={{ mx: 1, display: { xs: "none", md: "flex" } }}
+                sx={{ mx: 1, display: { xs: "none", lg: "flex" } }}
               >
                 Contact
               </Button>
@@ -93,12 +101,12 @@ const Header = (props) => {
                 endIcon={<AccountBoxIcon />}
                 color="secondary"
                 size="small"
-                sx={{ mx: 1, display: { xs: "none", md: "flex" } }}
+                sx={{ mx: 1, display: { xs: "none", lg: "flex" } }}
               >
                 Membership
               </Button>
               <IconButton
-                sx={{ display: { xs: "flex", md: "none" } }}
+                sx={{ display: { xs: "flex", lg: "none" } }}
                 color="secondary"
               >
                 <EmailIcon />
@@ -110,7 +118,7 @@ const Header = (props) => {
                 <RequestQuoteIcon />
               </IconButton>
               <IconButton
-                sx={{ display: { xs: "flex", md: "none" } }}
+                sx={{ display: { xs: "flex", lg: "none" } }}
                 color="secondary"
               >
                 <AccountBoxIcon />
