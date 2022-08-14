@@ -1,78 +1,64 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
-import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Roofimg from "../images/roof.jpg";
-import Guttersimg from "../images/gutters.jpg";
-import Drivewayimg from "../images/driveway.jpg";
-import Windowsimg from "../images/windows.jpg";
-import {
-  CardContent,
-  CardMedia,
-  List,
-  ListItem,
-  ListItemText,
-} from "@mui/material";
+import drivewayImg from "../images/driveway.jpg";
+import guttersImg from "../images/gutters.jpg";
+import roofImg from "../images/roof.jpg";
+import windowsImg from "../images/windows.jpg";
+import ServicesCard from "./ServicesCard";
 
-class Job {
-  constructor(image, name, servicesList) {
-    this.image = image;
-    this.name = name;
-    this.servicesList = servicesList;
-  }
-}
-
-const roofClean = new Job(Roofimg, "Roofs", [
-  "Mold/Mildew Removal",
-  "Roof Blow Off",
-]);
-const gutterClean = new Job(Guttersimg, "Gutters", [
-  "Clean Out",
-  "Tar Stain Removal",
-]);
-const concreteClean = new Job(Drivewayimg, "Concrete", [
-  "Rust Removal",
-  "Surface Clean",
-  "Oil Stain Removal",
-]);
-const windowClean = new Job(Windowsimg, "Windows", [
-  "Clean/Shine",
-  "Calcium Cleanup",
-  "Mildew Removal",
-]);
-
-const cleanService = [roofClean, gutterClean, concreteClean, windowClean];
+const listServices = [
+  {
+    id: 1,
+    image: drivewayImg,
+    alt: "Clean Driveway",
+    title: "Flatwork",
+    content: ["Concrete", "Pavers", "Brick", "Rust Removal", "Oil Stains"],
+  },
+  {
+    id: 2,
+    image: guttersImg,
+    alt: "Clean Gutters",
+    title: "Gutters",
+    content: ["Tar Stain Removal", "Clean out"],
+  },
+  {
+    id: 3,
+    image: roofImg,
+    alt: "Clean Roof",
+    title: "Roofs",
+    content: ["Mold/Mildew Clean", "Blow Off"],
+  },
+  {
+    id: 4,
+    image: windowsImg,
+    alt: "Clean Windows",
+    title: "Windows",
+    content: ["Calcium Removal", "Clean and Shine"],
+  },
+];
 
 const Services = () => {
   return (
     <Box sx={{ height: "100vh", width: "100%", mt: "1rem" }}>
-      <Grid container>
+      <Grid container columnSpacing={1} sx={{ height: "100%" }}>
         <Grid item xs={12} justifyContent="center">
           <Typography variant="h3" fontWeight="500" textAlign="center">
             What We Can Do For You
           </Typography>
         </Grid>
-        {cleanService.map(({ image, name, servicesList }) => {
-          <Grid item xs={3} key={name}>
-            <Card>
-              <CardMedia
-                component="img"
-                height="30%"
-                image={image}
-                alt={name}
+        {listServices.map((item) => {
+          return (
+            <Grid item xs={12} sm={6} md={3} key={item.id}>
+              <ServicesCard
+                img={item.image}
+                alt={item.alt}
+                service={item.title}
+                serviceList={item.content}
               />
-              <CardContent>
-                <Typography>{name}</Typography>
-                <List>
-                  <ListItem alignItems="flex-start">
-                    <ListItemText inset primary={servicesList} />;
-                  </ListItem>
-                </List>
-              </CardContent>
-            </Card>
-          </Grid>;
+            </Grid>
+          );
         })}
       </Grid>
     </Box>
