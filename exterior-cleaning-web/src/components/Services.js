@@ -41,11 +41,17 @@ const listServices = [
 
 const Services = () => {
   return (
-    <Box sx={{ height: "100vh", width: "100%", mt: "1rem" }}>
+    <Box
+      sx={{
+        height: "95vh",
+        width: "100%",
+        backgroundColor: "grey.600",
+      }}
+    >
       <Grid container columnSpacing={1} sx={{ height: "100%" }}>
         <Grid item xs={12} justifyContent="center">
           <Typography variant="h3" fontWeight="500" textAlign="center">
-            What We Can Do For You
+            Services
           </Typography>
         </Grid>
         {listServices.map((item) => {

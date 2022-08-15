@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
+import About from "./components/About";
 
 function App() {
   const theme = createTheme({
@@ -30,6 +31,7 @@ function App() {
         <Header />
         <Hero />
         <Services />
+        <About />
       </Box>
     </ThemeProvider>
   );
