@@ -43,17 +43,30 @@ const Services = () => {
   return (
     <Box
       sx={{
-        height: "95vh",
+        height: "auto",
         width: "100%",
         backgroundColor: "grey.600",
+        p: "1rem",
       }}
     >
-      <Grid container columnSpacing={1} sx={{ height: "100%" }}>
-        <Grid item xs={12} justifyContent="center">
-          <Typography variant="h3" fontWeight="500" textAlign="center">
-            Services
-          </Typography>
-        </Grid>
+      <Typography
+        variant="h3"
+        fontWeight="500"
+        textAlign="center"
+        sx={{ mb: "1.5rem" }}
+      >
+        Services
+      </Typography>
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "stretch",
+        }}
+      >
         {listServices.map((item) => {
           return (
             <Grid item xs={12} sm={6} md={3} key={item.id}>

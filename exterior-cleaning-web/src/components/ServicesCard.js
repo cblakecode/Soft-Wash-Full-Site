@@ -7,10 +7,10 @@ import Box from "@mui/material/Box";
 
 const ServicesCard = (props) => {
   return (
-    <Card sx={{ height: "80%" }}>
+    <Card sx={{ height: "100%" }}>
       <CardMedia
         component="img"
-        height="170"
+        height="140"
         image={props.img}
         alt={props.alt}
       />

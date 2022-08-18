@@ -11,14 +11,21 @@ import Button from "@mui/material/Button";
 
 const About = () => {
   return (
-    <Box sx={{ width: "100%", height: "95vh" }}>
+    <Box
+      sx={{
+        width: "100%",
+        height: "auto",
+        borderBottom: "1px solid black",
+        pb: "1.5rem",
+      }}
+    >
       <Grid container spacing={8}>
         <Grid item xs={12}>
           <Typography variant="h3" textAlign="center" fontWeight="500">
             About Us
           </Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item md={6} sx={{ display: { xs: "none", md: "flex" } }}>
           <List
             sx={{
               width: "100%",
@@ -43,7 +50,17 @@ const About = () => {
             ))}
           </List>
         </Grid>
-        <Grid item xs={6}>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+        >
           <Typography variant="h6" textAlign="left">
             For over a decade, we have provided top notch care to homes and
             businesses throughout the Lowcountry. We can do it all, from
