@@ -92,7 +92,9 @@ const Modalcontact = (props) => {
             xs={12}
             sx={{ display: "flex", justifyContent: "flex-end" }}
           >
-            <Button variant="text">Close</Button>
+            <Button variant="text" onClick={handleClose}>
+              Close
+            </Button>
             <Button variant="contained">Send</Button>
           </Grid>
         </Grid>
