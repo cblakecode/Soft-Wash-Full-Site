@@ -7,9 +7,9 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
-import EmailIcon from "@mui/icons-material/Email";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import Modalcontact from "./Modals/Modalcontact";
 
 const pages = ["About", "Services", "Area"];
 
@@ -78,15 +78,7 @@ const Header = (props) => {
                 flexDirection: { xs: "row-reverse", lg: "row" },
               }}
             >
-              <Button
-                variant="text"
-                endIcon={<EmailIcon />}
-                color="secondary"
-                size="small"
-                sx={{ mx: 1, display: { xs: "none", lg: "flex" } }}
-              >
-                Contact
-              </Button>
+              <Modalcontact />
               <Button
                 variant="contained"
                 endIcon={<RequestQuoteIcon />}
@@ -105,12 +97,7 @@ const Header = (props) => {
               >
                 Membership
               </Button>
-              <IconButton
-                sx={{ display: { xs: "flex", lg: "none" } }}
-                color="secondary"
-              >
-                <EmailIcon />
-              </IconButton>
+
               <IconButton
                 sx={{ display: { xs: "flex", md: "none" } }}
                 color="secondary"
