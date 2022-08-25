@@ -95,6 +95,7 @@ const Header = () => {
               <IconButton
                 sx={{ display: { xs: "flex", lg: "none" } }}
                 color="secondary"
+                onClick={() => dispatch(handleOpen())}
               >
                 <EmailIcon />
               </IconButton>
