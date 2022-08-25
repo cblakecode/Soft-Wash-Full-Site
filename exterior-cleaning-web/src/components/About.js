@@ -8,8 +8,12 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import StarIcon from "@mui/icons-material/Star";
 import Button from "@mui/material/Button";
+import { useDispatch } from "react-redux";
+import { handleOpen } from "../store/modalSlice";
 
 const About = () => {
+  const dispatch = useDispatch();
+
   return (
     <Box
       sx={{
@@ -73,7 +77,12 @@ const About = () => {
             protected. Give us a chance and put us to the test. Trust us, we're
             Best Under Pressure.
           </Typography>
-          <Button variant="contained" size="large" sx={{ mt: "1rem" }}>
+          <Button
+            variant="contained"
+            size="large"
+            sx={{ mt: "1rem" }}
+            onClick={() => dispatch(handleOpen())}
+          >
             Contact Us
           </Button>
         </Grid>

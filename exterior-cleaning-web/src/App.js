@@ -7,6 +7,7 @@ import Hero from "./components/Hero";
 import Services from "./components/Services";
 import About from "./components/About";
 import Footer from "./components/Footer";
+import Modalcontact from "./components/Modals/Modalcontact";
 
 function App() {
   const theme = createTheme({
@@ -34,6 +35,7 @@ function App() {
         <Services />
         <About />
         <Footer />
+        <Modalcontact />
       </Box>
     </ThemeProvider>
   );

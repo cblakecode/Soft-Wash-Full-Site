@@ -8,7 +8,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import Modalcontact from "./Modals/Modalcontact";
 import EmailIcon from "@mui/icons-material/Email";
 import IconButton from "@mui/material/IconButton";
 import { useDispatch } from "react-redux";
@@ -83,7 +82,6 @@ const Header = () => {
                 flexDirection: { xs: "row-reverse", lg: "row" },
               }}
             >
-              <Modalcontact />
               <Button
                 variant="text"
                 endIcon={<EmailIcon />}
