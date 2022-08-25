@@ -1,44 +1,22 @@
 import React from "react";
-import { useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import EmailIcon from "@mui/icons-material/Email";
 import Typography from "@mui/material/Typography";
+import { useSelector, useDispatch } from "react-redux";
+import { handleClose } from "../../store/modalSlice";
 
-const Modalcontact = (props) => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+const Modalcontact = () => {
+  const { isOpen } = useSelector((store) => store.modal);
+  const dispatch = useDispatch();
 
   return (
     <Box>
-      <Button
-        variant="text"
-        endIcon={<EmailIcon />}
-        color="secondary"
-        size="small"
-        sx={{ mx: 1, display: { xs: "none", lg: "flex" } }}
-        onClick={handleOpen}
-      >
-        Contact
-      </Button>
-      <IconButton
-        sx={{ display: { xs: "flex", lg: "none" } }}
-        color="secondary"
-      >
-        <EmailIcon />
-      </IconButton>
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={isOpen}
+        onClose={() => dispatch(handleClose())}
         sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
       >
         <Grid
@@ -72,6 +50,16 @@ const Modalcontact = (props) => {
               label="Email"
               variant="outlined"
               placeholder="Enter Your Email"
+              type="email"
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Phone"
+              variant="outlined"
+              placeholder="Enter Your Phone Number"
               required
               fullWidth
             />
@@ -92,10 +80,16 @@ const Modalcontact = (props) => {
             xs={12}
             sx={{ display: "flex", justifyContent: "flex-end" }}
           >
-            <Button variant="text" onClick={handleClose}>
+            <Button
+              variant="text"
+              size="large"
+              onClick={() => dispatch(handleClose())}
+            >
               Close
             </Button>
-            <Button variant="contained">Send</Button>
+            <Button variant="contained" size="large">
+              Send
+            </Button>
           </Grid>
         </Grid>
       </Modal>

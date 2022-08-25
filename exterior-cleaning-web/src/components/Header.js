@@ -5,15 +5,20 @@ import HideOnScroll from "../Utilities/HideOnScroll";
 import HouseIcon from "@mui/icons-material/House";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import Modalcontact from "./Modals/Modalcontact";
+import EmailIcon from "@mui/icons-material/Email";
+import IconButton from "@mui/material/IconButton";
+import { useDispatch } from "react-redux";
+import { handleOpen } from "../store/modalSlice";
 
 const pages = ["About", "Services", "Area"];
 
-const Header = (props) => {
+const Header = () => {
+  const dispatch = useDispatch();
+
   return (
     <Fragment>
       <HideOnScroll>
@@ -79,6 +84,22 @@ const Header = (props) => {
               }}
             >
               <Modalcontact />
+              <Button
+                variant="text"
+                endIcon={<EmailIcon />}
+                color="secondary"
+                size="small"
+                sx={{ mx: 1, display: { xs: "none", lg: "flex" } }}
+                onClick={() => dispatch(handleOpen())}
+              >
+                Contact
+              </Button>
+              <IconButton
+                sx={{ display: { xs: "flex", lg: "none" } }}
+                color="secondary"
+              >
+                <EmailIcon />
+              </IconButton>
               <Button
                 variant="contained"
                 endIcon={<RequestQuoteIcon />}
