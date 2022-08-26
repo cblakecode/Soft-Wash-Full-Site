@@ -11,7 +11,7 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import EmailIcon from "@mui/icons-material/Email";
 import IconButton from "@mui/material/IconButton";
 import { useDispatch } from "react-redux";
-import { handleOpen } from "../store/modalSlice";
+import { handleContactOpen, handleQuoteOpen } from "../store/modalSlice";
 
 const pages = ["About", "Services", "Area"];
 
@@ -88,14 +88,14 @@ const Header = () => {
                 color="secondary"
                 size="small"
                 sx={{ mx: 1, display: { xs: "none", lg: "flex" } }}
-                onClick={() => dispatch(handleOpen())}
+                onClick={() => dispatch(handleContactOpen())}
               >
                 Contact
               </Button>
               <IconButton
                 sx={{ display: { xs: "flex", lg: "none" } }}
                 color="secondary"
-                onClick={() => dispatch(handleOpen())}
+                onClick={() => dispatch(handleContactOpen())}
               >
                 <EmailIcon />
               </IconButton>
@@ -105,9 +105,17 @@ const Header = () => {
                 color="secondary"
                 size="small"
                 sx={{ mx: 1, display: { xs: "none", md: "flex" } }}
+                onClick={() => dispatch(handleQuoteOpen())}
               >
                 Free Quote
               </Button>
+              <IconButton
+                sx={{ display: { xs: "flex", md: "none" } }}
+                color="secondary"
+                onClick={() => dispatch(handleQuoteOpen())}
+              >
+                <RequestQuoteIcon />
+              </IconButton>
               <Button
                 variant="outlined"
                 endIcon={<AccountBoxIcon />}
@@ -118,12 +126,6 @@ const Header = () => {
                 Membership
               </Button>
 
-              <IconButton
-                sx={{ display: { xs: "flex", md: "none" } }}
-                color="secondary"
-              >
-                <RequestQuoteIcon />
-              </IconButton>
               <IconButton
                 sx={{ display: { xs: "flex", lg: "none" } }}
                 color="secondary"

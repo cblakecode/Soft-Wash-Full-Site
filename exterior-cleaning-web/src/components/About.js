@@ -9,7 +9,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import StarIcon from "@mui/icons-material/Star";
 import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
-import { handleOpen } from "../store/modalSlice";
+import { handleContactOpen } from "../store/modalSlice";
 
 const About = () => {
   const dispatch = useDispatch();
@@ -81,7 +81,7 @@ const About = () => {
             variant="contained"
             size="large"
             sx={{ mt: "1rem" }}
-            onClick={() => dispatch(handleOpen())}
+            onClick={() => dispatch(handleContactOpen())}
           >
             Contact Us
           </Button>
