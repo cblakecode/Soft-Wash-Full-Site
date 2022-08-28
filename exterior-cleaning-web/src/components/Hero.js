@@ -6,8 +6,12 @@ import Card from "@mui/material/Card";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import Image from "../images/yellow-house.png";
 import CardMedia from "@mui/material/CardMedia";
+import { useDispatch } from "react-redux";
+import { handleQuoteOpen } from "../store/modalSlice";
 
 const Hero = () => {
+  const dispatch = useDispatch();
+
   return (
     <Box
       sx={{
@@ -37,6 +41,7 @@ const Hero = () => {
           variant="contained"
           size="large"
           endIcon={<RequestQuoteIcon />}
+          onClick={() => dispatch(handleQuoteOpen())}
           sx={{
             width: "25%",
             mt: "1rem",
@@ -54,7 +59,7 @@ const Hero = () => {
           alignItems: "center",
         }}
       >
-        <Card square elevation="0" sx={{ backgroundColor: "primary.main" }}>
+        <Card square elevation={0} sx={{ backgroundColor: "primary.main" }}>
           <CardMedia
             component="img"
             heigth="100%"

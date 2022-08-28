@@ -20,7 +20,7 @@ const ServicesCard = (props) => {
         </Typography>
         <Box component="ul">
           {props.serviceList.map((item) => {
-            return <li>{item}</li>;
+            return <li key={item.toString()}>{item}</li>;
           })}
         </Box>
       </CardContent>

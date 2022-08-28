@@ -104,13 +104,13 @@ const Header = () => {
                 endIcon={<RequestQuoteIcon />}
                 color="secondary"
                 size="small"
-                sx={{ mx: 1, display: { xs: "none", md: "flex" } }}
+                sx={{ mx: 1, display: { xs: "none", lg: "flex" } }}
                 onClick={() => dispatch(handleQuoteOpen())}
               >
                 Free Quote
               </Button>
               <IconButton
-                sx={{ display: { xs: "flex", md: "none" } }}
+                sx={{ display: { xs: "flex", lg: "none" } }}
                 color="secondary"
                 onClick={() => dispatch(handleQuoteOpen())}
               >
