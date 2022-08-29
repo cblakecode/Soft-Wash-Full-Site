@@ -7,8 +7,8 @@ import Hero from "./components/Hero";
 import Services from "./components/Services";
 import About from "./components/About";
 import Footer from "./components/Footer";
-import ContactModal from "./features/Modals/ContactModal";
-import QuoteModal from "./features/Modals/QuoteModal";
+import ContactModal from "./features/modals/ContactModal";
+import QuoteModal from "./features/modals/QuoteModal";
 
 function App() {
   const theme = createTheme({

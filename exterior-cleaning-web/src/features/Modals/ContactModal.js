@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid";
@@ -7,13 +7,26 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useSelector, useDispatch } from "react-redux";
 import { handleContactClose } from "../../store/modalSlice";
+import { handleInputChange } from "../../store/formSlice";
 
 const Modalcontact = () => {
   const { contactOpen } = useSelector((store) => store.modal);
   const dispatch = useDispatch();
 
+  const [form, setForm] = useState({
+    fullName: "",
+    email: "",
+    mobile: "",
+    message: "",
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(handleInputChange(form));
+  };
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   return (
@@ -23,19 +36,19 @@ const Modalcontact = () => {
         onClose={() => dispatch(handleContactClose())}
         sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
       >
-        <Box component="form" onSubmit={handleSubmit}>
-          <Grid
-            container
-            spacing={2}
-            sx={{
-              backgroundColor: "common.white",
-              width: "50%",
-              height: "auto",
-              borderRadius: "10px",
-              pb: "1rem",
-              pr: "1rem",
-            }}
-          >
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{
+            backgroundColor: "common.white",
+            width: "50%",
+            height: "auto",
+            borderRadius: "10px",
+            pb: "1rem",
+            px: "1rem",
+          }}
+        >
+          <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography textAlign="center" variant="h4">
                 Contact Us
@@ -44,8 +57,11 @@ const Modalcontact = () => {
             <Grid item xs={12}>
               <TextField
                 label="Name"
+                name="fullName"
                 variant="outlined"
                 placeholder="Enter Full Name"
+                value={form.fullName}
+                onChange={handleChange}
                 required
                 fullWidth
               />
@@ -53,9 +69,12 @@ const Modalcontact = () => {
             <Grid item xs={12}>
               <TextField
                 label="Email"
+                name="email"
                 variant="outlined"
                 placeholder="Enter Your Email"
                 type="email"
+                value={form.email}
+                onChange={handleChange}
                 required
                 fullWidth
               />
@@ -63,8 +82,11 @@ const Modalcontact = () => {
             <Grid item xs={12}>
               <TextField
                 label="Phone"
+                name="mobile"
                 variant="outlined"
                 placeholder="Enter Your Phone Number"
+                value={form.mobile}
+                onChange={handleChange}
                 required
                 fullWidth
               />
@@ -72,8 +94,11 @@ const Modalcontact = () => {
             <Grid item xs={12}>
               <TextField
                 label="Message"
+                name="message"
                 variant="outlined"
                 placeholder="Send a message"
+                value={form.message}
+                onChange={handleChange}
                 rows={4}
                 multiline
                 required
