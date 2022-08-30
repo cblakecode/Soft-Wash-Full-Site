@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid";
@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useSelector, useDispatch } from "react-redux";
 import { handleContactClose } from "../../store/modalSlice";
-import { handleInputChange } from "../../store/formSlice";
+import { inputActions } from "../../store/formSlice";
 
 const Modalcontact = () => {
   const { contactOpen } = useSelector((store) => store.modal);
@@ -22,7 +22,8 @@ const Modalcontact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(handleInputChange(form));
+    dispatch(inputActions.sendEmail({ ...form }));
+    // dispatch(sendEmail({ ...form }));
   };
 
   const handleChange = (e) => {
