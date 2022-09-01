@@ -1,90 +1,59 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
-  emailState: {
+  formData: {
     fullName: "",
     email: "",
     mobile: "",
     message: "",
   },
-  formState: {
-    error: null,
-    isSent: "idle",
-  },
+  isLoading: false,
 };
 
-let extraReducers;
-const name = "form";
+const resetFormData = {
+  fullName: "",
+  email: "",
+  mobile: "",
+  message: "",
+};
+
+export const emailPost = createAsyncThunk(
+  "contact/emailPost",
+  async ({ fullName, email, mobile, message }, thunkAPI) => {
+    const response = await fetch("/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ fullName, email, mobile, message }),
+    });
+    return response.json();
+  }
+);
+
 const formSlice = createSlice({
-  name,
+  name: "form",
   initialState,
   reducers: {
     handleInputChange: (state, action) => {
-      state.emailState = action.payload;
-    },
-    resetForm: (state, action) => {
-      state.emailState.message = "";
+      const target = action.payload;
+      state.formData = { ...state.formData, ...target };
     },
   },
-  extraReducers,
+  extraReducers: {
+    [emailPost.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [emailPost.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.formData = resetFormData;
+    },
+    [emailPost.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.formData = resetFormData;
+    },
+  },
 });
 
-const createExtraActions = () => {
-  // const baseURL = `${process.env.REACT_APP_API_URL}/server`;
-
-  return {
-    sendEmail: sendEmail(),
-  };
-
-  function sendEmail() {
-    return createAsyncThunk(
-      `${name}/sendEmail`,
-      async (action) =>
-        await fetch("http://localhost:5000/send", {
-          method: "POST",
-          body: JSON.stringify(action),
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        })
-          .then((response) => response.json())
-          .then((response) => {
-            if (response.status === "success") {
-              alert("Message Sent.");
-              this.resetForm();
-            } else if (response.status === "fail") {
-              alert("Message failed to send.");
-            }
-          })
-    );
-  }
-};
-
-const extraActions = createExtraActions();
-
-const createExtraReducers = () => {
-  return {
-    ...sendEmail(),
-  };
-
-  function sendEmail() {
-    let { pending, fulfilled, rejected } = extraActions.sendEmail;
-    return {
-      [pending]: (state) => {
-        state.error = null;
-      },
-      [fulfilled]: (state, action) => {
-        console.log("Message Successful");
-        state.message = "";
-      },
-      [rejected]: (state, action) => {
-        state.error = action.error;
-      },
-    };
-  }
-};
-extraReducers = createExtraReducers();
-
-export const inputActions = { ...formSlice.actions, ...extraActions };
+export const { handleInputChange, handleSubmitData } = formSlice.actions;
 export default formSlice.reducer;

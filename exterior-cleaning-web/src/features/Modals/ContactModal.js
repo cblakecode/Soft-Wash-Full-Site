@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid";
@@ -7,27 +7,20 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useSelector, useDispatch } from "react-redux";
 import { handleContactClose } from "../../store/modalSlice";
-import { inputActions } from "../../store/formSlice";
+import { emailPost, handleInputChange } from "../../store/formSlice";
 
 const Modalcontact = () => {
   const { contactOpen } = useSelector((store) => store.modal);
+  const { formData } = useSelector((store) => store.form);
   const dispatch = useDispatch();
-
-  const [form, setForm] = useState({
-    fullName: "",
-    email: "",
-    mobile: "",
-    message: "",
-  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(inputActions.sendEmail({ ...form }));
-    // dispatch(sendEmail({ ...form }));
+    dispatch(emailPost(formData));
   };
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    dispatch(handleInputChange({ [e.target.name]: e.target.value }));
   };
 
   return (
@@ -60,8 +53,8 @@ const Modalcontact = () => {
                 label="Name"
                 name="fullName"
                 variant="outlined"
-                placeholder="Enter Full Name"
-                value={form.fullName}
+                placeholder="Enter First and Last Name"
+                value={formData.fullName}
                 onChange={handleChange}
                 required
                 fullWidth
@@ -74,7 +67,7 @@ const Modalcontact = () => {
                 variant="outlined"
                 placeholder="Enter Your Email"
                 type="email"
-                value={form.email}
+                value={formData.email}
                 onChange={handleChange}
                 required
                 fullWidth
@@ -85,8 +78,8 @@ const Modalcontact = () => {
                 label="Phone"
                 name="mobile"
                 variant="outlined"
-                placeholder="Enter Your Phone Number"
-                value={form.mobile}
+                placeholder="ex. 123-456-3489"
+                value={formData.mobile}
                 onChange={handleChange}
                 required
                 fullWidth
@@ -98,7 +91,7 @@ const Modalcontact = () => {
                 name="message"
                 variant="outlined"
                 placeholder="Send a message"
-                value={form.message}
+                value={formData.message}
                 onChange={handleChange}
                 rows={4}
                 multiline
