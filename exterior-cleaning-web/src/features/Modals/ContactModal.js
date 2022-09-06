@@ -5,13 +5,17 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import SnackAlert from "../ui/SnackAlert";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useSelector, useDispatch } from "react-redux";
 import { handleContactClose } from "../../store/modalSlice";
 import { emailPost, handleInputChange } from "../../store/formSlice";
 
 const Modalcontact = () => {
   const { contactOpen } = useSelector((store) => store.modal);
-  const { formData } = useSelector((store) => store.form);
+  const { formData, isSuccess, isError, isLoading } = useSelector(
+    (store) => store.form
+  );
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -25,6 +29,7 @@ const Modalcontact = () => {
 
   return (
     <Box>
+      <SnackAlert successAlert={isSuccess} errorAlert={isError} />
       <Modal
         open={contactOpen}
         onClose={() => dispatch(handleContactClose())}
@@ -111,9 +116,28 @@ const Modalcontact = () => {
               >
                 Close
               </Button>
-              <Button variant="contained" size="large" type="submit">
-                Send
-              </Button>
+              <Box sx={{ position: "relative" }}>
+                <Button
+                  variant="contained"
+                  size="large"
+                  type="submit"
+                  disabled={isLoading}
+                >
+                  Send
+                </Button>
+                {isLoading && (
+                  <CircularProgress
+                    size={24}
+                    sx={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      mt: "-12px",
+                      ml: "-12px",
+                    }}
+                  />
+                )}
+              </Box>
             </Grid>
           </Grid>
         </Box>

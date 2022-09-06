@@ -8,6 +8,8 @@ const initialState = {
     message: "",
   },
   isLoading: false,
+  isSuccess: false,
+  isError: false,
 };
 
 const resetFormData = {
@@ -39,6 +41,10 @@ const formSlice = createSlice({
       const target = action.payload;
       state.formData = { ...state.formData, ...target };
     },
+    handleClose: (state, action) => {
+      state.isError = false;
+      state.isSuccess = false;
+    },
   },
   extraReducers: {
     [emailPost.pending]: (state, action) => {
@@ -47,13 +53,15 @@ const formSlice = createSlice({
     [emailPost.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.formData = resetFormData;
+      state.isSuccess = true;
     },
     [emailPost.rejected]: (state, action) => {
       state.isLoading = false;
       state.formData = resetFormData;
+      state.isError = true;
     },
   },
 });
 
-export const { handleInputChange, handleSubmitData } = formSlice.actions;
+export const { handleInputChange, handleClose } = formSlice.actions;
 export default formSlice.reducer;
