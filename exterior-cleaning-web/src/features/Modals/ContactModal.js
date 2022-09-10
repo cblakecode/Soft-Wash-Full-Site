@@ -8,19 +8,22 @@ import Typography from "@mui/material/Typography";
 import SnackAlert from "../ui/SnackAlert";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useSelector, useDispatch } from "react-redux";
-import { handleContactClose } from "../../store/modalSlice";
-import { emailPost, handleInputChange } from "../../store/formSlice";
+import { handleContactClose } from "../../store/slices/modalSlice";
+import {
+  handleInputChange,
+  sendContact,
+} from "../../store/slices/contactSlice";
 
 const Modalcontact = () => {
   const { contactOpen } = useSelector((store) => store.modal);
   const { formData, isSuccess, isError, isLoading } = useSelector(
-    (store) => store.form
+    (store) => store.contact
   );
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(emailPost(formData));
+    dispatch(sendContact(formData));
   };
 
   const handleChange = (e) => {

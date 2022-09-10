@@ -11,7 +11,8 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import EmailIcon from "@mui/icons-material/Email";
 import IconButton from "@mui/material/IconButton";
 import { useDispatch } from "react-redux";
-import { handleContactOpen, handleQuoteOpen } from "../store/modalSlice";
+import { handleContactOpen } from "../store/slices/modalSlice";
+import { handleOpenQuote } from "../store/slices/quoteSlice";
 
 const pages = ["About", "Services", "Area"];
 
@@ -105,14 +106,14 @@ const Header = () => {
                 color="secondary"
                 size="small"
                 sx={{ mx: 1, display: { xs: "none", lg: "flex" } }}
-                onClick={() => dispatch(handleQuoteOpen())}
+                onClick={() => dispatch(handleOpenQuote())}
               >
                 Free Quote
               </Button>
               <IconButton
                 sx={{ display: { xs: "flex", lg: "none" } }}
                 color="secondary"
-                onClick={() => dispatch(handleQuoteOpen())}
+                onClick={() => dispatch(handleOpenQuote())}
               >
                 <RequestQuoteIcon />
               </IconButton>

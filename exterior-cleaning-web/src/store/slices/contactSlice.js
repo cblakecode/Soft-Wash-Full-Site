@@ -19,10 +19,10 @@ const resetFormData = {
   message: "",
 };
 
-export const emailPost = createAsyncThunk(
+export const sendContact = createAsyncThunk(
   "contact/emailPost",
   async ({ fullName, email, mobile, message }, thunkAPI) => {
-    const response = await fetch("/send", {
+    const response = await fetch("/contact", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,8 +33,8 @@ export const emailPost = createAsyncThunk(
   }
 );
 
-const formSlice = createSlice({
-  name: "form",
+const contactSlice = createSlice({
+  name: "contact",
   initialState,
   reducers: {
     handleInputChange: (state, action) => {
@@ -47,15 +47,15 @@ const formSlice = createSlice({
     },
   },
   extraReducers: {
-    [emailPost.pending]: (state, action) => {
+    [sendContact.pending]: (state, action) => {
       state.isLoading = true;
     },
-    [emailPost.fulfilled]: (state, action) => {
+    [sendContact.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.formData = resetFormData;
       state.isSuccess = true;
     },
-    [emailPost.rejected]: (state, action) => {
+    [sendContact.rejected]: (state, action) => {
       state.isLoading = false;
       state.formData = resetFormData;
       state.isError = true;
@@ -63,5 +63,5 @@ const formSlice = createSlice({
   },
 });
 
-export const { handleInputChange, handleClose } = formSlice.actions;
-export default formSlice.reducer;
+export const { handleInputChange, handleClose } = contactSlice.actions;
+export default contactSlice.reducer;

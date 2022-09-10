@@ -29,9 +29,8 @@ transporter.verify((error, success) => {
 });
 
 app.use(express.json());
-app.post("/send", (req, res, next) => {
+app.post("/contact", (req, res, next) => {
   console.log("sent");
-  console.log(req.body);
   const name = req.body.fullName;
   const email = req.body.email;
   const mobile = req.body.mobile;
@@ -53,6 +52,50 @@ app.post("/send", (req, res, next) => {
       res.json({
         msg: "success",
       });
+    }
+  });
+});
+
+app.post("/quote", (req, res, next) => {
+  console.log("sent");
+  const { body } = req;
+  const {
+    firstName,
+    lastName,
+    mobile,
+    address,
+    squareFeet,
+    siding,
+    date,
+    time,
+    techQuote,
+  } = body;
+  const name = `${firstName} ${lastName}`;
+  const email = body.email;
+  const phone = mobile;
+  const homeAddress = address;
+  const sqft = squareFeet;
+  const material = siding;
+  const when = `requested for ${date} at ${time}`;
+  const onSite = techQuote;
+  let mail = {
+    from: name,
+    to: "blakeelliscodes@gmail.com",
+    subject: "Quote Form Request",
+    html: `<h3>Client Info</h3>
+          <p>${email}</p> <p>${phone}</p> <p>${homeAddress}</p>
+          <br />
+          <h3>Home Info</h3>
+          <p>${sqft}sqft</p> <p>${material}</p> <p>${onSite} to be quoted on site</p>
+          <div>${when}</div>`,
+  };
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        msg: "fail",
+      });
+    } else {
+      res.json({ msg: "success" });
     }
   });
 });

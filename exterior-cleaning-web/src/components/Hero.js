@@ -7,7 +7,7 @@ import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import Image from "../images/yellow-house.png";
 import CardMedia from "@mui/material/CardMedia";
 import { useDispatch } from "react-redux";
-import { handleQuoteOpen } from "../store/modalSlice";
+import { handleQuoteOpen } from "../store/slices/modalSlice";
 
 const Hero = () => {
   const dispatch = useDispatch();
