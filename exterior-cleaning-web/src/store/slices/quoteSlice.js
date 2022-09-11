@@ -2,36 +2,42 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   clientData: {
+    personal: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      mobile: "",
+      address: "",
+    },
+    property: {
+      squareFeet: "",
+      siding: "",
+      date: "",
+      time: "",
+      techQuote: "",
+    },
+  },
+  totalPrice: null,
+  unknownInput: "",
+  activeStep: 0,
+  isOpen: false,
+};
+
+const resetData = {
+  personal: {
     firstName: "",
     lastName: "",
     email: "",
     mobile: "",
     address: "",
+  },
+  property: {
     squareFeet: null,
     siding: "",
     date: "",
     time: "",
     techQuote: "",
   },
-  totalPrice: null,
-  unknownInput: "",
-  clientInfo: false,
-  homeInfo: false,
-  calculatedCart: false,
-  isOpen: false,
-};
-
-const resetData = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  mobile: "",
-  address: "",
-  squareFeet: null,
-  siding: "",
-  date: "",
-  time: "",
-  techQuote: "",
 };
 
 export const sendQuote = createAsyncThunk(
@@ -75,29 +81,33 @@ const quoteSlice = createSlice({
   initialState,
   reducers: {
     handleCloseQuote: (state) => {
-      state.clientInfo = false;
-      state.homeInfo = false;
-      state.calculatedCart = false;
+      state.activeStep = 0;
       state.isOpen = false;
+      state.clientData = resetData;
     },
     handleOpenQuote: (state, action) => {
       state.isOpen = true;
-      state.clientInfo = true;
     },
-    handleHomeInfo: (state, action) => {
-      state.clientInfo = false;
-      state.homeInfo = true;
+    changePersonalValues: (state, action) => {
+      const value = action.payload;
+      state.clientData.personal = { ...state.clientData.personal, ...value };
     },
-    handleCalculateCart: (state, action) => {
-      state.homeInfo = false;
-      state.calculatedCart = true;
+    changePropertyValues: (state, action) => {
+      const value = action.payload;
+      state.clientData.property = { ...state.clientData.property, ...value };
     },
     resetForm: (state) => {
       state.isError = false;
       state.isSuccess = false;
     },
+    nextActiveStep: (state, action) => {
+      state.activeStep += 1;
+    },
+    prevActiveStep: (state, action) => {
+      state.activeStep -= 1;
+    },
     calculateQuote: (state, action) => {
-      const data = state.homeData.sidingMaterial.toLowerCase();
+      const data = state.clientData.property.siding.toLowerCase();
       const { clientData } = state;
       switch (data) {
         case "vinyl":
@@ -135,10 +145,13 @@ const quoteSlice = createSlice({
 
 const { actions, reducer } = quoteSlice;
 export const {
-  handleCalculateCart,
   handleCloseQuote,
-  handleHomeInfo,
   handleOpenQuote,
   calculateQuote,
+  resetForm,
+  nextActiveStep,
+  prevActiveStep,
+  changePersonalValues,
+  changePropertyValues,
 } = actions;
 export default reducer;

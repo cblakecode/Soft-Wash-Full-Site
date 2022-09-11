@@ -4,31 +4,34 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import FormControl from "@mui/material/FormControl";
 import { useDispatch, useSelector } from "react-redux";
-import { handleCloseQuote } from "../../../store/slices/quoteSlice";
+import {
+  handleCloseQuote,
+  nextActiveStep,
+} from "../../../store/slices/quoteSlice";
 
 const ClientInfo = () => {
   const dispatch = useDispatch();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(nextActiveStep());
+  };
 
   return (
-    <Box
-      component="form"
-      sx={{
-        backgroundColor: "common.white",
-        width: "50%",
-        height: "auto",
-        borderRadius: "10px",
-        p: "1rem",
-      }}
-    >
+    <FormControl>
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <Typography variant="h4" textAlign="center">
-            Free Quote
+            Personal Info
           </Typography>
         </Grid>
-        <Grid item xs={12}>
-          <Typography textAlign="center" variant="p">
+        <Grid
+          item
+          xs={12}
+          sx={{ display: { xs: "none", lg: "flex" }, justifyContent: "center" }}
+        >
+          <Typography variant="p">
             Fill out the form below and we will get back to you as soon as we
             can. Thank you for your business!
           </Typography>
@@ -80,18 +83,21 @@ const ClientInfo = () => {
             fullWidth
           />
         </Grid>
-        <Grid item container columnSpacing={1} justifyContent="flex-end">
-          <Grid item>
-            <Button onClick={() => dispatch(handleCloseQuote())}>Close</Button>
-          </Grid>
-          <Grid item>
-            <Button variant="contained" type="submit">
-              Submit
-            </Button>
-          </Grid>
+        <Grid item xs={6}>
+          <Button
+            variant="outlined"
+            onClick={() => dispatch(handleCloseQuote())}
+          >
+            Close
+          </Button>
+        </Grid>
+        <Grid item xs={6} sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button variant="contained" type="submit" onClick={handleSubmit}>
+            Next
+          </Button>
         </Grid>
       </Grid>
-    </Box>
+    </FormControl>
   );
 };
 
