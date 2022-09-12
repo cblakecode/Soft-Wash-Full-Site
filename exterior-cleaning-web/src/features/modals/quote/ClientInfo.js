@@ -3,19 +3,28 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import { useDispatch, useSelector } from "react-redux";
 import {
   handleCloseQuote,
   nextActiveStep,
+  changePersonalValues,
 } from "../../../store/slices/quoteSlice";
 
 const ClientInfo = () => {
   const dispatch = useDispatch();
+  const { clientData } = useSelector((store) => store.quote);
+  const { personal } = clientData;
+  const { firstName, lastName, email, mobile, address } = personal;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(nextActiveStep());
+  };
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    dispatch(changePersonalValues({ [e.target.name]: e.target.value }));
   };
 
   return (
@@ -38,47 +47,57 @@ const ClientInfo = () => {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            variant="outlined"
-            label="First"
+            label="First Name"
+            name="firstName"
+            value={firstName}
             type="text"
             placeholder="ex. John"
+            onChange={handleChange}
             fullWidth
             required
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
-            variant="outlined"
-            label="Last"
+            label="Last Name"
+            name="lastName"
+            value={lastName}
             placeholder="ex. Doe"
+            onChange={handleChange}
             required
             fullWidth
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
-            variant="outlined"
             label="Phone"
+            name="mobile"
+            value={mobile}
             placeholder="Enter Your Mobile Number"
+            onChange={handleChange}
             required
             fullWidth
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
-            variant="outlined"
             label="Email"
             type="email"
+            name="email"
+            value={email}
             placeholder="Enter Your Email Address"
+            onChange={handleChange}
             required
             fullWidth
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
-            variant="outlined"
             label="Property Address"
+            name="address"
+            value={address}
             placeholder="ex. 123 Cleaning St, Mount Pleasant"
+            onChange={handleChange}
             required
             fullWidth
           />

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleCloseQuote } from "../../store/slices/quoteSlice";
 import ClientInfo from "./quote/ClientInfo";
 import PropertyInfo from "./quote/PropertyInfo";
+import QuoteOverview from "./quote/QuoteOverview";
 
 function getStepContent(step) {
   switch (step) {
@@ -16,8 +17,9 @@ function getStepContent(step) {
     case 1:
       return <PropertyInfo />;
     case 2:
-      return;
+      return <QuoteOverview />;
     default:
+      return;
   }
 }
 

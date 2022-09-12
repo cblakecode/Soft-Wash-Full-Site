@@ -9,4 +9,6 @@ export const store = configureStore({
     contact: contactReducer,
     quote: quoteReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });

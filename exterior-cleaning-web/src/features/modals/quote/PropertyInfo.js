@@ -1,19 +1,18 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
+import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import MenuItem from "@mui/material/MenuItem";
-// import DatePicker from "@mui/x-date-pickers-pro/DatePicker";
-// import TimePicker from "@mui/x-date-pickers-pro/TimePicker";
-// import LocalizationProvider from "@mui/x-date-pickers-pro/LocalizationProvider";
-// import { AdapterMoment } from "@mui/x-date-pickers-pro/AdapterMoment";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useDispatch, useSelector } from "react-redux";
 import {
   handleCloseQuote,
   nextActiveStep,
   prevActiveStep,
   changePropertyValues,
+  calculateQuote,
 } from "../../../store/slices/quoteSlice";
 
 const PropertyInfo = () => {
@@ -23,6 +22,7 @@ const PropertyInfo = () => {
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(calculateQuote());
     dispatch(nextActiveStep());
   };
 
@@ -47,22 +47,16 @@ const PropertyInfo = () => {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <TextField
-          variant="outlined"
-          name="squareFeet"
-          type="text"
-          label="Square Feet"
-          value={squareFeet}
-          placeholder="min. 150 | max. 3000 (numbers only)"
-          onChange={handleChange}
-          inputProps={{
-            inputMode: "numeric",
-            pattern: "[0-9]*",
-            max: "3000",
-            min: "150",
+        <Input
+          type="number"
+          disableUnderline
+          sx={{
+            border: "0.5px solid grey",
+            boxShadow: "none",
+            p: "1rem",
+            borderRadius: "4px",
           }}
           fullWidth
-          required
         />
       </Grid>
       <Grid item xs={12}>
@@ -81,31 +75,44 @@ const PropertyInfo = () => {
           <MenuItem value="hardy plank">Hardy Plank</MenuItem>
         </TextField>
       </Grid>
-      <Grid item xs={12}>
-        {/* <LocalizationProvider dateAdapter={AdapterMoment}>
+      <Grid item container>
+        <Grid item xs={6}>
           <DatePicker
-            label="Select Prefered Clean Date"
-            name="date"
-            value={handleChange}
-            renderInput={(params) => <TextField {...params} />}
+            label="Preferred Clean Date"
+            renderInput={(params) => (
+              <TextField {...params} required fullWidth />
+            )}
+            value={date}
+            onChange={(newValue) => {
+              dispatch(changePropertyValues({ date: newValue }));
+            }}
           />
-        </LocalizationProvider> */}
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            label="Preferred Clean Time Range"
+            name="time"
+            value={time}
+            onChange={handleChange}
+            select
+            required
+            fullWidth
+          >
+            <MenuItem value="8:00am-12:00pm">Morning (8am-12pm)</MenuItem>
+            <MenuItem value="12:00pm-5:00pm">Afternoon (12pm-5pm)</MenuItem>
+            <MenuItem value="8:00am-5:00pm">Anytime (8am-5pm)</MenuItem>
+          </TextField>
+        </Grid>
       </Grid>
       <Grid item xs={12}>
         <TextField
-          variant="outlined"
-          label="Email"
-          type="email"
-          placeholder="Enter Your Email Address"
-          required
-          fullWidth
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          variant="outlined"
-          label="Property Address"
-          placeholder="ex. 123 Cleaning St, Mount Pleasant"
+          label="Additional items to be quoted on site by service tech"
+          placeholder="ex. back patio, driveway, balcony, etc."
+          name="techQuote"
+          value={techQuote}
+          onChange={handleChange}
+          multiline
+          rows={3}
           required
           fullWidth
         />
