@@ -94,7 +94,12 @@ const quoteSlice = createSlice({
     },
     changePropertyValues: (state, action) => {
       const value = action.payload;
-      state.clientData.property = { ...state.clientData.property, ...value };
+      "squareFeet" in value
+        ? (state.clientData.property.squareFeet = parseInt(value.squareFeet))
+        : (state.clientData.property = {
+            ...state.clientData.property,
+            ...value,
+          });
     },
     resetForm: (state) => {
       state.isError = false;
@@ -108,19 +113,18 @@ const quoteSlice = createSlice({
     },
     calculateQuote: (state, action) => {
       const data = state.clientData.property.siding;
-      const { clientData } = state;
-      const parsedSqft = parseInt(clientData.squareFeet);
-      console.log(parsedSqft);
+
+      console.log(data);
       switch (data) {
         case "vinyl":
-          state.totalPrice = parsedSqft * 0.6;
+          state.totalPrice = state.clientData.property.squareFeet * 0.6;
           break;
         case "stucco":
         case "brick":
-          state.totalPrice = parsedSqft * 0.8;
+          state.totalPrice = state.clientData.property.squareFeet * 0.8;
           break;
         case "hardy plank":
-          state.totalPrice = parsedSqft * 0.7;
+          state.totalPrice = state.clientData.property.squareFeet * 0.7;
           break;
         default:
           state.unknownInput = "Invalid input for Siding Material";

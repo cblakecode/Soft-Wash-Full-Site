@@ -16,7 +16,6 @@ const QuoteOverview = () => {
   const { property, personal } = clientData;
   const { date, time, techQuote } = property;
   const { fistName, LastName, email, mobile, address } = personal;
-  console.log(date);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,7 +23,7 @@ const QuoteOverview = () => {
 
   return (
     <Grid container spacing={1}>
-      <Grid item xs={12}>
+      <Grid container item xs={12}>
         <Typography variant="h4" textAlign="center">
           Overview
         </Typography>
@@ -34,7 +33,9 @@ const QuoteOverview = () => {
           <Typography variant="body1">Price for Mildew Removal:</Typography>
         </Grid>
         <Grid item xs={4}>
-          <Typography variant="body1">${totalPrice}</Typography>
+          <Typography variant="body1" textAlign="right">
+            ${totalPrice}
+          </Typography>
         </Grid>
       </Grid>
       <Grid item container>
@@ -46,13 +47,13 @@ const QuoteOverview = () => {
         </Grid>
       </Grid>
       <Grid item container>
-        <Grid item xs={8}>
+        <Grid item xs={7}>
           <Typography variant="body1">Date/Time Preferred:</Typography>
         </Grid>
-        <Grid item xs={4}>
-          <Typography variant="body1">{`on ${moment(date).format(
-            "mm Do yyyy"
-          )} at ${time}`}</Typography>
+        <Grid item xs={5}>
+          <Typography variant="body1" textAlign="right">{`on ${moment(
+            date
+          ).format("MM Do YYYY")} at ${time}`}</Typography>
         </Grid>
       </Grid>
       <Grid item xs={6}>

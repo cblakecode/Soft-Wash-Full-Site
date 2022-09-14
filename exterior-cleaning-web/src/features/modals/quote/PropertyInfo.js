@@ -20,13 +20,13 @@ const PropertyInfo = () => {
   const { property } = clientData;
   const { squareFeet, siding, date, time, techQuote } = property;
   const dispatch = useDispatch();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(calculateQuote());
+  const handleClick = async (e) => {
+    await dispatch(calculateQuote());
     dispatch(nextActiveStep());
   };
 
   const handleChange = (e) => {
+    // console.log(e.target.name);
     dispatch(changePropertyValues({ [e.target.name]: e.target.value }));
   };
 
@@ -47,16 +47,18 @@ const PropertyInfo = () => {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Input
-          type="number"
-          disableUnderline
-          sx={{
-            border: "0.5px solid grey",
-            boxShadow: "none",
-            p: "1rem",
-            borderRadius: "4px",
+        <TextField
+          label="Enter Property Sqft"
+          name="squareFeet"
+          value={squareFeet}
+          onChange={handleChange}
+          InputProps={{
+            inputMode: "numeric",
+            pattern: "[^e]*",
+            type: "number",
           }}
           fullWidth
+          required
         />
       </Grid>
       <Grid item xs={12}>
@@ -130,7 +132,7 @@ const PropertyInfo = () => {
         <Button type="button" onClick={() => dispatch(prevActiveStep())}>
           Prev
         </Button>
-        <Button variant="contained" type="submit" onClick={handleSubmit}>
+        <Button variant="contained" type="button" onClick={handleClick}>
           Next
         </Button>
       </Grid>
