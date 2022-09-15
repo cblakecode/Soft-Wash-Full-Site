@@ -3,14 +3,9 @@ const nodemailer = require("nodemailer");
 const creds = require("./config");
 const app = express();
 const port = process.env.PORT || 5000;
-const cors = require("cors");
+const moment = require("moment");
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
-
-// const corsOptions = {
-//   origin: "http://localhost:8080",
-//   optionsSuccessStatus: 200,
-// };
 
 const transport = {
   host: "smtp.gmail.com",
@@ -76,17 +71,19 @@ app.post("/quote", (req, res, next) => {
   const homeAddress = address;
   const sqft = squareFeet;
   const material = siding;
-  const when = `requested for ${date} at ${time}`;
+  const when = `Preferred ${moment(date).format(
+    "ddd, DD MMM YYYY"
+  )} at ${time}`;
   const onSite = techQuote;
   let mail = {
     from: name,
     to: "blakeelliscodes@gmail.com",
     subject: "Quote Form Request",
     html: `<h3>Client Info</h3>
-          <p>${email}</p> <p>${phone}</p> <p>${homeAddress}</p>
+          <p>${name}</p> <p>${email}</p> <p>${phone}</p> <p>${homeAddress}</p>
           <br />
           <h3>Home Info</h3>
-          <p>${sqft}sqft</p> <p>${material}</p> <p>${onSite} to be quoted on site</p>
+          <p>${sqft}sqft</p> <p>${material}</p> <p> quoted on site: ${onSite}</p>
           <div>${when}</div>`,
   };
   transporter.sendMail(mail, (err, data) => {

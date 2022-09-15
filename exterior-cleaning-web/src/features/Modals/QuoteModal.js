@@ -41,7 +41,7 @@ const QuoteModal = () => {
           validate
           sx={{
             backgroundColor: "common.white",
-            width: "50%",
+            width: "60%",
             height: "auto",
             borderRadius: "10px",
             p: "1rem",

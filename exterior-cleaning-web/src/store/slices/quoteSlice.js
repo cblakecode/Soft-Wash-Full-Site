@@ -114,17 +114,16 @@ const quoteSlice = createSlice({
     calculateQuote: (state, action) => {
       const data = state.clientData.property.siding;
 
-      console.log(data);
       switch (data) {
         case "vinyl":
-          state.totalPrice = state.clientData.property.squareFeet * 0.6;
+          state.totalPrice = state.clientData.property.squareFeet * 0.06;
           break;
         case "stucco":
         case "brick":
-          state.totalPrice = state.clientData.property.squareFeet * 0.8;
+          state.totalPrice = state.clientData.property.squareFeet * 0.08;
           break;
         case "hardy plank":
-          state.totalPrice = state.clientData.property.squareFeet * 0.7;
+          state.totalPrice = state.clientData.property.squareFeet * 0.07;
           break;
         default:
           state.unknownInput = "Invalid input for Siding Material";
@@ -140,11 +139,13 @@ const quoteSlice = createSlice({
       state.isLoading = false;
       state.clientData = resetData;
       state.isSuccess = true;
+      state.activeStep = 0;
     },
     [sendQuote.rejected]: (state, action) => {
       state.isLoading = false;
       state.clientData = resetData;
       state.isError = true;
+      state.activeStep = 0;
     },
   },
 });

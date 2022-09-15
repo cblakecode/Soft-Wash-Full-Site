@@ -1,6 +1,5 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
-import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -14,6 +13,7 @@ import {
   changePropertyValues,
   calculateQuote,
 } from "../../../store/slices/quoteSlice";
+import moment from "moment";
 
 const PropertyInfo = () => {
   const { clientData } = useSelector((store) => store.quote);
@@ -86,7 +86,11 @@ const PropertyInfo = () => {
             )}
             value={date}
             onChange={(newValue) => {
-              dispatch(changePropertyValues({ date: newValue }));
+              dispatch(
+                changePropertyValues({
+                  date: newValue,
+                })
+              );
             }}
           />
         </Grid>
