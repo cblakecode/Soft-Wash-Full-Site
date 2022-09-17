@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import FormControl from "@mui/material/FormControl";
+import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
 import {
   handleCloseQuote,
@@ -28,7 +28,7 @@ const ClientInfo = () => {
   };
 
   return (
-    <FormControl>
+    <Box component="form" onSubmit={handleSubmit}>
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <Typography variant="h4" textAlign="center">
@@ -74,6 +74,12 @@ const ClientInfo = () => {
             name="mobile"
             value={mobile}
             placeholder="Enter Your Mobile Number"
+            inputProps={{
+              inputMode: "numeric",
+              pattern: "[0-9]*",
+              maxLength: 10,
+              minLength: 10,
+            }}
             onChange={handleChange}
             required
             fullWidth
@@ -111,12 +117,12 @@ const ClientInfo = () => {
           </Button>
         </Grid>
         <Grid item xs={6} sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button variant="contained" type="submit" onClick={handleSubmit}>
+          <Button variant="contained" type="submit">
             Next
           </Button>
         </Grid>
       </Grid>
-    </FormControl>
+    </Box>
   );
 };
 

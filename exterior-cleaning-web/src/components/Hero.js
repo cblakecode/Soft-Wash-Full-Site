@@ -7,7 +7,7 @@ import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import Image from "../images/yellow-house.png";
 import CardMedia from "@mui/material/CardMedia";
 import { useDispatch } from "react-redux";
-import { handleQuoteOpen } from "../store/slices/modalSlice";
+import { handleOpenQuote } from "../store/slices/quoteSlice";
 
 const Hero = () => {
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const Hero = () => {
           variant="contained"
           size="large"
           endIcon={<RequestQuoteIcon />}
-          onClick={() => dispatch(handleQuoteOpen())}
+          onClick={() => dispatch(handleOpenQuote())}
           sx={{
             width: "25%",
             mt: "1rem",

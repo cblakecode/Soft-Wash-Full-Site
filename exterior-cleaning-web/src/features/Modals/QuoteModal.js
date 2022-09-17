@@ -37,8 +37,6 @@ const QuoteModal = () => {
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <Box
-          component="form"
-          validate
           sx={{
             backgroundColor: "common.white",
             width: "60%",
