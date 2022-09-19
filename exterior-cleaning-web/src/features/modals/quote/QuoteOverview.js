@@ -19,10 +19,6 @@ const QuoteOverview = () => {
   const { date, time, techQuote } = property;
   const { firstName, lastName, email, mobile, address } = personal;
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  // };
-
   return (
     <Grid container justifyContent="center" columnSpacing={2} rowSpacing={4}>
       <Grid item>
@@ -101,7 +97,11 @@ const QuoteOverview = () => {
               <Typography>On Site Quote:</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography>{`${techQuote}`}</Typography>
+              <Typography>
+                {!(techQuote === "")
+                  ? techQuote
+                  : "No Items To be Quoted On Site"}
+              </Typography>
             </Grid>
           </Grid>
         </Grid>

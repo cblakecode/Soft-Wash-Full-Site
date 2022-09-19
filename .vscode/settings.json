@@ -1,7 +1,4 @@
 {
-  "cSpell.words": [
-    "Callbutton",
-    "Modalcontact",
-    "reduxjs"
-  ]
+  "cSpell.words": ["Callbutton", "Modalcontact", "reduxjs"],
+  "cSpell.ignoreWords": ["Sqft"]
 }

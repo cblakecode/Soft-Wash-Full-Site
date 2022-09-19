@@ -32,7 +32,7 @@ const Modalcontact = () => {
 
   return (
     <Box>
-      <SnackAlert successAlert={isSuccess} errorAlert={isError} />
+      <SnackAlert />
       <Modal
         open={contactOpen}
         onClose={() => dispatch(handleContactClose())}

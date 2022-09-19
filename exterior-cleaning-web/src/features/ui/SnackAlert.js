@@ -1,20 +1,20 @@
 import React from "react";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { useDispatch } from "react-redux";
-import { handleClose } from "../../store/slices/contactSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { snackClose } from "../../store/slices/snackSlice";
 
-const SnackAlert = ({ successAlert, errorAlert }) => {
+const SnackAlert = () => {
   const dispatch = useDispatch();
-  const open = successAlert || errorAlert;
+  const { isSuccess, isError, isOpen } = useSelector((store) => store.snack);
   return (
     <Snackbar
-      open={open}
+      open={isOpen}
       autoHideDuration={5000}
       anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-      onClose={() => dispatch(handleClose(open))}
+      onClose={() => dispatch(snackClose())}
     >
-      {successAlert ? (
+      {isSuccess ? (
         <Alert severity="success" sx={{ width: "100%" }}>
           Message Sent!
         </Alert>

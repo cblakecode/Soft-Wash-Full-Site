@@ -21,6 +21,7 @@ const initialState = {
   unknownInput: "",
   activeStep: 0,
   isOpen: false,
+  isSuccess: false,
   isError: false,
 };
 
@@ -33,9 +34,9 @@ const resetData = {
     address: "",
   },
   property: {
-    squareFeet: 0,
+    squareFeet: "",
     siding: "",
-    date: "",
+    date: null,
     time: "",
     techQuote: "",
   },
@@ -139,12 +140,14 @@ const quoteSlice = createSlice({
       state.clientData = resetData;
       state.isSuccess = true;
       state.activeStep = 0;
+      state.isOpen = false;
     },
     [sendQuote.rejected]: (state, action) => {
       state.isLoading = false;
       state.clientData = resetData;
       state.isError = true;
       state.activeStep = 0;
+      state.isOpen = false;
     },
   },
 });

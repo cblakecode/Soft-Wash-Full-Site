@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
+import SnackAlert from "../ui/SnackAlert";
 import { useDispatch, useSelector } from "react-redux";
 import { handleCloseQuote } from "../../store/slices/quoteSlice";
 import ClientInfo from "./quote/ClientInfo";
@@ -26,11 +27,14 @@ function getStepContent(step) {
 const steps = ["Personal Info", "Property Info", "Quote Overview"];
 
 const QuoteModal = () => {
-  const { isOpen, activeStep } = useSelector((store) => store.quote);
+  const { isOpen, activeStep, isSuccess, isError } = useSelector(
+    (store) => store.quote
+  );
   const dispatch = useDispatch();
 
   return (
     <Box>
+      <SnackAlert />
       <Modal
         open={isOpen}
         onClose={() => dispatch(handleCloseQuote())}
