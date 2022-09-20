@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { sendQuote } from "./quoteSlice";
-import { sendContact } from "./contactSlice";
+import sendQuote from "../actions/sendQuote";
+import sendContact from "../actions/sendContact";
 
 const initialState = {
   isError: false,

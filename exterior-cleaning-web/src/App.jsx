@@ -10,6 +10,7 @@ import About from "./components/About";
 import Footer from "./components/Footer";
 import ContactModal from "./features/modals/ContactModal";
 import QuoteModal from "./features/modals/QuoteModal";
+import LoginModal from "./features/modals/LoginModal";
 
 function App() {
   const theme = createTheme({
@@ -39,6 +40,7 @@ function App() {
         <Footer />
         <ContactModal />
         <QuoteModal />
+        <LoginModal />
       </Box>
     </ThemeProvider>
   );

@@ -6,9 +6,9 @@ import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
+import sendQuote from "../../../store/actions/sendQuote";
 import {
   handleCloseQuote,
-  sendQuote,
   prevActiveStep,
 } from "../../../store/slices/quoteSlice";
 

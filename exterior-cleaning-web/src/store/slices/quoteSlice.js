@@ -1,4 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import sendQuote from "../actions/sendQuote";
 
 const initialState = {
   clientData: {
@@ -41,42 +42,6 @@ const resetData = {
     techQuote: "",
   },
 };
-
-export const sendQuote = createAsyncThunk(
-  "quote/sendQuote",
-  async ({
-    firstName,
-    lastName,
-    email,
-    mobile,
-    address,
-    squareFeet,
-    siding,
-    date,
-    time,
-    techQuote,
-  }) => {
-    const response = await fetch("/quote", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        firstName,
-        lastName,
-        email,
-        mobile,
-        address,
-        squareFeet,
-        siding,
-        date,
-        time,
-        techQuote,
-      }),
-    });
-    return response.json();
-  }
-);
 
 const quoteSlice = createSlice({
   name: "quote",

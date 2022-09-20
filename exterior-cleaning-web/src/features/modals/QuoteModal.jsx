@@ -27,7 +27,7 @@ function getStepContent(step) {
 const steps = ["Personal Info", "Property Info", "Quote Overview"];
 
 const QuoteModal = () => {
-  const { isOpen, activeStep, isSuccess, isError } = useSelector(
+  const { isOpen, activeStep } = useSelector(
     (store) => store.quote
   );
   const dispatch = useDispatch();

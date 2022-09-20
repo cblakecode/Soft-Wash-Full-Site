@@ -6,7 +6,7 @@ import { snackClose } from "../../store/slices/snackSlice";
 
 const SnackAlert = () => {
   const dispatch = useDispatch();
-  const { isSuccess, isError, isOpen } = useSelector((store) => store.snack);
+  const { isSuccess, isOpen } = useSelector((store) => store.snack);
   return (
     <Snackbar
       open={isOpen}

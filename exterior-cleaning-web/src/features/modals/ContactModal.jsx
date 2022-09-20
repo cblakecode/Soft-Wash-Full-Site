@@ -9,14 +9,12 @@ import SnackAlert from "../ui/SnackAlert";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useSelector, useDispatch } from "react-redux";
 import { handleContactClose } from "../../store/slices/modalSlice";
-import {
-  handleInputChange,
-  sendContact,
-} from "../../store/slices/contactSlice";
+import { handleInputChange } from "../../store/slices/contactSlice";
+import sendContact from "../../store/actions/sendContact";
 
 const Modalcontact = () => {
   const { contactOpen } = useSelector((store) => store.modal);
-  const { formData, isSuccess, isError, isLoading } = useSelector(
+  const { formData, isLoading } = useSelector(
     (store) => store.contact
   );
   const dispatch = useDispatch();
@@ -109,8 +107,7 @@ const Modalcontact = () => {
             </Grid>
             <Grid
               item
-              xs={12}
-              sx={{ display: "flex", justifyContent: "flex-end" }}
+              xs={6}
             >
               <Button
                 variant="text"
@@ -119,29 +116,31 @@ const Modalcontact = () => {
               >
                 Close
               </Button>
-              <Box sx={{ position: "relative" }}>
-                <Button
-                  variant="contained"
-                  size="large"
-                  type="submit"
-                  disabled={isLoading}
-                >
-                  Send
-                </Button>
-                {isLoading && (
-                  <CircularProgress
-                    size={24}
-                    sx={{
-                      position: "absolute",
-                      top: "50%",
-                      left: "50%",
-                      mt: "-12px",
-                      ml: "-12px",
-                    }}
-                  />
-                )}
-              </Box>
-            </Grid>
+                </Grid>
+              <Grid item xs={6} sx={{ display: "flex", justifyContent: "flex-end" }}>
+                <Box sx={{ position: "relative" }}>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    type="submit"
+                    disabled={isLoading}
+                  >
+                    Send
+                  </Button>
+                  {isLoading && (
+                    <CircularProgress
+                      size={24}
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        mt: "-12px",
+                        ml: "-12px",
+                      }}
+                    />
+                  )}
+                </Box>
+              </Grid>
           </Grid>
         </Box>
       </Modal>

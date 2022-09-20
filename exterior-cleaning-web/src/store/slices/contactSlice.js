@@ -1,4 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import sendContact from "../actions/sendContact";
 
 const initialState = {
   formData: {
@@ -18,20 +19,6 @@ const resetFormData = {
   mobile: "",
   message: "",
 };
-
-export const sendContact = createAsyncThunk(
-  "contact/emailPost",
-  async ({ fullName, email, mobile, message }, thunkAPI) => {
-    const response = await fetch("/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ fullName, email, mobile, message }),
-    });
-    return response.json();
-  }
-);
 
 const contactSlice = createSlice({
   name: "contact",
