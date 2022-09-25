@@ -8,6 +8,7 @@ const initialState = {
     address: "",
     username: "",
     password: "",
+    confirmPass: "",
     isLoggedIn: false,
   },
   loginFormData: {
@@ -17,12 +18,18 @@ const initialState = {
   isSignUpOpen: false,
   isLoginOpen: false,
   activeStep: 0,
+  togglePassView: false,
 };
 
 const loginSlice = createSlice({
   name: "login",
   initialState,
   reducers: {
+    showPassword: (state, action) => {
+      state.togglePassView
+        ? (state.togglePassView = false)
+        : (state.togglePassView = true);
+    },
     nextStep: (state, action) => {
       state.activeStep++;
     },
@@ -65,5 +72,6 @@ export const {
   changeMemberData,
   nextStep,
   prevStep,
+  showPassword,
 } = loginSlice.actions;
 export default loginSlice.reducer;
