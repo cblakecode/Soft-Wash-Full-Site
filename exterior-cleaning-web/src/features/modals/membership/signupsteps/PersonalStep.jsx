@@ -26,10 +26,10 @@ const handleSubmit = (e) => {
     <Box component="form" onSubmit={handleSubmit}>
         <Typography variant="h4" textAlign="center">User Info</Typography>
         <Stack spacing={4} sx={{mt: "1rem"}}>
-            <TextField required name="fullName" label="Enter First and Last Name" value={fullName} onChange={handleChange} />
-            <TextField required name="phone" placeholder='ex. 1234567891' inputProps={{inputMode: 'numeric', pattern: '^[0-9]*'}} label="Enter Mobile Number" value={phone} onChange={handleChange} />
-            <TextField required name="email" type="email" label="Enter Valid Email" value={email} onChange={handleChange} />
-            <TextField required name="address" label="Enter Primary Property Address" value={address} onChange={handleChange} />
+            <TextField required name="fullName" label="Enter First and Last Name" value={fullName} onChange={handleChange} inputProps={{pattern: '^\\D+\\s\\D+$'}} />
+            <TextField required name="phone" placeholder='ex. 1234567891' inputProps={{pattern: '^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$'}} label="Enter Mobile Number" value={phone} onChange={handleChange} />
+            <TextField required name="email" type="email" label="Enter Valid Email" value={email} onChange={handleChange} inputProps={{pattern: '^(\\w[.!#$%&*+/=?^`{|}~-)+@(\\w[-])+(?:\\.\\w+)+$'}} />
+            <TextField required name="address" label="Enter Primary Property Address" value={address} onChange={handleChange} inputProps={{pattern: '^\\d+\\s\\w+[, ]\\D+\\s\\d{5,6}$'}} />
             <Grid container>
                 <Grid item xs={6}>
                     <Button variant='outlined' onClick={() => dispatch(closeMember())}>Close</Button>

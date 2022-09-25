@@ -3,9 +3,11 @@ const nodemailer = require("nodemailer");
 const creds = require("./config");
 const app = express();
 const port = process.env.PORT || 5000;
+const cors = require("cors");
 const moment = require("moment");
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
+app.use(cors());
 
 const transport = {
   host: "smtp.gmail.com",
@@ -94,5 +96,11 @@ app.post("/quote", (req, res, next) => {
     } else {
       res.json({ msg: "success" });
     }
+  });
+});
+
+app.use("/login", (req, res) => {
+  res.send({
+    token: "test123",
   });
 });
