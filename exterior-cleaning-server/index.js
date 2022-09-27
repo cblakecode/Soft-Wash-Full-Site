@@ -1,6 +1,6 @@
 const express = require("express");
 const nodemailer = require("nodemailer");
-const creds = require("./config");
+const creds = require("./src/configs/emailConfig");
 const app = express();
 const port = process.env.PORT || 5000;
 const cors = require("cors");
@@ -28,12 +28,9 @@ transporter.verify((error, success) => {
 app.use(express.json());
 app.post("/contact", (req, res, next) => {
   console.log("sent");
-  const name = req.body.fullName;
-  const email = req.body.email;
-  const mobile = req.body.mobile;
-  const message = req.body.message;
+  const { fullName, email, mobile, message } = req.body;
   let mail = {
-    from: name,
+    from: fullName,
     to: "blakeelliscodes@gmail.com",
     subject: "Contact form request",
     html: `${message} | ${mobile} | ${email}`,
@@ -55,7 +52,6 @@ app.post("/contact", (req, res, next) => {
 
 app.post("/quote", (req, res, next) => {
   console.log("sent");
-  const { body } = req;
   const {
     firstName,
     lastName,
@@ -66,7 +62,7 @@ app.post("/quote", (req, res, next) => {
     date,
     time,
     techQuote,
-  } = body;
+  } = req.body;
   const name = `${firstName} ${lastName}`;
   const email = body.email;
   const phone = mobile;
