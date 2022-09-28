@@ -1,21 +1,15 @@
-const express = require("express");
 const nodemailer = require("nodemailer");
-const creds = require("./src/configs/emailConfig");
-const app = express();
-const port = process.env.PORT || 5000;
-const cors = require("cors");
 const moment = require("moment");
-
-app.listen(port, () => console.log(`Listening on port ${port}`));
-app.use(cors());
+const { USER, PASS } = process.env.EMAIL_CONFIG;
 
 const transport = {
   host: "smtp.gmail.com",
   auth: {
-    user: creds.USER,
-    pass: creds.PASS,
+    user: USER,
+    pass: PASS,
   },
 };
+
 const transporter = nodemailer.createTransport(transport);
 transporter.verify((error, success) => {
   if (error) {
@@ -25,9 +19,7 @@ transporter.verify((error, success) => {
   }
 });
 
-app.use(express.json());
-app.post("/contact", (req, res, next) => {
-  console.log("sent");
+exports.contact_email_post = (req, res) => {
   const { fullName, email, mobile, message } = req.body;
   let mail = {
     from: fullName,
@@ -48,10 +40,9 @@ app.post("/contact", (req, res, next) => {
       });
     }
   });
-});
+};
 
-app.post("/quote", (req, res, next) => {
-  console.log("sent");
+exports.quote_email_post = (req, res) => {
   const {
     firstName,
     lastName,
@@ -78,11 +69,11 @@ app.post("/quote", (req, res, next) => {
     to: "blakeelliscodes@gmail.com",
     subject: "Quote Form Request",
     html: `<h3>Client Info</h3>
-          <p>${name}</p> <p>${email}</p> <p>${phone}</p> <p>${homeAddress}</p>
-          <br />
-          <h3>Home Info</h3>
-          <p>${sqft}sqft</p> <p>${material}</p> <p> quoted on site: ${onSite}</p>
-          <div>${when}</div>`,
+              <p>${name}</p> <p>${email}</p> <p>${phone}</p> <p>${homeAddress}</p>
+              <br />
+              <h3>Home Info</h3>
+              <p>${sqft}sqft</p> <p>${material}</p> <p> quoted on site: ${onSite}</p>
+              <div>${when}</div>`,
   };
   transporter.sendMail(mail, (err, data) => {
     if (err) {
@@ -93,10 +84,4 @@ app.post("/quote", (req, res, next) => {
       res.json({ msg: "success" });
     }
   });
-});
-
-app.use("/login", (req, res) => {
-  res.send({
-    token: "test123",
-  });
-});
+};
