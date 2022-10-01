@@ -14,7 +14,7 @@ const sendQuote = createAsyncThunk(
     time,
     techQuote,
   }) => {
-    const response = await fetch("/quote", {
+    const response = await fetch("/email/quote", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
