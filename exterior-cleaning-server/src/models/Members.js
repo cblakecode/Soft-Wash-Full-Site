@@ -19,12 +19,10 @@ const memberSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  userInfo: {
-    name: String,
-    email: String,
-    phone: String,
-    address: String,
-  },
+  name: String,
+  email: String,
+  phone: String,
+  address: String,
 });
 
 module.exports = mongoose.model("Member", memberSchema);

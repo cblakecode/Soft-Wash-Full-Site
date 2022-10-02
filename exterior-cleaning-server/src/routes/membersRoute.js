@@ -4,7 +4,7 @@ const membersController = require("../controllers/membersController");
 
 router
   .route("/")
-  .get(membersController.getAllMembers)
+  .get(membersController.getMember)
   .post(membersController.createNewMember)
   .patch(membersController.updateMember)
   .delete(membersController.deleteMember);

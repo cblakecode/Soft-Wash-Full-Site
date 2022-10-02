@@ -5,29 +5,32 @@ const bcrypt = require("bcrypt");
 // @desc get members
 // @route GET /members
 // @access Private
-const getAllMembers = asyncHandler(async (req, res) => {
-  const members = await Member.find().select("-password").lean();
-  if (!members?.length) {
-    return res.status(400).json({ message: "No Members Found" });
+const getMember = asyncHandler(async (req, res) => {
+  const { id, username } = req.body;
+
+  const member = await Member.findOne({ username })
+    .select("-password")
+    .lean()
+    .exec();
+
+  if (!member) {
+    return res.status(400).json({ message: "Member Not Found" });
   }
-  res.json(users);
+
+  res.json(member);
 });
 
 // @desc Create new member
 // @route POST /members
 // @access Private
 const createNewMember = asyncHandler(async (req, res) => {
-  const {
-    username,
-    password,
-    userInfo: { name, email, phone, address },
-  } = req.body;
+  const { username, password, name, email, phone, address } = req.body;
 
   if (!username || !password || !name || !email || !phone || !address) {
     return res.status(400).json({ message: "all fields are required" });
   }
 
-  const duplicate = await username.findOne({ username, email }).lean().exec();
+  const duplicate = await Member.findOne({ username, email }).lean().exec();
 
   if (duplicate) {
     return res
@@ -59,13 +62,8 @@ const createNewMember = asyncHandler(async (req, res) => {
 // @route PATCH /members
 // @access Private
 const updateMember = asyncHandler(async (req, res) => {
-  const {
-    id,
-    username,
-    subscribed,
-    password,
-    userInfo: { name, email, phone, address },
-  } = req.body;
+  const { id, username, subscribed, password, name, email, phone, address } =
+    req.body;
 
   if (!id || !username || typeof subscribed !== "boolean") {
     return res.status(400).json({ message: "all fields are required" });
@@ -85,6 +83,10 @@ const updateMember = asyncHandler(async (req, res) => {
 
   member.username = username;
   member.subscribed = subscribed;
+  member.email = email;
+  member.phone = phone;
+  member.address = address;
+  member.name = name;
 
   if (password) {
     member.password = await bcrypt.hash(password, 10);
@@ -99,7 +101,7 @@ const updateMember = asyncHandler(async (req, res) => {
 // @route DELETE /members
 // @access Private
 const deleteMember = asyncHandler(async (req, res) => {
-  const { id } = res.body;
+  const { id } = req.body;
 
   if (!id) {
     return res.status.json({ message: "user id required" });
@@ -114,10 +116,12 @@ const deleteMember = asyncHandler(async (req, res) => {
   const result = await member.deleteOne();
 
   const reply = `Username ${result.username} with ID ${result._id} deleted`;
+
+  res.json(reply);
 });
 
 module.exports = {
-  getAllMembers,
+  getMember,
   createNewMember,
   updateMember,
   deleteMember,
