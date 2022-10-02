@@ -5,7 +5,7 @@ const {
 const express = require("express");
 const router = express.Router();
 
-router.route("/contact").post(contact_email_post);
-router.route("/quote").post(quote_email_post);
+router.post("/contact", contact_email_post);
+router.post("/quote", quote_email_post);
 
 module.exports = router;

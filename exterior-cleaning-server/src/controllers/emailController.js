@@ -1,12 +1,15 @@
 const nodemailer = require("nodemailer");
 const moment = require("moment");
-const { USER, PASS } = process.env.EMAIL_CONFIG;
 
 const transport = {
-  host: "smtp.gmail.com",
+  service: "gmail",
   auth: {
-    user: USER,
-    pass: PASS,
+    type: "OAuth2",
+    user: process.env.EMAIL_CONFIG_USER,
+    pass: process.env.EMAIL_CONFIG_PASS,
+    clientId: process.env.OAUTH_CLIENTID,
+    clientSecret: process.env.OAUTH_CLIENT_SECRET,
+    refreshToken: process.env.OAUTH_REFRESH_TOKEN,
   },
 };
 
@@ -14,12 +17,13 @@ const transporter = nodemailer.createTransport(transport);
 transporter.verify((error, success) => {
   if (error) {
     console.log(error);
-  } else {
+  }
+  if (success) {
     console.log("All works fine, congratz!");
   }
 });
 
-exports.contact_email_post = (req, res) => {
+const contact_email_post = (req, res) => {
   const { fullName, email, mobile, message } = req.body;
   let mail = {
     from: fullName,
@@ -29,7 +33,7 @@ exports.contact_email_post = (req, res) => {
   };
   transporter.sendMail(mail, (err, data) => {
     if (err) {
-      console.log("error");
+      console.log(err);
       res.json({
         msg: "fail",
       });
@@ -42,7 +46,7 @@ exports.contact_email_post = (req, res) => {
   });
 };
 
-exports.quote_email_post = (req, res) => {
+const quote_email_post = (req, res) => {
   const {
     firstName,
     lastName,
@@ -84,4 +88,9 @@ exports.quote_email_post = (req, res) => {
       res.json({ msg: "success" });
     }
   });
+};
+
+module.exports = {
+  contact_email_post,
+  quote_email_post,
 };
