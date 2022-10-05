@@ -5,7 +5,6 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import PersonalStep from "./signupsteps/PersonalStep";
 import AuthStep from "./signupsteps/AuthStep";
-import PaymentStep from "./signupsteps/PaymentStep";
 import { useSelector } from "react-redux";
 
 function getStepContent(step) {
@@ -14,14 +13,12 @@ function getStepContent(step) {
       return <PersonalStep />
     case 1:
       return <AuthStep />
-    case 2:
-      return <PaymentStep />
     default:
       return;
   }
 }
 
-const steps = ["User", "Auth", "Payment"];
+const steps = ["User", "Auth"];
 
 const SignUp = () => {
 

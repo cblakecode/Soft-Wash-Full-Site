@@ -1,21 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  memberData: {
-    fullName: "",
-    phone: "",
-    email: "",
-    address: "",
-    username: "",
-    password: "",
-    confirmPass: "",
-    isLoggedIn: false,
-  },
   loginFormData: {
     email_user: "",
     password: "",
   },
-  isSignUpOpen: false,
   isLoginOpen: false,
   activeStep: 0,
   togglePassView: false,
@@ -36,25 +25,13 @@ const loginSlice = createSlice({
     prevStep: (state, action) => {
       state.activeStep--;
     },
-    handleSignUp: (state, action) => {
-      state.isSignUpOpen = true;
-      state.isLoginOpen = false;
-    },
-    handleLogin: (state, action) => {
-      state.isLoginOpen = true;
-      state.isSignUpOpen = false;
-    },
-    openMember: (state, action) => {
-      state.isLoginOpen = true;
+    toggleLogin: (state, action) => {
+      state.isLoginOpen
+        ? (state.isLoginOpen = false)
+        : (state.isLoginOpen = true);
     },
     closeMember: (state, action) => {
-      state.isLoginOpen = false;
-      state.isSignUpOpen = false;
       state.activeStep = 0;
-    },
-    changeMemberData: (state, action) => {
-      const value = action.payload;
-      state.memberData = { ...state.memberData, ...value };
     },
     changeLoginData: (state, action) => {
       const value = action.payload;
@@ -64,12 +41,9 @@ const loginSlice = createSlice({
 });
 
 export const {
-  handleSignUp,
-  handleLogin,
-  openMember,
+  toggleLogin,
   closeMember,
   changeLoginData,
-  changeMemberData,
   nextStep,
   prevStep,
   showPassword,

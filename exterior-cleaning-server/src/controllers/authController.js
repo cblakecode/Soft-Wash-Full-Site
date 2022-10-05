@@ -3,6 +3,46 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 
+// @desc sign up
+// @route POST /auth/signup
+// @access public
+
+const signup = asyncHandler(async (req, res) => {
+  const { username, password, name, email, phone, address } = req.body;
+
+  if (!username || !password || !name || !email || !phone || !address) {
+    return res.status(400).json({ message: "all fields are required" });
+  }
+
+  const duplicateUser = await Member.findOne({ username }).lean().exec();
+  const duplicateEmail = await Member.findOne({ email }).lean().exec();
+
+  if (duplicateUser || duplicateEmail) {
+    return res
+      .status(409)
+      .json({ message: "Username or Email already exists" });
+  }
+
+  const hashedPwd = await bcrypt.hash(password, 10); //salt rounds
+
+  const memberObject = {
+    username,
+    password: hashedPwd,
+    name,
+    email,
+    phone,
+    address,
+  };
+
+  const member = await Member.create(memberObject);
+
+  if (member) {
+    res.status(201).json({ message: `user ${username} created` });
+  } else {
+    res.status(400).json({ message: "Invalid member data received" });
+  }
+});
+
 // @desc Login
 // @route POST /auth
 // @access Public
@@ -21,7 +61,7 @@ const login = asyncHandler(async (req, res) => {
 
   const match = await bcrypt.compare(password, foundMember.password);
 
-  if (!match) return res.status(401).json({ message: "unauthorized" });
+  if (!match) return res.status(401).json({ message: "Incorrect Password" });
 
   const accessToken = jwt.sign(
     {
@@ -100,6 +140,7 @@ const logout = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+  signup,
   login,
   refresh,
   logout,

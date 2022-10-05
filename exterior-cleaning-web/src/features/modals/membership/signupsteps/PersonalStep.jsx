@@ -6,16 +6,22 @@ import Button from "@mui/material/Button";
 import React from 'react'
 import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
-import { nextStep, handleLogin, closeMember, changeMemberData } from "../../../../store/slices/loginSlice"
+import { nextStep, toggleLogin, closeMember } from "../../../../store/slices/loginSlice";
+import { toggleSignUp, changeSignUpData } from '../../../../store/slices/signupSlice';
 
 const PersonalStep = () => {
 
-const { memberData: {fullName, phone, email, address} } = useSelector((store) => store.login);
+const { memberData: {name, phone, email, address} } = useSelector((store) => store.signup);
 const dispatch = useDispatch();
 
 const handleChange = (e) => {
-    dispatch(changeMemberData({[e.target.name]: e.target.value}))
+    dispatch(changeSignUpData({[e.target.name]: e.target.value}))
 };
+
+const handleLogin = () => {
+    dispatch(toggleSignUp);
+    dispatch(toggleLogin);
+}
 
 const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,7 +32,7 @@ const handleSubmit = (e) => {
     <Box component="form" onSubmit={handleSubmit}>
         <Typography variant="h4" textAlign="center">User Info</Typography>
         <Stack spacing={4} sx={{mt: "1rem"}}>
-            <TextField required name="fullName" label="Enter First and Last Name" value={fullName} onChange={handleChange} inputProps={{pattern: '^\\D+\\s\\D+$'}} />
+            <TextField required name="name" label="Enter First and Last Name" value={name} onChange={handleChange} inputProps={{pattern: '^\\D+\\s\\D+$'}} />
             <TextField required name="phone" placeholder='ex. 1234567891' inputProps={{pattern: '^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$'}} label="Enter Mobile Number" value={phone} onChange={handleChange} />
             <TextField required name="email" type="email" label="Enter Valid Email" value={email} onChange={handleChange} inputProps={{pattern: '^(\\w[.!#$%&*+/=?^`{|}~-)+@(\\w[-])+(?:\\.\\w+)+$'}} />
             <TextField required name="address" label="Enter Property Address (ex. 123 Cleaning st, Mount Pleasant 29486)" value={address} onChange={handleChange} inputProps={{pattern: '^\\d+\\s\\w+[, ]\\D+\\s\\d{5,6}$'}} />
@@ -35,7 +41,7 @@ const handleSubmit = (e) => {
                     <Button variant='outlined' onClick={() => dispatch(closeMember())}>Close</Button>
                 </Grid>
                 <Grid item xs={6} sx={{display: "flex", justifyContent: "flex-end", columnGap: "1rem"}}>
-                    <Button size='large' onClick={() => dispatch(handleLogin())}>Login</Button>
+                    <Button size='large' onClick={handleLogin}>Login</Button>
                     <Button variant='contained' type='submit'>Next</Button>
                 </Grid>
             </Grid>

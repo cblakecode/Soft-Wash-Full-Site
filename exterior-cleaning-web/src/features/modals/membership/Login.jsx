@@ -4,9 +4,10 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { useDispatch, useSelector } from "react-redux";
-import { changeLoginData, closeMember, handleSignUp } from "../../../store/slices/loginSlice";
 import Grid from "@mui/material/Grid";
+import { useDispatch, useSelector } from "react-redux";
+import { changeLoginData, closeMember, toggleLogin } from "../../../store/slices/loginSlice";
+import { toggleSignUp } from "../../../store/slices/signupSlice";
 
 const Login = () => {
   const {
@@ -17,6 +18,11 @@ const Login = () => {
   const handleChange = (e) => {
     dispatch(changeLoginData({ [e.target.name]: e.target.value }));
   };
+
+  const handleSignUp = () => {
+    dispatch(toggleLogin());
+    dispatch(toggleSignUp())
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,7 +60,7 @@ const Login = () => {
             <Typography textAlign="left" variant="subtitle2">Not A Member Yet?</Typography>
           </Grid>
           <Grid item xs={6}>
-            <Button variant="outlined" onClick={() => dispatch(handleSignUp())}>Sign Up</Button>
+            <Button variant="outlined" onClick={handleSignUp}>Sign Up</Button>
           </Grid>
           <Grid
             item
@@ -62,7 +68,7 @@ const Login = () => {
             sx={{ display: "flex", justifyContent: "flex-end" }}
           >
             <Button variant="text" onClick={() => dispatch(closeMember())}>Close</Button>
-            <Button variant="contained">Login</Button>
+            <Button variant="contained" type="submit">Login</Button>
           </Grid>
         </Grid>
       </Stack>

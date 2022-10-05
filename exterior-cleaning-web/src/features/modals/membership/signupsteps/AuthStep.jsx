@@ -1,10 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { nextStep, closeMember, prevStep, showPassword } from '../../../../store/slices/loginSlice';
+import { changeSignUpData } from '../../../../store/slices/signupSlice';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import { nextStep, closeMember, changeMemberData, prevStep, showPassword } from '../../../../store/slices/loginSlice';
 import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
@@ -15,7 +16,8 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const AuthStep = () => {
   const dispatch = useDispatch();
-  const { memberData: { username, password, confirmPass }, togglePassView } = useSelector((store) => store.login);
+  const { togglePassView } = useSelector((store) => store.login);
+  const { memberData: { username, password }, confirmPass } = useSelector((store) => store.signup);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +25,7 @@ const AuthStep = () => {
   }
 
   const handleChange = (e) => {
-    dispatch(changeMemberData({[e.target.name]: e.target.value}))  
+    dispatch(changeSignUpData({[e.target.name]: e.target.value}))
   }
 
   const handleMouseDown = (e) => {

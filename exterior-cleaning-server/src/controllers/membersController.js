@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 // @route GET /members
 // @access Private
 const getMember = asyncHandler(async (req, res) => {
-  const { id, username } = req.body;
+  const username = req.query.username;
 
   const member = await Member.findOne({ username })
     .select("-password")
@@ -18,44 +18,6 @@ const getMember = asyncHandler(async (req, res) => {
   }
 
   res.json(member);
-});
-
-// @desc Create new member
-// @route POST /members
-// @access Private
-const createNewMember = asyncHandler(async (req, res) => {
-  const { username, password, name, email, phone, address } = req.body;
-
-  if (!username || !password || !name || !email || !phone || !address) {
-    return res.status(400).json({ message: "all fields are required" });
-  }
-
-  const duplicate = await Member.findOne({ username, email }).lean().exec();
-
-  if (duplicate) {
-    return res
-      .status(409)
-      .json({ message: "Username or Email already exists" });
-  }
-
-  const hashedPwd = await bcrypt.hash(password, 10); //salt rounds
-
-  const memberObject = {
-    username,
-    password: hashedPwd,
-    name,
-    email,
-    phone,
-    address,
-  };
-
-  const member = await Member.create(memberObject);
-
-  if (member) {
-    res.status(201).json({ message: `New member ${username} created` });
-  } else {
-    res.status(400).json({ message: "Invalid member data received" });
-  }
 });
 
 // @desc Update a member
@@ -122,7 +84,6 @@ const deleteMember = asyncHandler(async (req, res) => {
 
 module.exports = {
   getMember,
-  createNewMember,
   updateMember,
   deleteMember,
 };

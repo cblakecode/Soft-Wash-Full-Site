@@ -4,6 +4,7 @@ import contactReducer from "./slices/contactSlice";
 import quoteReducer from "./slices/quoteSlice";
 import snackReducer from "./slices/snackSlice";
 import loginReducer from "./slices/loginSlice";
+import signUpReducer from "./slices/signupSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     quote: quoteReducer,
     snack: snackReducer,
     login: loginReducer,
+    signup: signUpReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
