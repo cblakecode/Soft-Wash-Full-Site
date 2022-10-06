@@ -19,8 +19,13 @@ const handleChange = (e) => {
 };
 
 const handleLogin = () => {
-    dispatch(toggleSignUp);
-    dispatch(toggleLogin);
+    dispatch(toggleSignUp());
+    dispatch(toggleLogin());
+}
+
+const handleClose = () => {
+    dispatch(closeMember());
+    dispatch(toggleSignUp());
 }
 
 const handleSubmit = (e) => {
@@ -34,11 +39,11 @@ const handleSubmit = (e) => {
         <Stack spacing={4} sx={{mt: "1rem"}}>
             <TextField required name="name" label="Enter First and Last Name" value={name} onChange={handleChange} inputProps={{pattern: '^\\D+\\s\\D+$'}} />
             <TextField required name="phone" placeholder='ex. 1234567891' inputProps={{pattern: '^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$'}} label="Enter Mobile Number" value={phone} onChange={handleChange} />
-            <TextField required name="email" type="email" label="Enter Valid Email" value={email} onChange={handleChange} inputProps={{pattern: '^(\\w[.!#$%&*+/=?^`{|}~-)+@(\\w[-])+(?:\\.\\w+)+$'}} />
+            <TextField required name="email" type="email" label="Enter Valid Email" value={email} onChange={handleChange}  />
             <TextField required name="address" label="Enter Property Address (ex. 123 Cleaning st, Mount Pleasant 29486)" value={address} onChange={handleChange} inputProps={{pattern: '^\\d+\\s\\w+[, ]\\D+\\s\\d{5,6}$'}} />
             <Grid container>
                 <Grid item xs={6}>
-                    <Button variant='outlined' onClick={() => dispatch(closeMember())}>Close</Button>
+                    <Button variant='outlined' onClick={handleClose}>Close</Button>
                 </Grid>
                 <Grid item xs={6} sx={{display: "flex", justifyContent: "flex-end", columnGap: "1rem"}}>
                     <Button size='large' onClick={handleLogin}>Login</Button>

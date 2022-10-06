@@ -20,8 +20,8 @@ const Login = () => {
   };
 
   const handleSignUp = () => {
+    dispatch(toggleSignUp());
     dispatch(toggleLogin());
-    dispatch(toggleSignUp())
   }
 
   const handleSubmit = (e) => {

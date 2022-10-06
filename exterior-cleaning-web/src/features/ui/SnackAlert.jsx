@@ -6,7 +6,7 @@ import { snackClose } from "../../store/slices/snackSlice";
 
 const SnackAlert = () => {
   const dispatch = useDispatch();
-  const { isSuccess, isOpen } = useSelector((store) => store.snack);
+  const { isSuccess, isOpen, alertMessage } = useSelector((store) => store.snack);
   return (
     <Snackbar
       open={isOpen}
@@ -16,11 +16,11 @@ const SnackAlert = () => {
     >
       {isSuccess ? (
         <Alert severity="success" sx={{ width: "100%" }}>
-          Message Sent!
+          {alertMessage}
         </Alert>
       ) : (
         <Alert severity="error" sx={{ width: "100%" }}>
-          Message Failed!
+          {alertMessage}
         </Alert>
       )}
     </Snackbar>

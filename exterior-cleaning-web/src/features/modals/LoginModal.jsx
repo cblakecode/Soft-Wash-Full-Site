@@ -9,9 +9,10 @@ import { closeMember } from '../../store/slices/loginSlice';
 
 const LoginModal = () => {
 
-  const {isLoginOpen, isSignUpOpen} = useSelector((store) => store.login);
+  const {isLoginOpen} = useSelector((store) => store.login);
+  const { signUpOpen } = useSelector((store) => store.signup);
   const dispatch = useDispatch();
-  const open = isLoginOpen || isSignUpOpen;
+  const open = isLoginOpen || signUpOpen;
 
   return (
     <Box>
@@ -26,7 +27,7 @@ const LoginModal = () => {
                 }}
             >
                 {isLoginOpen && <Login />}
-                {isSignUpOpen && <SignUp />}
+                {signUpOpen && <SignUp />}
             </Box>
         </Modal>
     </Box>

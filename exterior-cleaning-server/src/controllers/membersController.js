@@ -44,6 +44,7 @@ const updateMember = asyncHandler(async (req, res) => {
   }
 
   member.username = username;
+  member.password = password;
   member.subscribed = subscribed;
   member.email = email;
   member.phone = phone;

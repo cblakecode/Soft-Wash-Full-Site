@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import sendQuote from "../actions/sendQuote";
 import sendContact from "../actions/sendContact";
+import { signUpMember } from "../actions/memberCRUD";
 
 const initialState = {
   isError: false,
   isSuccess: false,
   isOpen: false,
+  alertMessage: "",
 };
 
 const snackSlice = createSlice({
@@ -16,6 +18,7 @@ const snackSlice = createSlice({
       state.isError = false;
       state.isSuccess = false;
       state.isOpen = false;
+      state.alertMessage = "";
     },
   },
   extraReducers: {
@@ -32,6 +35,16 @@ const snackSlice = createSlice({
       state.isOpen = true;
     },
     [sendQuote.rejected]: (state) => {
+      state.isError = true;
+      state.isOpen = true;
+    },
+    [signUpMember.fulfilled]: (state, action) => {
+      state.alertMessage = "Account Created!";
+      state.isSuccess = true;
+      state.isOpen = true;
+    },
+    [signUpMember.rejected]: (state, action) => {
+      state.alertMessage = action.payload;
       state.isError = true;
       state.isOpen = true;
     },

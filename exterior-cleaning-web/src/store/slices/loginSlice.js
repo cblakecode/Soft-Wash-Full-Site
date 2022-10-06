@@ -8,6 +8,7 @@ const initialState = {
   isLoginOpen: false,
   activeStep: 0,
   togglePassView: false,
+  accessToken: "",
 };
 
 const loginSlice = createSlice({
@@ -31,6 +32,7 @@ const loginSlice = createSlice({
         : (state.isLoginOpen = true);
     },
     closeMember: (state, action) => {
+      state.isLoginOpen = false;
       state.activeStep = 0;
     },
     changeLoginData: (state, action) => {

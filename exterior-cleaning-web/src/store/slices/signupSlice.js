@@ -20,6 +20,10 @@ const signupSlice = createSlice({
   name: "signup",
   initialState,
   reducers: {
+    confirmPassValue: (state, action) => {
+      const value = action.payload;
+      state.confirmPass = value;
+    },
     changeSignUpData: (state, action) => {
       const value = action.payload;
       state.memberData = { ...state.memberData, ...value };
@@ -35,6 +39,7 @@ const signupSlice = createSlice({
     [signUpMember.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isLoggedIn = true;
+      console.log(action.payload);
     },
     [signUpMember.rejected]: (state, action) => {
       state.isLoading = false;
@@ -42,5 +47,6 @@ const signupSlice = createSlice({
   },
 });
 
-export const { changeSignUpData, toggleSignUp } = signupSlice.actions;
+export const { changeSignUpData, toggleSignUp, confirmPassValue } =
+  signupSlice.actions;
 export default signupSlice.reducer;

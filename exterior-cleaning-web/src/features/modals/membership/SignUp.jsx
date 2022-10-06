@@ -5,6 +5,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import PersonalStep from "./signupsteps/PersonalStep";
 import AuthStep from "./signupsteps/AuthStep";
+import SnackAlert from "../../ui/SnackAlert";
 import { useSelector } from "react-redux";
 
 function getStepContent(step) {
@@ -26,6 +27,7 @@ const SignUp = () => {
 
   return (
     <Box>
+      <SnackAlert />
       <Stepper sx={{mb: "1rem"}} activeStep={activeStep}>
         {steps.map((label, index) => {
           return (
