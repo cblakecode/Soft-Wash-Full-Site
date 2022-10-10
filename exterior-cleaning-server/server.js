@@ -25,7 +25,6 @@ app.use("/", express.static(path.join(__dirname, "src/public")));
 
 app.use("/", require("./src/routes/root"));
 app.use("/auth", require("./src/routes/authRoute"));
-app.use("/email", require("./src/routes/emailRoute"));
 app.use("/members", require("./src/routes/membersRoute"));
 
 app.all("*", (req, res) => {

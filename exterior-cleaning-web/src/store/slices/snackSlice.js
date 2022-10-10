@@ -23,18 +23,22 @@ const snackSlice = createSlice({
   },
   extraReducers: {
     [sendContact.fulfilled]: (state) => {
+      state.alertMessage = "Message Sent";
       state.isSuccess = true;
       state.isOpen = true;
     },
     [sendContact.rejected]: (state) => {
+      state.alertMessage = "Message Failed";
       state.isError = true;
       state.isOpen = true;
     },
     [sendQuote.fulfilled]: (state) => {
+      state.alertMessage = "Sent";
       state.isSuccess = true;
       state.isOpen = true;
     },
     [sendQuote.rejected]: (state) => {
+      state.alertMessage = "Failed to Send";
       state.isError = true;
       state.isOpen = true;
     },

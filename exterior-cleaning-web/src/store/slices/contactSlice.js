@@ -3,7 +3,7 @@ import sendContact from "../actions/sendContact";
 
 const initialState = {
   formData: {
-    fullName: "",
+    name: "",
     email: "",
     mobile: "",
     message: "",
@@ -14,7 +14,7 @@ const initialState = {
 };
 
 const resetFormData = {
-  fullName: "",
+  name: "",
   email: "",
   mobile: "",
   message: "",

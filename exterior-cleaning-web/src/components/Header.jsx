@@ -13,7 +13,7 @@ import IconButton from "@mui/material/IconButton";
 import { useDispatch } from "react-redux";
 import { handleContactOpen } from "../store/slices/modalSlice";
 import { handleOpenQuote } from "../store/slices/quoteSlice";
-import { toggleLogin } from "../store/slices/loginSlice";
+import { toggleIsOpen } from "../store/slices/memberSlice";
 
 const pages = ["About", "Services", "Area"];
 
@@ -124,7 +124,7 @@ const Header = () => {
                 color="secondary"
                 size="small"
                 sx={{ mx: 1, display: { xs: "none", lg: "flex" } }}
-                onClick={() => dispatch(toggleLogin())}
+                onClick={() => dispatch(toggleIsOpen())}
               >
                 Membership
               </Button>
@@ -132,7 +132,7 @@ const Header = () => {
               <IconButton
                 sx={{ display: { xs: "flex", lg: "none" } }}
                 color="secondary"
-                onClick={() => dispatch(toggleLogin())}
+                onClick={() => dispatch(toggleIsOpen())}
               >
                 <AccountBoxIcon />
               </IconButton>

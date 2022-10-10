@@ -57,7 +57,7 @@ const Modalcontact = () => {
             <Grid item xs={12}>
               <TextField
                 label="Name"
-                name="fullName"
+                name="name"
                 variant="outlined"
                 placeholder="Enter First and Last Name"
                 value={formData.fullName}

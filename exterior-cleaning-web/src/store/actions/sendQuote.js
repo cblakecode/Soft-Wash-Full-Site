@@ -1,38 +1,22 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import emailjs from "@emailjs/browser";
+import { format } from "date-fns";
 
 const sendQuote = createAsyncThunk(
   "quote/sendQuote",
-  async ({
-    firstName,
-    lastName,
-    email,
-    mobile,
-    address,
-    squareFeet,
-    siding,
-    date,
-    time,
-    techQuote,
-  }) => {
-    const response = await fetch("/email/quote", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        firstName,
-        lastName,
-        email,
-        mobile,
-        address,
-        squareFeet,
-        siding,
-        date,
-        time,
-        techQuote,
-      }),
-    });
-    return response.json();
+  async (data, thunkAPI) => {
+    data.date = format(new Date(data.date), "MMM do yyyy");
+    try {
+      const response = await emailjs.send(
+        "service_z3uhjdl",
+        "template_afe2sh2",
+        data,
+        "h6mClD3CR1ElhmUG7"
+      );
+      return response.text;
+    } catch (error) {
+      return error.text;
+    }
   }
 );
 

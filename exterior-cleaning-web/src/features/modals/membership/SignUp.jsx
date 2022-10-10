@@ -21,9 +21,11 @@ function getStepContent(step) {
 
 const steps = ["User", "Auth"];
 
+
+
 const SignUp = () => {
 
-  const { activeStep } = useSelector((store) => store.login)
+  const {activeStep} = useSelector((store) => store.member);
 
   return (
     <Box>
