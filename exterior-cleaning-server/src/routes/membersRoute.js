@@ -5,9 +5,10 @@ const verifyJWT = require("../middleware/verifyJWT");
 
 router.use(verifyJWT);
 
+router.route("/:username").get(membersController.getMember);
+
 router
-  .route("/")
-  .get(membersController.getMember)
+  .route("/:id")
   .patch(membersController.updateMember)
   .delete(membersController.deleteMember);
 

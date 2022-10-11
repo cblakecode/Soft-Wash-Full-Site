@@ -40,13 +40,13 @@ const AuthStep = () => {
       <Typography variant='h4' textAlign="center" sx={{mb: '1rem'}}>Create Username and Password</Typography>
       <Grid container spacing={4}>
         <Grid item xs={12}>
-          <TextField label="Enter Username (must be 6-12 characters long)" name='username' value={memberData.username} inputProps={{minLength: '6', maxLength: '12'}} onChange={handleChange} required fullWidth/>
+          <TextField label="Enter Username" name='username' value={memberData.username} inputProps={{minLength: '6', maxLength: '12'}} onChange={handleChange} required fullWidth/>
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Enter Password (must be 8-12 characters long. Cannot contain any special characters)" type={togglePassView ? 'text' : 'password'} name='password' value={memberData.password} onChange={handleChange} InputProps={{minLength: '8', maxLength: '12', pattern: '^\\w{8,12}$', endAdornment: (<InputAdornment position="end"><IconButton aria-label='toggle password visibility' onClick={() => dispatch(showPassword())} onMouseDown={handleMouseDown} edge='end'>{togglePassView ? <VisibilityOffIcon /> : <VisibilityIcon />}</IconButton></InputAdornment>) }} required fullWidth/>
+          <TextField label="Enter Password" type={togglePassView ? 'text' : 'password'} name='password' value={memberData.password} onChange={handleChange} InputProps={{pattern: '^\\w{8,12}$', endAdornment: (<InputAdornment position="end"><IconButton aria-label='toggle password visibility' onClick={() => dispatch(showPassword())} onMouseDown={handleMouseDown} edge='end'>{togglePassView ? <VisibilityOffIcon /> : <VisibilityIcon />}</IconButton></InputAdornment>) }} required fullWidth/>
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Confirm Password" name='confirmPass' type={togglePassView ? 'text' : 'password'} value={confirmPass} onChange={(e) => dispatch(handleConfirmChange(e.value))} InputProps={{pattern: `^${memberData.password}$`, endAdornment: (<InputAdornment position="end"><IconButton aria-label='toggle password visibility' onClick={() => dispatch(showPassword())} onMouseDown={handleMouseDown} edge='end'>{togglePassView ? <VisibilityOffIcon /> : <VisibilityIcon />}</IconButton></InputAdornment>)}} InputLabelProps={{shrink: true}} required fullWidth/>
+          <TextField label="Confirm Password" name='confirmPass' type={togglePassView ? 'text' : 'password'} value={confirmPass} onChange={(e) => dispatch(handleConfirmChange(e.target.value))} InputProps={{ pattern: `^${memberData.password}$`, endAdornment: (<InputAdornment position="end"><IconButton aria-label='toggle password visibility' onClick={() => dispatch(showPassword())} onMouseDown={handleMouseDown} edge='end'>{togglePassView ? <VisibilityOffIcon /> : <VisibilityIcon />}</IconButton></InputAdornment>)}} InputLabelProps={{shrink: true}} required fullWidth/>
         </Grid>
         <Grid item xs={6}>
           <Button variant='outlined' onClick={handleClose}>Close</Button>

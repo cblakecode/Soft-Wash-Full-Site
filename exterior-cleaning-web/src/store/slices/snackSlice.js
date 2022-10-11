@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import sendQuote from "../actions/sendQuote";
 import sendContact from "../actions/sendContact";
-import { signUpMember } from "../actions/memberCRUD";
+import { login, signUpMember, getMemberData } from "../actions/memberCRUD";
 
 const initialState = {
   isError: false,
@@ -51,6 +51,16 @@ const snackSlice = createSlice({
       state.alertMessage = action.payload;
       state.isError = true;
       state.isOpen = true;
+    },
+    [login.rejected]: (state, action) => {
+      state.alertMessage = "Incorrect Username or Password";
+      state.isError = true;
+      state.isOpen = true;
+    },
+    [getMemberData.fulfilled]: (state, action) => {
+      state.alertMessage = "Welcome Back!";
+      state.isOpen = true;
+      state.isSuccess = true;
     },
   },
 });

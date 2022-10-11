@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
@@ -7,13 +7,20 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import { handleDataChange, toggleIsClosed, signUpOpen } from "../../../store/slices/memberSlice";
-import { signUpMember } from "../../../store/actions/memberCRUD";
+import { login, getMemberData } from "../../../store/actions/memberCRUD";
 
 
 
 const Login = () => {
   const { memberData: { username, password } } = useSelector((store) => store.member);
+  const { accessToken } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (accessToken) {
+      dispatch(getMemberData(accessToken))
+    }
+  }, [accessToken, dispatch])
 
   const handleChange = (e) => {
     dispatch(handleDataChange({ [e.target.name]: e.target.value }));
@@ -21,7 +28,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(signUpMember({ username, password }))
+    dispatch(login({username, password}))
   };
 
   return (

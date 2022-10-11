@@ -6,8 +6,7 @@ const bcrypt = require("bcrypt");
 // @route GET /members
 // @access Private
 const getMember = asyncHandler(async (req, res) => {
-  const username = req.query.username;
-
+  const { username } = req.params;
   const member = await Member.findOne({ username })
     .select("-password")
     .lean()

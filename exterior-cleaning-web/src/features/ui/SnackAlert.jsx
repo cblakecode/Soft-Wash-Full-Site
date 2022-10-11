@@ -10,7 +10,7 @@ const SnackAlert = () => {
   return (
     <Snackbar
       open={isOpen}
-      autoHideDuration={5000}
+      autoHideDuration={3000}
       anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
       onClose={() => dispatch(snackClose())}
     >
