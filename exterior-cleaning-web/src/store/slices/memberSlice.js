@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { signUpMember, login, getMemberData } from "../actions/memberCRUD";
+import { signUpMember } from "../actions/memberCRUD";
 
 const initialState = {
   memberData: {
+    id: "",
     username: "",
     password: "",
     name: "",
@@ -10,13 +11,24 @@ const initialState = {
     address: "",
     phone: "",
   },
-  confirmPass: "",
+  confrimPass: "",
   activeStep: 0,
   isOpen: false,
   isLoginOpen: false,
   isSignUpOpen: false,
   togglePassView: false,
   isLoading: false,
+  isLoggedIn: false,
+};
+
+const resetData = {
+  id: "",
+  username: "",
+  password: "",
+  name: "",
+  email: "",
+  address: "",
+  phone: "",
 };
 
 const memberSlice = createSlice({
@@ -34,7 +46,7 @@ const memberSlice = createSlice({
       state.member.memberData = { ...state.member.memberData, ...values };
     },
     handleConfirmChange: (state, action) => {
-      state.member.confirmPass = action.payload;
+      state.confirmPass = action.payload;
     },
     toggleIsOpen: (state, action) => {
       state.member.isOpen = true;
@@ -70,17 +82,19 @@ const memberSlice = createSlice({
       state.member.isLoading = false;
     },
     [login.pending]: (state, action) => {
-      state.member.isLoading = true;
+      state.isLoading = true;
     },
     [login.rejected]: (state, action) => {
-      state.member.isLoading = false;
+      state.isLoading = false;
     },
     [getMemberData.fulfilled]: (state, action) => {
-      state.member.isLoading = false;
-      state.member.confirmPass = "";
+      state.isLoading = false;
+      state.isLoggedIn = true;
+      state.memberData = resetData;
+      state.confirmPass = "";
     },
     [getMemberData.rejected]: (state, action) => {
-      state.member.isLoading = false;
+      state.isLoading = false;
     },
   },
 });

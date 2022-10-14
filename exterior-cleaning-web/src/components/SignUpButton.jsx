@@ -11,9 +11,7 @@ const SignUpButton = () => {
 
 const dispatch = useDispatch();
 
-const handleOpen = () => {
-    dispatch(toggleIsOpen());
-}
+
 
    return ( 
     <Box>
@@ -23,7 +21,7 @@ const handleOpen = () => {
         color="secondary"
         size="small"
         sx={{ mx: 1, display: { xs: "none", lg: "flex" } }}
-        onClick={handleOpen}
+        onClick={() => dispatch(toggleIsOpen())}
         >
         Membership
         </Button>
@@ -31,7 +29,7 @@ const handleOpen = () => {
         <IconButton
         sx={{ display: { xs: "flex", lg: "none" } }}
         color="secondary"
-        onClick={handleOpen}
+        onClick={() => dispatch(toggleIsOpen())}
         >
         <AccountBoxIcon />
         </IconButton>

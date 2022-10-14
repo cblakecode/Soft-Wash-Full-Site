@@ -4,8 +4,6 @@ import contactReducer from "./slices/contactSlice";
 import quoteReducer from "./slices/quoteSlice";
 import snackReducer from "./slices/snackSlice";
 import memberReducer from "./slices/memberSlice";
-import authReducer from "./slices/authSlice";
-import loggedInReducer from "./slices/loggedInSlice";
 
 const store = configureStore({
   reducer: {
@@ -13,9 +11,13 @@ const store = configureStore({
     contact: contactReducer,
     quote: quoteReducer,
     snack: snackReducer,
+<<<<<<< HEAD
     auth: authReducer,
     member: memberReducer,
     loggedIn: loggedInReducer,
+=======
+    member: memberReducer,
+>>>>>>> parent of 9e5ab6d (refactored redux code and added ux for login)
   },
 });
 

@@ -1,28 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const login = createAsyncThunk(
-  "login/Member",
-  async (data, thunkAPI) => {
-    const response = await axios.post("/auth", data);
-    const { accessToken } = response.data;
-    return accessToken;
-  }
-);
-
-// takes accesstoken as argument
+// takes an array as the first argument
 export const getMemberData = createAsyncThunk(
   "getInfo/Member",
-  async (data, { getState }) => {
-    const {
-      member: {
-        memberData: { username },
-      },
-    } = getState();
-    const response = await axios.get(`/members/${username}`, {
-      headers: {
-        Authorization: `Bearer ${data}`,
-      },
+  async (data, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const user =
+      state.signup.memberData.username || state.login.loginFormData.email_user;
+    const response = await axios.get(`/members`, {
+      Authorization: `Bearer ${data}`,
+      params: { username: user },
     });
     return response.data;
   }
@@ -35,8 +23,18 @@ export const signUpMember = createAsyncThunk(
       const response = await axios.post("/auth/signup", data);
       return response.data;
     } catch (err) {
-      return err.message;
+      return err.data;
     }
+  }
+);
+
+export const login = createAsyncThunk(
+  "login/Member",
+  async (data, thunkAPI) => {
+    const response = await axios.post("/auth", data);
+    const { accessToken } = response.data;
+    thunkAPI.dispatch(getMemberData(accessToken));
+    return response.data;
   }
 );
 
