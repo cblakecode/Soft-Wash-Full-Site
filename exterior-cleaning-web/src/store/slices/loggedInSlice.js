@@ -1,27 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getMemberData } from "../actions/memberCRUD";
+import { getMemberData, signUpMember } from "../actions/memberCRUD";
 
 const initialState = {
-  loginData: {
-    _id: "",
-    username: "",
-    email: "",
-    phone: "",
-    address: "",
-    name: "",
-    subscribed: "",
-  },
+  persistedData: {},
+  isLoggedIn: false,
 };
 
 const loggedInSlice = createSlice({
   name: "loggedIn",
   initialState,
-  reducers: {},
+  reducers: {
+    getLocalData: (state, action) => {
+      state.loggedIn.persistedData = action.payload;
+    },
+  },
   extraReducers: {
     [getMemberData.fulfilled]: (state, action) => {
-      state.loginData = action.payload;
+      state.loggedIn.isLoggedIn = true;
+      state.loggedIn.persistedData = action.payload;
+    },
+    [signUpMember.fulfilled]: (state, action) => {
+      state.loggedIn.isLoggedIn = true;
+      state.loggedIn.persistedData = {
+        ...state.member.memberData,
+        password: "",
+      };
     },
   },
 });
 
+export const { getLocalData } = loggedInSlice.actions;
 export default loggedInSlice.reducer;

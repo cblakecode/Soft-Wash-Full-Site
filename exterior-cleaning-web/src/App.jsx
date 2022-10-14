@@ -1,7 +1,6 @@
 import React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-
 import Box from "@mui/material/Box";
 import Header from "./components/Header";
 import Hero from "./components/Hero";

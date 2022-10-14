@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import  { Fragment, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import HideOnScroll from "../Utilities/HideOnScroll";
@@ -7,18 +7,31 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import EmailIcon from "@mui/icons-material/Email";
 import IconButton from "@mui/material/IconButton";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { handleContactOpen } from "../store/slices/modalSlice";
 import { handleOpenQuote } from "../store/slices/quoteSlice";
-import { toggleIsOpen } from "../store/slices/memberSlice";
+import { getLocalData } from "../store/slices/loggedInSlice";
+import MemberAvatar from "./MemberAvatar";
+import SignUpButton from "./SignUpButton";
 
 const pages = ["About", "Services", "Area"];
 
 const Header = () => {
   const dispatch = useDispatch();
+  const { isLoggedIn, persistedData } = useSelector((store) => store.loggedIn);
+  
+useEffect(() => {
+  if (isLoggedIn) {
+    const data = JSON.parse(localStorage.getItem('member'))
+    dispatch(getLocalData(data))
+  }
+}, [isLoggedIn, dispatch])
+
+useEffect(() => {
+  localStorage.setItem('member', JSON.stringify(persistedData));
+}, [persistedData]);
 
   return (
     <Fragment>
@@ -118,24 +131,7 @@ const Header = () => {
               >
                 <RequestQuoteIcon />
               </IconButton>
-              <Button
-                variant="outlined"
-                endIcon={<AccountBoxIcon />}
-                color="secondary"
-                size="small"
-                sx={{ mx: 1, display: { xs: "none", lg: "flex" } }}
-                onClick={() => dispatch(toggleIsOpen())}
-              >
-                Membership
-              </Button>
-
-              <IconButton
-                sx={{ display: { xs: "flex", lg: "none" } }}
-                color="secondary"
-                onClick={() => dispatch(toggleIsOpen())}
-              >
-                <AccountBoxIcon />
-              </IconButton>
+              {isLoggedIn ? <MemberAvatar /> : <SignUpButton />}
             </Box>
           </Toolbar>
         </AppBar>

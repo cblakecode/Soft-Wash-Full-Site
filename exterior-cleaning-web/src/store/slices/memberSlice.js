@@ -3,7 +3,6 @@ import { signUpMember, login, getMemberData } from "../actions/memberCRUD";
 
 const initialState = {
   memberData: {
-    id: "",
     username: "",
     password: "",
     name: "",
@@ -18,17 +17,6 @@ const initialState = {
   isSignUpOpen: false,
   togglePassView: false,
   isLoading: false,
-  isLoggedIn: false,
-};
-
-const resetData = {
-  id: "",
-  username: "",
-  password: "",
-  name: "",
-  email: "",
-  address: "",
-  phone: "",
 };
 
 const memberSlice = createSlice({
@@ -36,66 +24,63 @@ const memberSlice = createSlice({
   initialState,
   reducers: {
     nextStep: (state, action) => {
-      state.activeStep++;
+      state.member.activeStep++;
     },
     prevStep: (state, action) => {
-      state.activeStep--;
+      state.member.activeStep--;
     },
     handleDataChange: (state, action) => {
       const values = action.payload;
-      state.memberData = { ...state.memberData, ...values };
+      state.member.memberData = { ...state.member.memberData, ...values };
     },
     handleConfirmChange: (state, action) => {
-      state.confirmPass = action.payload;
+      state.member.confirmPass = action.payload;
     },
     toggleIsOpen: (state, action) => {
-      state.isOpen = true;
-      state.isLoginOpen = true;
-      state.isSignUpOpen = true;
+      state.member.isOpen = true;
+      state.member.isLoginOpen = true;
+      state.member.isSignUpOpen = true;
     },
     toggleIsClosed: (state, action) => {
-      state.isOpen = false;
-      state.isLoginOpen = false;
-      state.isSignUpOpen = false;
-      state.activeStep = 0;
+      state.member.isOpen = false;
+      state.member.isLoginOpen = false;
+      state.member.isSignUpOpen = false;
+      state.member.activeStep = 0;
     },
     loginOpen: (state, action) => {
-      state.isLoginOpen = true;
+      state.member.isLoginOpen = true;
     },
     signUpOpen: (state, action) => {
-      state.isLoginOpen = false;
+      state.member.isLoginOpen = false;
     },
     showPassword: (state, action) => {
-      state.togglePassView
-        ? (state.togglePassView = false)
-        : (state.togglePassView = true);
+      state.member.togglePassView
+        ? (state.member.togglePassView = false)
+        : (state.member.togglePassView = true);
     },
   },
   extraReducers: {
     [signUpMember.loading]: (state, action) => {
-      state.isLoading = true;
+      state.member.isLoading = true;
     },
     [signUpMember.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.isLoggedIn = true;
+      state.member.isLoading = false;
     },
     [signUpMember.rejected]: (state, action) => {
-      state.isLoading = false;
+      state.member.isLoading = false;
     },
     [login.pending]: (state, action) => {
-      state.isLoading = true;
+      state.member.isLoading = true;
     },
     [login.rejected]: (state, action) => {
-      state.isLoading = false;
+      state.member.isLoading = false;
     },
     [getMemberData.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.isLoggedIn = true;
-      state.memberData = resetData;
-      state.confirmPass = "";
+      state.member.isLoading = false;
+      state.member.confirmPass = "";
     },
     [getMemberData.rejected]: (state, action) => {
-      state.isLoading = false;
+      state.member.isLoading = false;
     },
   },
 });

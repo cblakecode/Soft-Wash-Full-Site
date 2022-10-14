@@ -16,8 +16,7 @@ import {
 } from "../../../store/slices/quoteSlice";
 
 const PropertyInfo = () => {
-  const { clientData } = useSelector((store) => store.quote);
-  const { property } = clientData;
+  const { clientData: {property} } = useSelector((store) => store.quote);
   const { squareFeet, siding, date, time, techQuote } = property;
   const dispatch = useDispatch();
 

@@ -13,8 +13,7 @@ import {
 
 const ClientInfo = () => {
   const dispatch = useDispatch();
-  const { clientData } = useSelector((store) => store.quote);
-  const { personal } = clientData;
+  const { clientData: {personal} } = useSelector((store) => store.quote);
   const { firstName, lastName, email, mobile, address } = personal;
 
   const handleSubmit = (e) => {
