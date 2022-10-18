@@ -1,6 +1,5 @@
 import  { Fragment } from "react";
 import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import HideOnScroll from "../Utilities/HideOnScroll";
 import HouseIcon from "@mui/icons-material/House";
 import Typography from "@mui/material/Typography";
@@ -33,19 +32,16 @@ const Header = () => {
   return (
     <Fragment>
       <HideOnScroll>
-        <AppBar position="fixed">
-          <Toolbar
-            disableGutters
-            sx={{
+        <AppBar position="sticky" sx={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
-              mx: "1rem",
-            }}
-          >
+              m: '0'
+            }}>
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "flex-start",
+                alignItems: "center"
               }}
             >
               <IconButton
@@ -131,10 +127,8 @@ const Header = () => {
               </IconButton>
               {isLoggedIn ? <MemberAvatar /> : <SignUpButton />}
             </Box>
-          </Toolbar>
         </AppBar>
       </HideOnScroll>
-      <Toolbar />
     </Fragment>
   );
 };

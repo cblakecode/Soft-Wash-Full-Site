@@ -43,11 +43,18 @@ const handleClose = () => {
   return (
     <Box>
       <Tooltip title="Open Settings">
-        <IconButton aria-label="" onClick={handleOpen}>
+        <IconButton aria-label="user-menu" aria-controls='user-menu' onClick={handleOpen}>
         <Avatar {...stringAvatar(name)} />
         </IconButton>
       </Tooltip>
-      <Menu id="user-menu" anchorEl={anchorElUser} keepMounted open={settings} onClose={handleClose} anchorOrigin={{vertical: 'bottom', horizontal: 'right'}} transformOrigin={{vertical: 'bottom', horizontal: 'right'}} sx={{position: 'absolute', overflow: "visible"}}>
+      <Menu id="user-menu" anchorEl={anchorElUser} keepMounted open={settings} onClose={handleClose} 
+        anchorOrigin={{vertical: 'bottom', horizontal: 'right'}} transformOrigin={{vertical: 'bottom', horizontal: 'right'}} sx={{mt: "3.25rem"}}>
+        <MenuItem onClick={() => dispatch(logout())}>
+          <Typography variant="body1" color="initial" textAlign="center">Account</Typography>
+        </MenuItem>
+        <MenuItem onClick={() => dispatch(logout())}>
+          <Typography variant="body1" color="initial" textAlign="center">Payment</Typography>
+        </MenuItem>
         <MenuItem onClick={() => dispatch(logout())}>
           <Typography variant="body1" color="error" textAlign="center">Logout</Typography>
         </MenuItem>

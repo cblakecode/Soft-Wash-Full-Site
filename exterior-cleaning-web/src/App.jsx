@@ -25,6 +25,9 @@ function App() {
       secondary: {
         main: "#eec643",
       },
+      background: {
+        default: "#0d21a1"
+      }
     },
   });
 
