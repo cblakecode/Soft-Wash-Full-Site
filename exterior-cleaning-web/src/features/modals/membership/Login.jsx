@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import { handleDataChange, toggleIsClosed, signUpOpen } from "../../../store/slices/memberSlice";
-import { signUpMember } from "../../../store/actions/memberCRUD";
+import { login } from "../../../store/actions/memberCRUD";
 
 
 
@@ -21,7 +21,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(signUpMember({ username, password }))
+    dispatch(login({ username, password }))
   };
 
   return (

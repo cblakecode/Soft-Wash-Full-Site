@@ -4,12 +4,12 @@ import axios from "axios";
 // takes an array as the first argument
 export const getMemberData = createAsyncThunk(
   "getInfo/Member",
-  async (data, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const user =
-      state.signup.memberData.username || state.login.loginFormData.email_user;
+  async (data, { getState }) => {
+    const user = getState().member.memberData.username;
     const response = await axios.get(`/members`, {
-      Authorization: `Bearer ${data}`,
+      headers: {
+        Authorization: `Bearer ${data}`,
+      },
       params: { username: user },
     });
     return response.data;
@@ -30,11 +30,14 @@ export const signUpMember = createAsyncThunk(
 
 export const login = createAsyncThunk(
   "login/Member",
-  async (data, thunkAPI) => {
-    const response = await axios.post("/auth", data);
-    const { accessToken } = response.data;
-    thunkAPI.dispatch(getMemberData(accessToken));
-    return response.data;
+  async (data, { dispatch }) => {
+    try {
+      const response = await axios.post("/auth", data);
+      const { accessToken } = response.data;
+      return dispatch(getMemberData(accessToken));
+    } catch (error) {
+      return error.data;
+    }
   }
 );
 

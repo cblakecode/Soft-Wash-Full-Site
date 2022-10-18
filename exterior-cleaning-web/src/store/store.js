@@ -4,6 +4,15 @@ import contactReducer from "./slices/contactSlice";
 import quoteReducer from "./slices/quoteSlice";
 import snackReducer from "./slices/snackSlice";
 import memberReducer from "./slices/memberSlice";
+import loggedInReducer from "./slices/loggedInSlice";
+import authReducer from "./slices/authSlice";
+import avatarReducer from "./slices/avatarSlice";
+
+const rehydrateState = () => {
+  if (localStorage.getItem("userStorage") !== null) {
+    return JSON.parse(localStorage.getItem("userStorage"));
+  }
+};
 
 const store = configureStore({
   reducer: {
@@ -11,13 +20,13 @@ const store = configureStore({
     contact: contactReducer,
     quote: quoteReducer,
     snack: snackReducer,
-<<<<<<< HEAD
     auth: authReducer,
     member: memberReducer,
+    avatar: avatarReducer,
     loggedIn: loggedInReducer,
-=======
-    member: memberReducer,
->>>>>>> parent of 9e5ab6d (refactored redux code and added ux for login)
+  },
+  preloadedState: {
+    loggedIn: rehydrateState(),
   },
 });
 

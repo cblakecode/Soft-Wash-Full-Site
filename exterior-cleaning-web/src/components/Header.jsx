@@ -1,4 +1,4 @@
-import  { Fragment, useEffect } from "react";
+import  { Fragment } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import HideOnScroll from "../Utilities/HideOnScroll";
@@ -12,26 +12,23 @@ import IconButton from "@mui/material/IconButton";
 import { useDispatch, useSelector } from "react-redux";
 import { handleContactOpen } from "../store/slices/modalSlice";
 import { handleOpenQuote } from "../store/slices/quoteSlice";
-import { getLocalData } from "../store/slices/loggedInSlice";
 import MemberAvatar from "./MemberAvatar";
 import SignUpButton from "./SignUpButton";
 
 const pages = ["About", "Services", "Area"];
 
+const iconButtonStyle = {
+  display: { xs: "flex", lg: "none" }
+}
+
+const fullButtonStyle = {
+  mx: 1, display: { xs: "none", lg: "flex" }, maxHeight: "30.75px",
+}
+
 const Header = () => {
   const dispatch = useDispatch();
-  const { isLoggedIn, persistedData } = useSelector((store) => store.loggedIn);
-  
-useEffect(() => {
-  if (isLoggedIn) {
-    const data = JSON.parse(localStorage.getItem('member'))
-    dispatch(getLocalData(data))
-  }
-}, [isLoggedIn, dispatch])
+  const { isLoggedIn } = useSelector((store) => store.loggedIn)
 
-useEffect(() => {
-  localStorage.setItem('member', JSON.stringify(persistedData));
-}, [persistedData]);
 
   return (
     <Fragment>
@@ -94,6 +91,7 @@ useEffect(() => {
               sx={{
                 display: "flex",
                 justifyContent: { xs: "flex-start", lg: "flex-end" },
+                alignItems: "center",
                 flexDirection: { xs: "row-reverse", lg: "row" },
               }}
             >
@@ -102,13 +100,13 @@ useEffect(() => {
                 endIcon={<EmailIcon />}
                 color="secondary"
                 size="small"
-                sx={{ mx: 1, display: { xs: "none", lg: "flex" } }}
+                sx={fullButtonStyle}
                 onClick={() => dispatch(handleContactOpen())}
               >
                 Contact
               </Button>
               <IconButton
-                sx={{ display: { xs: "flex", lg: "none" } }}
+                sx={iconButtonStyle}
                 color="secondary"
                 onClick={() => dispatch(handleContactOpen())}
               >
@@ -119,13 +117,13 @@ useEffect(() => {
                 endIcon={<RequestQuoteIcon />}
                 color="secondary"
                 size="small"
-                sx={{ mx: 1, display: { xs: "none", lg: "flex" } }}
+                sx={fullButtonStyle}
                 onClick={() => dispatch(handleOpenQuote())}
               >
                 Free Quote
               </Button>
               <IconButton
-                sx={{ display: { xs: "flex", lg: "none" } }}
+                sx={iconButtonStyle}
                 color="secondary"
                 onClick={() => dispatch(handleOpenQuote())}
               >

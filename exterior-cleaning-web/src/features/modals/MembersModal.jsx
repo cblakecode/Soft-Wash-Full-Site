@@ -4,7 +4,7 @@ import Modal from "@mui/material/Modal";
 import SignUp from "./membership/SignUp";
 import Login from "./membership/Login";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleIsOpen } from "../../store/slices/memberSlice";
+import { toggleIsClosed } from "../../store/slices/memberSlice";
 
 const MembersModal = () => {
 
@@ -13,7 +13,7 @@ const MembersModal = () => {
 
   return (
     <Box>
-        <Modal open={isOpen} onClose={() => dispatch(toggleIsOpen())} sx={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
+        <Modal open={isOpen} onClose={() => dispatch(toggleIsClosed())} sx={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
             <Box
                 sx={{
                 backgroundColor: "common.white",
