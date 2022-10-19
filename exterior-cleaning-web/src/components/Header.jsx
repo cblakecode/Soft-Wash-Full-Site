@@ -41,7 +41,8 @@ const Header = () => {
               sx={{
                 display: "flex",
                 justifyContent: "flex-start",
-                alignItems: "center"
+                alignItems: "center",
+                ml: "1rem",
               }}
             >
               <IconButton
@@ -86,9 +87,10 @@ const Header = () => {
             <Box
               sx={{
                 display: "flex",
-                justifyContent: { xs: "flex-start", lg: "flex-end" },
+                justifyContent: "flex-end",
                 alignItems: "center",
-                flexDirection: { xs: "row-reverse", lg: "row" },
+                flexDirection: "row",
+                mr: "1rem"
               }}
             >
               <Button

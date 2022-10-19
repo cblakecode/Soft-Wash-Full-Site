@@ -19,7 +19,8 @@ const Hero = () => {
         gridTemplateColumns: "repeat(2, 1fr)",
         justifyContent: "center",
         backgroundColor: "primary.main",
-        height: "90vh",
+        maxHeight: "90vh",
+        minHeight: "90vh"
       }}
     >
       <Box

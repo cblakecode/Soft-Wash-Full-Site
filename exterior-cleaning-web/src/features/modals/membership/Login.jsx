@@ -5,6 +5,7 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
+import LoadingButton from "../../ui/LoadingButton";
 import { useDispatch, useSelector } from "react-redux";
 import { handleDataChange, toggleIsClosed, signUpOpen } from "../../../store/slices/memberSlice";
 import { login } from "../../../store/actions/memberCRUD";
@@ -63,7 +64,7 @@ const Login = () => {
             sx={{ display: "flex", justifyContent: "flex-end" }}
           >
             <Button variant="text" onClick={() => dispatch(toggleIsClosed())}>Close</Button>
-            <Button variant="contained" type="submit">Login</Button>
+            <LoadingButton name="Login" variant="contained" type="submit" />
           </Grid>
         </Grid>
       </Stack>

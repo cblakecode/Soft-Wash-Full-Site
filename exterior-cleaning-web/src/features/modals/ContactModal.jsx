@@ -6,15 +6,15 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import SnackAlert from "../ui/SnackAlert";
-import CircularProgress from "@mui/material/CircularProgress";
 import { useSelector, useDispatch } from "react-redux";
 import { handleContactClose } from "../../store/slices/modalSlice";
 import { handleInputChange } from "../../store/slices/contactSlice";
 import sendContact from "../../store/actions/sendContact";
+import LoadingButton from "../ui/LoadingButton";
 
 const Modalcontact = () => {
   const { contactOpen } = useSelector((store) => store.modal);
-  const { formData, isLoading } = useSelector(
+  const { formData } = useSelector(
     (store) => store.contact
   );
   const dispatch = useDispatch();
@@ -118,28 +118,7 @@ const Modalcontact = () => {
               </Button>
                 </Grid>
               <Grid item xs={6} sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Box sx={{ position: "relative" }}>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    type="submit"
-                    disabled={isLoading}
-                  >
-                    Send
-                  </Button>
-                  {isLoading && (
-                    <CircularProgress
-                      size={24}
-                      sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        mt: "-12px",
-                        ml: "-12px",
-                      }}
-                    />
-                  )}
-                </Box>
+                <LoadingButton name="Send" variant="contained" type="submit" />
               </Grid>
           </Grid>
         </Box>

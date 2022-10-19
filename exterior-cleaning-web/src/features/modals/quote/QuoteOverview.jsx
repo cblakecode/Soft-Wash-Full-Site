@@ -4,8 +4,9 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
+import LoadingButton from "../../ui/LoadingButton";
+import moment from "moment";
 import sendQuote from "../../../store/actions/sendQuote";
 import {
   handleCloseQuote,
@@ -127,14 +128,13 @@ const QuoteOverview = () => {
           </Button>
         </Grid>
         <Grid item>
-          <Button
+          <LoadingButton
+            name="Send"
             type="button"
             endIcon={<SendRoundedIcon />}
             variant="contained"
             onClick={() => dispatch(sendQuote({ ...personal, ...property }))}
-          >
-            Send
-          </Button>
+          />
         </Grid>
       </Grid>
     </Grid>

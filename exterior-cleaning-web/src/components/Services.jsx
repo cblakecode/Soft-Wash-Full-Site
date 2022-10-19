@@ -43,10 +43,13 @@ const Services = () => {
   return (
     <Box
       sx={{
-        height: "auto",
+        maxHeight: "90vh",
+        minHeight: "90vh",
         width: "100%",
         backgroundColor: "grey.600",
         p: "1rem",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <Typography
@@ -61,10 +64,11 @@ const Services = () => {
         container
         spacing={2}
         sx={{
-          height: "100%",
+          minHeight: "100%",
           display: "flex",
           flexDirection: "row",
           alignItems: "stretch",
+          mt: "3rem"
         }}
       >
         {listServices.map((item) => {

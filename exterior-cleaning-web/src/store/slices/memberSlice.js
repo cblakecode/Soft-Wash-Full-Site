@@ -65,7 +65,7 @@ const memberSlice = createSlice({
       state.isLoading = true;
     },
     [signUpMember.fulfilled]: (state, action) => {
-      state.isLoading = false;
+      return initialState;
     },
     [signUpMember.rejected]: (state, action) => {
       state.isLoading = false;
@@ -77,9 +77,7 @@ const memberSlice = createSlice({
       state.isLoading = false;
     },
     [getMemberData.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.memberData = initialState.memberData;
-      state.confirmPass = "";
+      return initialState;
     },
     [getMemberData.rejected]: (state, action) => {
       state.isLoading = false;

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import sendQuote from "../actions/sendQuote";
 import sendContact from "../actions/sendContact";
-import { signUpMember } from "../actions/memberCRUD";
+import { signUpMember, getMemberData } from "../actions/memberCRUD";
 
 const initialState = {
   isError: false,
@@ -49,6 +49,16 @@ const snackSlice = createSlice({
     },
     [signUpMember.rejected]: (state, action) => {
       state.alertMessage = action.payload;
+      state.isError = true;
+      state.isOpen = true;
+    },
+    [getMemberData.fulfilled]: (state, action) => {
+      state.alertMessage = "Welcome Back!";
+      state.isSuccess = true;
+      state.isOpen = true;
+    },
+    [getMemberData.rejected]: (state, action) => {
+      state.alertMessage = "Login Rejected";
       state.isError = true;
       state.isOpen = true;
     },

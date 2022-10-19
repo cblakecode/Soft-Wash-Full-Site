@@ -1,5 +1,4 @@
-import React from "react";
-import { closeAnchorElUser, setAnchorElUser, toggleSettings } from "../store/slices/avatarSlice";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../store/slices/loggedInSlice";
 import Box from "@mui/material/Box";
@@ -8,17 +7,20 @@ import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import Typography from '@mui/material/Typography'
-
+import Divider from "@mui/material/Divider"
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import LogoutIcon from '@mui/icons-material/Logout';
+import PaymentIcon from '@mui/icons-material/Payment';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 const MemberAvatar = () => {
-
+const [anchorEl, setAnchorEl] = useState(null);
 const dispatch = useDispatch();
 
 const { persistedData } = useSelector((store) => store.loggedIn);
 const { memberData } = useSelector((store) => store.member);
-const { anchorElUser, settings } = useSelector((store) => store.avatar);
 const name = persistedData.name || memberData.name
 
 const stringAvatar = (name) => {
@@ -31,13 +33,16 @@ const stringAvatar = (name) => {
 }
 
 const handleOpen = (e) => {
-  dispatch(setAnchorElUser(e.currentTarget))
-  dispatch(toggleSettings())
+  setAnchorEl(e.currentTarget);
 }
 
 const handleClose = () => {
-  dispatch(closeAnchorElUser());
-  dispatch(toggleSettings());
+  setAnchorEl(null);
+}
+
+const handleLogout = () => {
+  dispatch(logout())
+  window.location.reload();
 }
 
   return (
@@ -47,16 +52,26 @@ const handleClose = () => {
         <Avatar {...stringAvatar(name)} />
         </IconButton>
       </Tooltip>
-      <Menu id="user-menu" anchorEl={anchorElUser} keepMounted open={settings} onClose={handleClose} 
-        anchorOrigin={{vertical: 'bottom', horizontal: 'right'}} transformOrigin={{vertical: 'bottom', horizontal: 'right'}} sx={{mt: "3.25rem"}}>
+      <Menu id="user-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose} 
+        anchorOrigin={{vertical: 'bottom', horizontal: 'right'}} transformOrigin={{vertical: 'bottom', horizontal: 'right'}} sx={{mt: "3.25rem", ml: "1rem"}}>
         <MenuItem onClick={() => dispatch(logout())}>
-          <Typography variant="body1" color="initial" textAlign="center">Account</Typography>
+          <ListItemIcon>
+            <AccountCircleIcon color="primary" />
+          </ListItemIcon>
+          <ListItemText>Account</ListItemText>
         </MenuItem>
         <MenuItem onClick={() => dispatch(logout())}>
-          <Typography variant="body1" color="initial" textAlign="center">Payment</Typography>
+          <ListItemIcon>
+            <PaymentIcon color="success"/>
+          </ListItemIcon>
+          <ListItemText>Payment</ListItemText>
         </MenuItem>
-        <MenuItem onClick={() => dispatch(logout())}>
-          <Typography variant="body1" color="error" textAlign="center">Logout</Typography>
+        <Divider />
+        <MenuItem onClick={handleLogout}>
+          <ListItemIcon>
+            <LogoutIcon color="error" />
+          </ListItemIcon>
+          <ListItemText>Logout</ListItemText>
         </MenuItem>
       </Menu>
     </Box>

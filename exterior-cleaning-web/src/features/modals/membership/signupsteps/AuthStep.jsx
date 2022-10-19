@@ -9,6 +9,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import LoadingButton from '../../../ui/LoadingButton';
 import { handleDataChange, toggleIsClosed, prevStep, handleConfirmChange, showPassword} from '../../../../store/slices/memberSlice';
 import { signUpMember } from '../../../../store/actions/memberCRUD';
 
@@ -53,7 +54,7 @@ const AuthStep = () => {
         </Grid>
           <Grid item xs={6} sx={{display: 'flex', justifyContent: 'flex-end'}}>
             <Button type='button' onClick={() => dispatch(prevStep())}>Prev</Button>
-            <Button type='submit' variant='contained'>Submit</Button>
+            <LoadingButton type="submit" name="Sign In" variant="contained" />
           </Grid>
       </Grid>
     </Box>

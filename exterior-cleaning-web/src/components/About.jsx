@@ -18,9 +18,11 @@ const About = () => {
     <Box
       sx={{
         width: "100%",
+        maxHeight: "90vh",
         height: "auto",
         borderBottom: "1px solid black",
         pb: "1.5rem",
+        backgroundColor: "#fff"
       }}
     >
       <Grid container spacing={8}>

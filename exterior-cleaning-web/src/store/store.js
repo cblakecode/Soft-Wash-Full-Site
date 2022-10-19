@@ -6,7 +6,6 @@ import snackReducer from "./slices/snackSlice";
 import memberReducer from "./slices/memberSlice";
 import loggedInReducer from "./slices/loggedInSlice";
 import authReducer from "./slices/authSlice";
-import avatarReducer from "./slices/avatarSlice";
 
 const rehydrateState = () => {
   if (localStorage.getItem("userStorage") !== null) {
@@ -22,7 +21,6 @@ const store = configureStore({
     snack: snackReducer,
     auth: authReducer,
     member: memberReducer,
-    avatar: avatarReducer,
     loggedIn: loggedInReducer,
   },
   preloadedState: {
