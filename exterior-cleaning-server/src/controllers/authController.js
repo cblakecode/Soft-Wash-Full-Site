@@ -36,8 +36,32 @@ const signup = asyncHandler(async (req, res) => {
 
   const member = await Member.create(memberObject);
 
+  const accessToken = jwt.sign(
+    {
+      UserInfo: {
+        username: member.username,
+        roles: member.roles,
+      },
+    },
+    process.env.ACCESS_TOKEN_SECRET,
+    { expiresIn: "10s" }
+  );
+
+  const refreshToken = jwt.sign(
+    { username: member.username },
+    process.env.REFRESH_TOKEN_SECRET,
+    { expiresIn: "1d" }
+  );
+
+  res.cookie("jwt", refreshToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
+
   if (member) {
-    res.status(201).json({ message: `user ${username} created` });
+    res.status(201).json({ message: `user ${username} created`, accessToken });
   } else {
     res.status(400).json({ message: "Invalid member data received" });
   }
@@ -136,7 +160,7 @@ const logout = asyncHandler(async (req, res) => {
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(204); //no content
   res.clearCookie("jwt", { httpOnly: true, sameSite: "none", secure: true });
-  res.json({ message: "cookie cleared" });
+  res.json({ message: "Logged Out, Goodbye!" });
 });
 
 module.exports = {

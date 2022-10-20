@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../store/slices/loggedInSlice";
+import {logout} from "../store/actions/memberCRUD";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from '@mui/material/Tooltip'
@@ -40,11 +40,6 @@ const handleClose = () => {
   setAnchorEl(null);
 }
 
-const handleLogout = () => {
-  dispatch(logout())
-  window.location.reload();
-}
-
   return (
     <Box>
       <Tooltip title="Open Settings">
@@ -67,7 +62,7 @@ const handleLogout = () => {
           <ListItemText>Payment</ListItemText>
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleLogout}>
+        <MenuItem onClick={() => dispatch(logout())}>
           <ListItemIcon>
             <LogoutIcon color="error" />
           </ListItemIcon>

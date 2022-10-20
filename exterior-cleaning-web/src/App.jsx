@@ -1,15 +1,13 @@
-import React from "react";
+import { Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
 import Header from "./components/Header";
-import Hero from "./components/Hero";
-import Services from "./components/Services";
-import About from "./components/About";
-import Footer from "./components/Footer";
-import ContactModal from "./features/modals/ContactModal";
-import QuoteModal from "./features/modals/QuoteModal";
-import MembersModal from "./features/modals/MembersModal";
+import Home from "./pages/Home";
+import Area from "./pages/Area";
+import Payment from "./pages/Payment";
+import Services from "./pages/Services";
+import Account from "./pages/Account";
+
 
 function App() {
   const theme = createTheme({
@@ -32,19 +30,19 @@ function App() {
   });
 
   return (
+    <>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box>
-        <Header />
-        <Hero />
-        <Services />
-        <About />
-        <Footer />
-        <ContactModal />
-        <QuoteModal />
-        <MembersModal />
-      </Box>
+    <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/area" element={<Area />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/account" element={<Account />} />
+      </Routes>
     </ThemeProvider>
+    </>
   );
 }
 

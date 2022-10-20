@@ -3,7 +3,6 @@ import { signUpMember, login, getMemberData } from "../actions/memberCRUD";
 
 const initialState = {
   memberData: {
-    id: "",
     username: "",
     password: "",
     name: "",
@@ -43,10 +42,7 @@ const memberSlice = createSlice({
       state.isSignUpOpen = true;
     },
     toggleIsClosed: (state, action) => {
-      state.isOpen = false;
-      state.isLoginOpen = false;
-      state.isSignUpOpen = false;
-      state.activeStep = 0;
+      return initialState;
     },
     loginOpen: (state, action) => {
       state.isLoginOpen = true;
@@ -61,7 +57,7 @@ const memberSlice = createSlice({
     },
   },
   extraReducers: {
-    [signUpMember.loading]: (state, action) => {
+    [signUpMember.pending]: (state, action) => {
       state.isLoading = true;
     },
     [signUpMember.fulfilled]: (state, action) => {
@@ -69,6 +65,9 @@ const memberSlice = createSlice({
     },
     [signUpMember.rejected]: (state, action) => {
       state.isLoading = false;
+      state.memberData.username = initialState.memberData.username;
+      state.memberData.password = initialState.memberData.password;
+      state.confirmPass = initialState.confirmPass;
     },
     [login.pending]: (state, action) => {
       state.isLoading = true;

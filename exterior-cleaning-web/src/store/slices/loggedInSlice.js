@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getMemberData, signUpMember } from "../actions/memberCRUD";
+import { getMemberData, logout } from "../actions/memberCRUD";
 
 const initialState = {
   persistedData: {},
@@ -9,28 +9,20 @@ const initialState = {
 const loggedInSlice = createSlice({
   name: "loggedIn",
   initialState,
-  reducers: {
-    logout: (state, action) => {
-      localStorage.removeItem("userStorage");
-      state = initialState;
-    },
-  },
+  reducers: {},
   extraReducers: {
     [getMemberData.fulfilled]: (state, action) => {
       state.isLoggedIn = true;
       state.persistedData = action.payload;
       localStorage.setItem("userStorage", JSON.stringify(state));
     },
-    [signUpMember.fulfilled]: (state, action) => {
-      state.isLoggedIn = true;
-      state.persistedData = {
-        ...state.member.memberData,
-        password: "",
-      };
-      localStorage.setItem("userStorage", JSON.stringify(state));
+    [logout.fulfilled]: (state, action) => {
+      localStorage.removeItem("userStorage");
+      state = initialState;
+      window.location.reload();
     },
+    [logout.rejected]: (state, action) => {},
   },
 });
 
-export const { logout } = loggedInSlice.actions;
 export default loggedInSlice.reducer;

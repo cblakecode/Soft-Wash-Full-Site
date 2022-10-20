@@ -18,25 +18,26 @@ export const getMemberData = createAsyncThunk(
 
 export const signUpMember = createAsyncThunk(
   "create/Member",
-  async (data, thunkAPI) => {
+  async (data, { rejectWithValue, dispatch }) => {
     try {
       const response = await axios.post("/auth/signup", data);
-      return response.data;
-    } catch (err) {
-      return err.data;
+      const { accessToken } = response.data;
+      return dispatch(getMemberData(accessToken));
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
     }
   }
 );
 
 export const login = createAsyncThunk(
   "login/Member",
-  async (data, { dispatch }) => {
+  async (data, { dispatch, rejectWithValue }) => {
     try {
       const response = await axios.post("/auth", data);
       const { accessToken } = response.data;
       return dispatch(getMemberData(accessToken));
     } catch (error) {
-      return error.data;
+      return rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -55,5 +56,17 @@ export const deleteMember = createAsyncThunk(
   async (data, thunkAPI) => {
     const response = await axios.delete("/members", data.id);
     return response.data;
+  }
+);
+
+export const logout = createAsyncThunk(
+  "logout/Member",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.post("/auth/logout");
+      return response.data.message;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
   }
 );

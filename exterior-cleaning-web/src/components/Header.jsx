@@ -1,4 +1,5 @@
 import  { Fragment } from "react";
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import HideOnScroll from "../Utilities/HideOnScroll";
 import HouseIcon from "@mui/icons-material/House";
@@ -14,7 +15,8 @@ import { handleOpenQuote } from "../store/slices/quoteSlice";
 import MemberAvatar from "./MemberAvatar";
 import SignUpButton from "./SignUpButton";
 
-const pages = ["About", "Services", "Area"];
+const pages = ["payment", "services", "area"];
+let key = 0;
 
 const iconButtonStyle = {
   display: { xs: "flex", lg: "none" }
@@ -76,12 +78,13 @@ const Header = () => {
               sx={{ display: "flex", flexGrow: 2, justifyContent: "center" }}
             >
               {pages.map((page) => (
-                <Button
-                  key={page}
-                  sx={{ my: 2, color: "common.white", display: "block" }}
-                >
-                  {page}
-                </Button>
+                <Link to={`/${page}`} key={key++}>
+                  <Button
+                    sx={{ my: 2, color: "common.white", display: "block" }}
+                  >
+                    {page}
+                  </Button>
+                </Link>
               ))}
             </Box>
             <Box
