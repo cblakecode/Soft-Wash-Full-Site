@@ -7,7 +7,6 @@ body {
   padding: 0;
 }
 
-#root {
-  margin-inline: 1rem;
-  box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.3), -3px -3px 3px 1px rgba(0, 0, 0, 0.3);
+div {
+  border-radius: 12px;
 }

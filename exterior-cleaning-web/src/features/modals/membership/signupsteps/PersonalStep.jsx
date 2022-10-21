@@ -43,10 +43,10 @@ const handleSubmit = (e) => {
                     <TextField required name="address" label="Enter Property Address (ex. 123 Cleaning st, Mount Pleasant 29486)" value={address} onChange={handleChange} inputProps={{pattern: '^\\d+\\s\\w+[, ]\\D+\\s\\d{5,6}$'}} />
                     <Grid container>
                         <Grid item xs={6}>
-                            <Button variant='outlined' onClick={handleClose}>Close</Button>
+                            <Button variant='text' onClick={handleClose}>Close</Button>
                         </Grid>
                         <Grid item xs={6} sx={{display: "flex", justifyContent: "flex-end", columnGap: "1rem"}}>
-                            <Button size='large' onClick={handleLogin}>Login</Button>
+                            <Button variant='outlined' onClick={handleLogin}>Login</Button>
                             <Button variant='contained' type='submit'>Next</Button>
                         </Grid>
                     </Grid>

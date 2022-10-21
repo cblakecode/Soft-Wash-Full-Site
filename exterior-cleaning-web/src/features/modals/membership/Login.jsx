@@ -53,17 +53,17 @@ const Login = () => {
           </Stack>
         <Grid container rowSpacing={1}>
           <Grid item xs={12}>
-            <Typography textAlign="left" variant="subtitle2">Not A Member Yet?</Typography>
+            <Typography textAlign="right" variant="subtitle2" sx={{mr: "4.5rem"}}>Not A Member Yet?</Typography>
           </Grid>
           <Grid item xs={6}>
-            <Button variant="outlined" type='button' onClick={() => dispatch(signUpOpen())}>Sign Up</Button>
+            <Button variant="text" onClick={() => dispatch(toggleIsClosed())}>Close</Button>
           </Grid>
           <Grid
             item
             xs={6}
             sx={{ display: "flex", justifyContent: "flex-end" }}
           >
-            <Button variant="text" onClick={() => dispatch(toggleIsClosed())}>Close</Button>
+            <Button variant="outlined" type='button' onClick={() => dispatch(signUpOpen())} sx={{mr: "1rem"}}>Sign Up</Button>
             <LoadingButton name="Login" variant="contained" type="submit" />
           </Grid>
         </Grid>

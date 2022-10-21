@@ -1,5 +1,6 @@
 import  { Fragment } from "react";
 import { Link } from "react-router-dom";
+import NavbarPages from "./NavbarPages";
 import AppBar from "@mui/material/AppBar";
 import HideOnScroll from "../Utilities/HideOnScroll";
 import HouseIcon from "@mui/icons-material/House";
@@ -15,11 +16,9 @@ import { handleOpenQuote } from "../store/slices/quoteSlice";
 import MemberAvatar from "./MemberAvatar";
 import SignUpButton from "./SignUpButton";
 
-const pages = ["payment", "services", "area"];
-let key = 0;
 
 const iconButtonStyle = {
-  display: { xs: "flex", lg: "none" }
+  display: {  xs: "none" ,sm: "flex", lg: "none" }
 }
 
 const fullButtonStyle = {
@@ -35,32 +34,34 @@ const Header = () => {
     <Fragment>
       <HideOnScroll>
         <AppBar position="sticky" sx={{
-              display: "grid",
+              display: "inline-grid",
               gridTemplateColumns: "repeat(3, 1fr)",
-              m: '0'
+              m: '0',
+              px: "1rem",
+              borderRadius: "12px"
             }}>
             <Box
               sx={{
                 display: "flex",
-                justifyContent: "flex-start",
+                justifyContent: {xs: "center", md: "flex-start"},
                 alignItems: "center",
-                ml: "1rem",
               }}
             >
-              <IconButton
-                href="/"
-                color="inherit"
-                size="large"
-                sx={{ p: 0, mr: "1rem" }}
-              >
-                <HouseIcon fontSize="inherit" />
-              </IconButton>
+              <Link to={"/"} style={{color: "inherit"}}>
+                <IconButton
+                  color="inherit"
+                  size="large"
+                  sx={{ p: 0, mr: "1rem" }}
+                >
+                  <HouseIcon fontSize="inherit" />
+                </IconButton>
+              </Link>
               <Typography
                 variant="h6"
                 noWrap
                 overflow="none"
-                component="a"
-                href="/"
+                component={Link}
+                to={"/"}
                 sx={{
                   mr: 2,
                   display: { xs: "none", lg: "flex" },
@@ -74,26 +75,13 @@ const Header = () => {
                 Exterior Cleaning of SC
               </Typography>
             </Box>
-            <Box
-              sx={{ display: "flex", flexGrow: 2, justifyContent: "center" }}
-            >
-              {pages.map((page) => (
-                <Link to={`/${page}`} key={key++}>
-                  <Button
-                    sx={{ my: 2, color: "common.white", display: "block" }}
-                  >
-                    {page}
-                  </Button>
-                </Link>
-              ))}
-            </Box>
+            <NavbarPages />
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "flex-end",
                 alignItems: "center",
                 flexDirection: "row",
-                mr: "1rem"
               }}
             >
               <Button

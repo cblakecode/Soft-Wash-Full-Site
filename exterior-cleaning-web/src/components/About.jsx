@@ -18,14 +18,13 @@ const About = () => {
     <Box
       sx={{
         width: "100%",
-        maxHeight: "90vh",
-        height: "auto",
-        borderBottom: "1px solid black",
+        minHeight: "90vh",
+        mt: "1rem",
         pb: "1.5rem",
         backgroundColor: "#fff"
       }}
     >
-      <Grid container spacing={8}>
+      <Grid container spacing={8} sx={{"&.MuiGrid-root": {mt: "0"}}}>
         <Grid item xs={12}>
           <Typography variant="h3" textAlign="center" fontWeight="500">
             About Us

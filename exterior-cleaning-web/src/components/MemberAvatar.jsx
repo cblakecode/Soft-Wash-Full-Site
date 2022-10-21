@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {logout} from "../store/actions/memberCRUD";
+import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from '@mui/material/Tooltip'
@@ -40,6 +41,8 @@ const handleClose = () => {
   setAnchorEl(null);
 }
 
+
+
   return (
     <Box>
       <Tooltip title="Open Settings">
@@ -49,20 +52,20 @@ const handleClose = () => {
       </Tooltip>
       <Menu id="user-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose} 
         anchorOrigin={{vertical: 'bottom', horizontal: 'right'}} transformOrigin={{vertical: 'bottom', horizontal: 'right'}} sx={{mt: "3.25rem", ml: "1rem"}}>
-        <MenuItem onClick={() => dispatch(logout())}>
+        <MenuItem component={Link} to={"/account"} onClick={handleClose}>
           <ListItemIcon>
             <AccountCircleIcon color="primary" />
           </ListItemIcon>
           <ListItemText>Account</ListItemText>
         </MenuItem>
-        <MenuItem onClick={() => dispatch(logout())}>
+        <MenuItem component={Link} to={"/payment"} onClick={handleClose}>
           <ListItemIcon>
             <PaymentIcon color="success"/>
           </ListItemIcon>
           <ListItemText>Payment</ListItemText>
         </MenuItem>
         <Divider />
-        <MenuItem onClick={() => dispatch(logout())}>
+        <MenuItem component={Link} to={"/"} onClick={() => dispatch(logout())}>
           <ListItemIcon>
             <LogoutIcon color="error" />
           </ListItemIcon>

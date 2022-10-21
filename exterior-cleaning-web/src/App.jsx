@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Area from "./pages/Area";
@@ -30,7 +31,7 @@ function App() {
   });
 
   return (
-    <>
+    <Container maxWidth="xl">
     <ThemeProvider theme={theme}>
       <CssBaseline />
     <Header />
@@ -42,7 +43,7 @@ function App() {
         <Route path="/account" element={<Account />} />
       </Routes>
     </ThemeProvider>
-    </>
+    </Container>
   );
 }
 
