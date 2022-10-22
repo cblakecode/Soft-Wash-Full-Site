@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import Card from "@mui/material/Card";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import Paper from "@mui/material/Paper";
@@ -33,10 +34,10 @@ const Hero = () => {
             justifyContent: "center",
           }}
         >
-          <Typography variant="h1" fontWeight="bold" color="common.white">
+          <Typography variant="h1" fontWeight="bold" color="common.white" textAlign="center" fontSize={{xs: "11vw", md: "6rem"}}>
             Got Mildew!?
           </Typography>
-          <Typography variant="h4" fontWeight="400" color="common.white">
+          <Typography variant="h5" color="common.white" textAlign="center" fontSize={{xs: "4vw", md: "2rem"}} sx={{mt: "1rem"}} >
             You've Come To The Right Place.
           </Typography>
           <Button
@@ -48,12 +49,15 @@ const Hero = () => {
             sx={{
               width: "25%",
               mt: "1rem",
-              display: "flex",
               flexWrap: "nowrap",
+              display: {xs: "none", sm: "flex"}
             }}
           >
-            Free Quote
+            Quote
           </Button>
+          <IconButton sx={{display: {xs: "flex", sm: "none"}, mt: "1rem"}} size="large" color="secondary" >
+            <RequestQuoteIcon fontSize="inherit"/>
+          </IconButton>
         </Box>
         <Box
           sx={{

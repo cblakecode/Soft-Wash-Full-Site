@@ -64,9 +64,11 @@ const About = () => {
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
+            px: {xs: "1rem", md: 0},
+            textAlign: {xs: "center", md: "left"}
           }}
         >
-          <Typography variant="h6" textAlign="left">
+          <Typography variant="h6">
             For over a decade, we have provided top notch care to homes and
             businesses throughout the Lowcountry. We can do it all, from
             graffiti, rust, and mold removal to cleaning your home, gutters,
