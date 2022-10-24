@@ -9,7 +9,6 @@ import Payment from "./pages/Payment";
 import Services from "./pages/Services";
 import Account from "./pages/Account";
 
-
 function App() {
   const theme = createTheme({
     palette: {
@@ -25,24 +24,25 @@ function App() {
         main: "#eec643",
       },
       background: {
-        default: "#0d21a1"
-      }
+        default: "#0d21a1",
+      },
     },
   });
 
   return (
     <Container maxWidth="xl">
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-    <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/area" element={<Area />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/account" element={<Account />} />
-      </Routes>
-    </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Header />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/area" element={<Area />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/account" element={<Account />} />
+        </Routes>
+      </ThemeProvider>
     </Container>
   );
 }
