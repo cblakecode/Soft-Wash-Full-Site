@@ -3,9 +3,12 @@ import Avatar from "@mui/material/Avatar";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import AccountOptions from "../features/modals/AccountOptions";
+import { accountOptions } from "../store/slices/memberSlice";
+import { useGetMemberQuery } from "../store/api/memberApiSlice";
 
 const textStyles = {
   fontSize: "3rem",
@@ -19,14 +22,12 @@ const labelStyles = {
 };
 
 const Account = () => {
-  const { persistedData } = useSelector((store) => store.loggedIn);
-  const { memberData } = useSelector((store) => store.member);
-  const name = persistedData.name || memberData.name;
+  const { data: user } = useGetMemberQuery();
+  const dispatch = useDispatch();
 
-  let numRegex = persistedData.phone.replace(
-    /(\d{3})(\d{3})(\d+)/,
-    "($1) $2-$3"
-  );
+  const name = user?.name || "John Doe";
+
+  let numRegex = user.phone.replace(/(\d{3})(\d{3})(\d+)/, "($1) $2-$3");
 
   const stringAvatar = (name) => {
     const bigName = name?.toUpperCase();
@@ -52,6 +53,7 @@ const Account = () => {
         justifyContent: "space-between",
       }}
     >
+      <AccountOptions />
       <Grid item xs={12} justifyContent="center" display="flex" my="2rem">
         <Tooltip title={name}>
           <Box
@@ -63,6 +65,7 @@ const Account = () => {
           >
             <Avatar
               {...stringAvatar(name)}
+              alt="John Doe"
               sx={{ width: "100%", py: "50%", fontSize: "7vw" }}
             />
           </Box>
@@ -81,7 +84,7 @@ const Account = () => {
             textAlign="center"
             sx={textStyles}
           >
-            {persistedData.username}
+            {user.username}
           </Typography>
         </Grid>
         <Grid item xs={12} lg={6}>
@@ -91,7 +94,7 @@ const Account = () => {
         </Grid>
         <Grid item xs={12} lg={6}>
           <Typography sx={textStyles} textAlign="center">
-            {persistedData.name}
+            {user.name}
           </Typography>
         </Grid>
         <Grid item xs={12} lg={6}>
@@ -102,7 +105,7 @@ const Account = () => {
             sx={{ ...textStyles, fontSize: { xs: "5vw", md: "3rem" } }}
             textAlign="center"
           >
-            {persistedData.email}
+            {user.email}
           </Typography>
         </Grid>
         <Grid item xs={12} lg={6}>
@@ -118,23 +121,38 @@ const Account = () => {
         </Grid>
         <Grid item xs={12} lg={6}>
           <Typography sx={textStyles} textAlign="center">
-            {persistedData.address}
+            {user.address}
           </Typography>
         </Grid>
       </Grid>
       <Grid item container px="1rem" mt="1rem" columnSpacing={4}>
         <Grid item xs={4}>
-          <Button variant="contained" color="success" fullWidth>
+          <Button
+            variant="contained"
+            color="success"
+            fullWidth
+            onClick={() => dispatch(accountOptions("upgrade"))}
+          >
             Upgrade
           </Button>
         </Grid>
         <Grid item xs={4} display="flex" justifyContent="center">
-          <Button variant="contained" color="primary" fullWidth>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={() => dispatch(accountOptions("update"))}
+          >
             Edit
           </Button>
         </Grid>
         <Grid item xs={4} display="flex" justifyContent="flex-end">
-          <Button variant="contained" color="error" fullWidth>
+          <Button
+            variant="contained"
+            color="error"
+            fullWidth
+            onClick={() => dispatch(accountOptions("delete"))}
+          >
             Delete
           </Button>
         </Grid>

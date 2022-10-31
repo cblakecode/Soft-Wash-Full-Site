@@ -1,5 +1,8 @@
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { handleContactOpen } from "../store/slices/modalSlice";
+import { handleOpenQuote } from "../store/slices/quoteSlice";
 import NavbarPages from "./NavbarPages";
 import ContactModal from "../features/modals/ContactModal";
 import QuoteModal from "../features/modals/QuoteModal";
@@ -13,11 +16,8 @@ import Button from "@mui/material/Button";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import EmailIcon from "@mui/icons-material/Email";
 import IconButton from "@mui/material/IconButton";
-import { useDispatch, useSelector } from "react-redux";
-import { handleContactOpen } from "../store/slices/modalSlice";
-import { handleOpenQuote } from "../store/slices/quoteSlice";
-import MemberAvatar from "./MemberAvatar";
-import SignUpButton from "./SignUpButton";
+import UserNav from "./UserNav";
+// import { useLazyGetMemberQuery } from "../store/api/memberApiSlice";
 
 const iconButtonStyle = {
   display: { xs: "none", sm: "flex", lg: "none" },
@@ -30,8 +30,16 @@ const fullButtonStyle = {
 };
 
 const Header = () => {
+  // const [getMember] = useLazyGetMemberQuery();
+  // const { token, user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector((store) => store.loggedIn);
+
+  // useEffect(() => {
+  //   if (token && user?.username) {
+  //     console.log(user.username);
+  //     getMember(user.username);
+  //   }
+  // }, [token, user, getMember]);
 
   return (
     <Fragment>
@@ -124,7 +132,7 @@ const Header = () => {
             >
               <RequestQuoteIcon />
             </IconButton>
-            {isLoggedIn ? <MemberAvatar /> : <SignUpButton />}
+            <UserNav />
           </Box>
         </AppBar>
       </HideOnScroll>

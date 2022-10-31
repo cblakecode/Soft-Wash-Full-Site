@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { signUpMember, login, getMemberData } from "../actions/memberCRUD";
 
 const initialState = {
   memberData: {
@@ -13,6 +12,7 @@ const initialState = {
   confrimPass: "",
   activeStep: 0,
   isOpen: false,
+  accountOpen: null,
   isLoginOpen: false,
   isSignUpOpen: false,
   togglePassView: false,
@@ -55,33 +55,11 @@ const memberSlice = createSlice({
         ? (state.togglePassView = false)
         : (state.togglePassView = true);
     },
-  },
-  extraReducers: {
-    [signUpMember.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [signUpMember.fulfilled]: (state, action) => {
-      return initialState;
-    },
-    [signUpMember.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.memberData.username = initialState.memberData.username;
-      state.memberData.password = initialState.memberData.password;
-      state.confirmPass = initialState.confirmPass;
-    },
-    [login.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [login.rejected]: (state, action) => {
-      state.isLoading = false;
-    },
-    [getMemberData.fulfilled]: (state, action) => {
-      return initialState;
-    },
-    [getMemberData.rejected]: (state, action) => {
-      state.isLoading = false;
+    accountOptions: (state, action) => {
+      state.accountOpen = action.payload;
     },
   },
+  extraReducers: {},
 });
 
 export const {
@@ -94,5 +72,6 @@ export const {
   loginOpen,
   signUpOpen,
   showPassword,
+  accountOptions,
 } = memberSlice.actions;
 export default memberSlice.reducer;

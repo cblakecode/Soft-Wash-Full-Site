@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { apiSlice } from "./api/apiSlice";
 import modalReducer from "./slices/modalSlice";
 import contactReducer from "./slices/contactSlice";
 import quoteReducer from "./slices/quoteSlice";
@@ -15,6 +16,7 @@ const rehydrateState = () => {
 
 const store = configureStore({
   reducer: {
+    [apiSlice.reducerPath]: apiSlice.reducer,
     modal: modalReducer,
     contact: contactReducer,
     quote: quoteReducer,
@@ -23,6 +25,9 @@ const store = configureStore({
     member: memberReducer,
     loggedIn: loggedInReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
+  devTools: true,
   preloadedState: {
     loggedIn: rehydrateState(),
   },

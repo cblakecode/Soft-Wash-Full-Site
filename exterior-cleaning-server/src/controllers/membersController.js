@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 // @route GET /members
 // @access Private
 const getMember = asyncHandler(async (req, res) => {
-  const username = req.query.username;
+  const username = req.params.username;
 
   const member = await Member.findOne({ username })
     .select("-password")
@@ -24,14 +24,14 @@ const getMember = asyncHandler(async (req, res) => {
 // @route PATCH /members
 // @access Private
 const updateMember = asyncHandler(async (req, res) => {
-  const { id, username, subscribed, password, name, email, phone, address } =
+  const { _id, username, subscribed, password, name, email, phone, address } =
     req.body;
 
-  if (!id || !username || typeof subscribed !== "boolean") {
+  if (!_id || !username || !password) {
     return res.status(400).json({ message: "all fields are required" });
   }
-
-  const member = await Member.findById(id).exec();
+  console.log("hello");
+  const member = await Member.findById(_id).exec();
 
   if (!member) {
     return res.status(400).json({ message: "member not found" });
@@ -39,7 +39,7 @@ const updateMember = asyncHandler(async (req, res) => {
 
   const duplicate = await Member.findOne({ username }).lean().exec();
 
-  if (duplicate && duplicate?._id.toString() !== id) {
+  if (duplicate && duplicate?._id.toString() !== _id) {
     return res.status(409).json({ message: "Duplicate username" });
   }
 

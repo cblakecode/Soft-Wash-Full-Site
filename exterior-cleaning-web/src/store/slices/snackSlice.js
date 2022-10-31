@@ -1,10 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import sendQuote from "../actions/sendQuote";
 import sendContact from "../actions/sendContact";
-import { signUpMember, login, logout } from "../actions/memberCRUD";
 
 const initialState = {
-  isError: false,
   isSuccess: false,
   isOpen: false,
   alertMessage: "",
@@ -15,10 +13,18 @@ const snackSlice = createSlice({
   initialState,
   reducers: {
     snackClose: (state, action) => {
-      state.isError = false;
       state.isSuccess = false;
       state.isOpen = false;
       state.alertMessage = "";
+    },
+    snackError: (state, action) => {
+      state.isOpen = true;
+      state.alertMessage = action.payload;
+    },
+    snackSuccess: (state, action) => {
+      state.isSuccess = true;
+      state.isOpen = true;
+      state.alertMessage = action.payload;
     },
   },
   extraReducers: {
@@ -29,7 +35,6 @@ const snackSlice = createSlice({
     },
     [sendContact.rejected]: (state) => {
       state.alertMessage = "Message Failed";
-      state.isError = true;
       state.isOpen = true;
     },
     [sendQuote.fulfilled]: (state) => {
@@ -39,37 +44,11 @@ const snackSlice = createSlice({
     },
     [sendQuote.rejected]: (state) => {
       state.alertMessage = "Failed to Send";
-      state.isError = true;
-      state.isOpen = true;
-    },
-    [signUpMember.fulfilled]: (state, action) => {
-      state.alertMessage = "Account Created";
-      state.isSuccess = true;
-      state.isOpen = true;
-    },
-    [signUpMember.rejected]: (state, action) => {
-      state.alertMessage = action.payload;
-      state.isError = true;
-      state.isOpen = true;
-    },
-    [login.fulfilled]: (state, action) => {
-      state.alertMessage = "Welcome Back!";
-      state.isSuccess = true;
-      state.isOpen = true;
-    },
-    [login.rejected]: (state, action) => {
-      state.alertMessage = action.payload;
-      state.isError = true;
-      state.isOpen = true;
-    },
-    [logout.fulfilled]: (state, action) => {
-      state.alertMessage = "Logged Out, Goodbye!";
-      state.isSuccess = true;
       state.isOpen = true;
     },
   },
 });
 
 const { reducer, actions } = snackSlice;
-export const { snackClose } = actions;
+export const { snackClose, snackError, snackSuccess } = actions;
 export default reducer;
