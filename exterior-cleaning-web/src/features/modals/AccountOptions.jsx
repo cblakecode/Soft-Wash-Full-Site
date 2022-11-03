@@ -31,7 +31,6 @@ const AccountOptions = () => {
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <Box
-          component="form"
           sx={{
             backgroundColor: "common.white",
             width: "60%",

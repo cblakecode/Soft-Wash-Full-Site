@@ -27,7 +27,7 @@ const Account = () => {
 
   const name = user?.name || "John Doe";
 
-  let numRegex = user.phone.replace(/(\d{3})(\d{3})(\d+)/, "($1) $2-$3");
+  let numRegex = user?.phone.replace(/(\d{3})(\d{3})(\d+)/, "($1) $2-$3");
 
   const stringAvatar = (name) => {
     const bigName = name?.toUpperCase();
@@ -84,7 +84,7 @@ const Account = () => {
             textAlign="center"
             sx={textStyles}
           >
-            {user.username}
+            {user?.username}
           </Typography>
         </Grid>
         <Grid item xs={12} lg={6}>
@@ -94,7 +94,7 @@ const Account = () => {
         </Grid>
         <Grid item xs={12} lg={6}>
           <Typography sx={textStyles} textAlign="center">
-            {user.name}
+            {user?.name}
           </Typography>
         </Grid>
         <Grid item xs={12} lg={6}>
@@ -105,7 +105,7 @@ const Account = () => {
             sx={{ ...textStyles, fontSize: { xs: "5vw", md: "3rem" } }}
             textAlign="center"
           >
-            {user.email}
+            {user?.email}
           </Typography>
         </Grid>
         <Grid item xs={12} lg={6}>
@@ -121,7 +121,7 @@ const Account = () => {
         </Grid>
         <Grid item xs={12} lg={6}>
           <Typography sx={textStyles} textAlign="center">
-            {user.address}
+            {user?.address}
           </Typography>
         </Grid>
       </Grid>

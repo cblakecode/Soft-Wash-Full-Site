@@ -5,7 +5,6 @@ export const memberApiSlice = apiSlice.injectEndpoints({
     getMember: builder.query({
       queryFn: async (arg, api, extraOptions, baseQuery) => {
         const user = await api.getState().auth.user?.username;
-        console.log(user);
         const result = await baseQuery(`members/${user}`);
         return result.data ? { data: result.data } : { error: result.error };
       },
