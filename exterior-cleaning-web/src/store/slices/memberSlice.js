@@ -9,7 +9,6 @@ const initialState = {
     address: "",
     phone: "",
   },
-  confrimPass: "",
   activeStep: 0,
   isOpen: false,
   accountOpen: null,
@@ -30,11 +29,7 @@ const memberSlice = createSlice({
       state.activeStep--;
     },
     handleDataChange: (state, action) => {
-      const values = action.payload;
-      state.memberData = { ...state.memberData, ...values };
-    },
-    handleConfirmChange: (state, action) => {
-      state.confirmPass = action.payload;
+      state.memberData = { ...state.memberData, ...action.payload };
     },
     toggleIsOpen: (state, action) => {
       state.isOpen = true;
@@ -65,7 +60,6 @@ const memberSlice = createSlice({
 export const {
   nextStep,
   prevStep,
-  handleConfirmChange,
   handleDataChange,
   toggleIsClosed,
   toggleIsOpen,

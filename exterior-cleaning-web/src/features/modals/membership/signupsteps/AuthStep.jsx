@@ -13,7 +13,6 @@ import LoadingButton from "../../../ui/LoadingButton";
 import {
   toggleIsClosed,
   prevStep,
-  handleConfirmChange,
   showPassword,
 } from "../../../../store/slices/memberSlice";
 import { useAddMemberMutation } from "../../../../store/api/authApiSlice";
@@ -22,23 +21,26 @@ import { snackError, snackSuccess } from "../../../../store/slices/snackSlice";
 
 const AuthStep = () => {
   const userRef = useRef();
-  const errRef = useRef();
-  const [user, setUser] = useState({});
-  const [errMsg, setErrMsg] = useState("");
+  const [cred, setCred] = useState({
+    username: "",
+    password: "",
+  });
+  const [confirm, setConfirm] = useState("");
   const [addMember, { isLoading }] = useAddMemberMutation();
   const dispatch = useDispatch();
   const { togglePassView } = useSelector((store) => store.member);
+  const { user } = useSelector((store) => store.auth);
 
   useEffect(() => {
     userRef.current.focus();
   }, []);
 
-  useEffect(() => {
-    setErrMsg("");
-  }, [user]);
+  const handleUserChange = (e) => {
+    setCred({ ...cred, [e.target.name]: e.target.value });
+  };
 
-  const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+  const handleConfirmChange = (e) => {
+    setConfirm(e.target.value);
   };
 
   const handleClose = () => {
@@ -47,24 +49,23 @@ const AuthStep = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
+      console.log(user);
       const newUser = await addMember(user).unwrap();
-      dispatch(setCredentials({ ...newUser, user: { ...user } }));
-      setUser({});
       dispatch(snackSuccess("Successfully Sign Up"));
+      setCred({ username: "", password: "" });
+      handleClose();
+      return newUser;
     } catch (err) {
-      if (!err?.originalStatus) {
-        setErrMsg("server not responding");
-      } else if (err.originalStatus === 400) {
-        setErrMsg("All Fields are Required");
-      } else if (err.originalStatus === 409) {
-        setErrMsg("Username or Email already exists");
+      if (!err?.status) {
+        dispatch(snackError("server not responding"));
+      } else if (err.status === 400) {
+        dispatch(snackError("All Fields are Required"));
+      } else if (err.status === 409) {
+        dispatch(snackError("Username or Email already exists"));
       } else {
-        setErrMsg("Sign Up Failed");
+        dispatch(snackError("Sign Up Failed"));
       }
-      errRef.current.focus();
-      dispatch(snackError(errMsg));
     }
   };
 
@@ -79,9 +80,9 @@ const AuthStep = () => {
             label="Enter Username (must be 6-12 characters long)"
             name="username"
             ref={userRef}
-            value={user.username}
+            value={user?.username}
             inputProps={{ minLength: "6", maxLength: "12" }}
-            onChange={handleChange}
+            onChange={handleUserChange}
             required
             fullWidth
           />
@@ -92,8 +93,8 @@ const AuthStep = () => {
             type={togglePassView ? "text" : "password"}
             name="password"
             ref={userRef}
-            value={user.password}
-            onChange={handleChange}
+            value={user?.password}
+            onChange={handleUserChange}
             InputProps={{
               minLength: "8",
               maxLength: "12",
@@ -125,10 +126,11 @@ const AuthStep = () => {
             name="confirmPass"
             type={togglePassView ? "text" : "password"}
             ref={userRef}
-            value={user.confirmPass}
-            onChange={(e) => dispatch(handleConfirmChange(e.value))}
+            value={confirm}
+            onFocus={() => dispatch(setCredentials(cred))}
+            onChange={handleConfirmChange}
             InputProps={{
-              pattern: `^${user.password}$`,
+              pattern: `^${user?.password}$`,
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton

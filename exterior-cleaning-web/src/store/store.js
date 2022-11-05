@@ -9,8 +9,8 @@ import loggedInReducer from "./slices/loggedInSlice";
 import authReducer from "./slices/authSlice";
 
 const rehydrateState = () => {
-  if (localStorage.getItem("userStorage") !== null) {
-    return JSON.parse(localStorage.getItem("userStorage"));
+  if (sessionStorage.getItem("userStorage") !== null) {
+    return { user: JSON.parse(sessionStorage.getItem("userStorage")) };
   }
 };
 
@@ -29,7 +29,7 @@ const store = configureStore({
     getDefaultMiddleware().concat(apiSlice.middleware),
   devTools: true,
   preloadedState: {
-    loggedIn: rehydrateState(),
+    auth: rehydrateState(),
   },
 });
 

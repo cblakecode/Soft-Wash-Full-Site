@@ -13,14 +13,7 @@ import {
 } from "../../../store/api/memberApiSlice";
 
 const Update = () => {
-  const [formData, setData] = useState({
-    username: "",
-    name: "",
-    phone: "",
-    email: "",
-    address: "",
-    password: "",
-  });
+  const [formData, setData] = useState({});
   const { data: user } = useGetMemberQuery();
   const [updateMember] = useUpdateMemberMutation();
 
@@ -28,6 +21,7 @@ const Update = () => {
 
   const handleChange = (e) => {
     setData({ ...formData, [e.target.name]: e.target.value });
+    console.log({ ...user, ...formData });
   };
 
   const handleClose = () => {

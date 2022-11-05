@@ -35,8 +35,13 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const userData = await login({ username, password }).unwrap();
-      await dispatch(setCredentials({ ...userData, user: { username } }));
+      const token = await login({ username, password }).unwrap();
+      sessionStorage.setItem(
+        "userStorage",
+        JSON.stringify({ username: username })
+      );
+      sessionStorage.setItem("authStorage", JSON.stringify(token));
+      // await dispatch(setCredentials({ ...userData, user: { username } }));
       await getMember().unwrap();
       setUser("");
       setPwd("");

@@ -4,8 +4,11 @@ export const memberApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getMember: builder.query({
       queryFn: async (arg, api, extraOptions, baseQuery) => {
-        const user = await api.getState().auth.user?.username;
-        const result = await baseQuery(`members/${user}`);
+        const { username } = await JSON.parse(
+          sessionStorage.getItem("userStorage")
+        );
+        // const user = await api.getState().auth.user?.username;
+        const result = await baseQuery(`members/${username}`);
         return result.data ? { data: result.data } : { error: result.error };
       },
       validateStatus: (res, result) => {

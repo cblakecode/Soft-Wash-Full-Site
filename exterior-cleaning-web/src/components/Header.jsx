@@ -17,7 +17,6 @@ import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import EmailIcon from "@mui/icons-material/Email";
 import IconButton from "@mui/material/IconButton";
 import UserNav from "./UserNav";
-// import { useLazyGetMemberQuery } from "../store/api/memberApiSlice";
 
 const iconButtonStyle = {
   display: { xs: "none", sm: "flex", lg: "none" },
@@ -30,16 +29,7 @@ const fullButtonStyle = {
 };
 
 const Header = () => {
-  // const [getMember] = useLazyGetMemberQuery();
-  // const { token, user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   if (token && user?.username) {
-  //     console.log(user.username);
-  //     getMember(user.username);
-  //   }
-  // }, [token, user, getMember]);
 
   return (
     <Fragment>
@@ -123,7 +113,7 @@ const Header = () => {
               sx={fullButtonStyle}
               onClick={() => dispatch(handleOpenQuote())}
             >
-              Free Quote
+              Quote
             </Button>
             <IconButton
               sx={iconButtonStyle}

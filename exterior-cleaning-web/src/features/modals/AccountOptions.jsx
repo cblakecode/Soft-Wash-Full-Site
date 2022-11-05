@@ -15,7 +15,7 @@ const accountPage = (page) => {
     case "upgrade":
       return <Upgrade />;
     default:
-      console.log("account page error");
+      return;
   }
 };
 
