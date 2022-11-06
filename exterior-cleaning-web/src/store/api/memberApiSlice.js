@@ -9,6 +9,12 @@ export const memberApiSlice = apiSlice.injectEndpoints({
         );
         // const user = await api.getState().auth.user?.username;
         const result = await baseQuery(`members/${username}`);
+        if (result?.data) {
+          sessionStorage.setItem(
+            "userStorage",
+            JSON.stringify({ ...result.data, isLoggedIn: true })
+          );
+        }
         return result.data ? { data: result.data } : { error: result.error };
       },
       validateStatus: (res, result) => {

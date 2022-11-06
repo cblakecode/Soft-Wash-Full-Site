@@ -28,7 +28,10 @@ const AccountInfo = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      sessionStorage.setItem("userStorage", JSON.stringify({ user }));
+      sessionStorage.setItem(
+        "userStorage",
+        JSON.stringify({ ...user, isLoggedIn: true })
+      );
     }
   }, [isSuccess, user]);
 

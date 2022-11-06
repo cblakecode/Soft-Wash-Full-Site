@@ -9,7 +9,7 @@ import LoadingButton from "../../ui/LoadingButton";
 import { useDispatch } from "react-redux";
 import { toggleIsClosed, signUpOpen } from "../../../store/slices/memberSlice";
 import { useLoginMutation } from "../../../store/api/authApiSlice";
-import { loggedIn, setCredentials } from "../../../store/slices/authSlice";
+import { loggedIn } from "../../../store/slices/authSlice";
 import { snackError, snackSuccess } from "../../../store/slices/snackSlice";
 import { useLazyGetMemberQuery } from "../../../store/api/memberApiSlice";
 

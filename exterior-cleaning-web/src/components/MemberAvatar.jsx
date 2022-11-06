@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useGetMemberQuery } from "../store/api/memberApiSlice";
+import { useLogoutMutation } from "../store/api/authApiSlice";
+import { logOut } from "../store/slices/authSlice";
+import { useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
@@ -12,11 +16,12 @@ import ListItemText from "@mui/material/ListItemText";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PaymentIcon from "@mui/icons-material/Payment";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useGetMemberQuery } from "../store/api/memberApiSlice";
 
 const MemberAvatar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const { data: user, isSuccess } = useGetMemberQuery();
+  const [logout] = useLogoutMutation();
+  const dispatch = useDispatch();
 
   const name = isSuccess ? user?.name : "John Doe";
 
@@ -35,6 +40,11 @@ const MemberAvatar = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    dispatch(logOut());
+    logout();
   };
 
   return (
@@ -71,7 +81,7 @@ const MemberAvatar = () => {
           <ListItemText>Payment</ListItemText>
         </MenuItem>
         <Divider />
-        <MenuItem component={Link} to={"/"}>
+        <MenuItem component={Link} to={"/"} onClick={handleLogout}>
           <ListItemIcon>
             <LogoutIcon color="error" />
           </ListItemIcon>

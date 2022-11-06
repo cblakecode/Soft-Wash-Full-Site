@@ -4,7 +4,7 @@ import { logOut } from "../slices/authSlice";
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000",
   credentials: "include",
-  prepareHeaders: (headers, { getState }) => {
+  prepareHeaders: (headers) => {
     const token = JSON.parse(sessionStorage.getItem("authStorage"));
     if (token?.accessToken) {
       headers.set("authorization", `Bearer ${token.accessToken}`);
@@ -19,7 +19,10 @@ export const baseQueryWithReauth = async (args, api, extraOptions) => {
   if (result.error && result.error.status === 403) {
     const refreshResult = await baseQuery("/auth/refresh", api, extraOptions);
     if (refreshResult?.data) {
-      sessionStorage.setItem("authStorage", JSON.stringify(refreshResult.data));
+      sessionStorage.setItem(
+        "authStorage",
+        JSON.stringify({ ...refreshResult.data })
+      );
       result = await baseQuery(args, api, extraOptions);
     } else {
       api.dispatch(logOut());

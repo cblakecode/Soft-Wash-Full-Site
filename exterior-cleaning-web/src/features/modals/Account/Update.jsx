@@ -13,15 +13,15 @@ import {
 } from "../../../store/api/memberApiSlice";
 
 const Update = () => {
-  const [formData, setData] = useState({});
   const { data: user } = useGetMemberQuery();
+  const [userData, setUserData] = useState({ ...user, password: "" });
   const [updateMember] = useUpdateMemberMutation();
 
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    setData({ ...formData, [e.target.name]: e.target.value });
-    console.log({ ...user, ...formData });
+    // setData({ ...formData, [e.target.name]: e.target.value });
+    setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
   const handleClose = () => {
@@ -31,8 +31,6 @@ const Update = () => {
 
   const handleSubmit = async (e) => {
     try {
-      const userData = { ...formData, ...user };
-      console.log(userData);
       const response = await updateMember(userData).unwrap();
       return response;
     } catch (error) {
@@ -52,7 +50,7 @@ const Update = () => {
           <TextField
             name="username"
             label="Username"
-            value={formData.username}
+            value={userData.username}
             onChange={handleChange}
             fullWidth
             autoComplete="off"
@@ -63,7 +61,7 @@ const Update = () => {
             name="password"
             label="Confirm Password"
             type="password"
-            value={formData.password}
+            value={userData.password}
             onChange={handleChange}
             fullWidth
             required
@@ -74,7 +72,7 @@ const Update = () => {
           <TextField
             name="name"
             label="Name"
-            value={formData.name}
+            value={userData.name}
             fullWidth
             onChange={handleChange}
             autoComplete="off"
@@ -84,7 +82,7 @@ const Update = () => {
           <TextField
             name="email"
             label="Email"
-            value={formData.email}
+            value={userData.email}
             type="email"
             fullWidth
             onChange={handleChange}
@@ -95,7 +93,7 @@ const Update = () => {
           <TextField
             name="phone"
             label="Phone Number"
-            value={formData.phone}
+            value={userData.phone}
             fullWidth
             onChange={handleChange}
             autoComplete="off"
@@ -105,7 +103,7 @@ const Update = () => {
           <TextField
             name="address"
             label="Address"
-            value={formData.address}
+            value={userData.address}
             fullWidth
             onChange={handleChange}
             autoComplete="off"
