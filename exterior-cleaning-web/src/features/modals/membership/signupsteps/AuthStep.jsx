@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import LoadingButton from "../../../ui/LoadingButton";
+import { loggedIn } from "../../../../store/slices/authSlice";
 import {
   toggleIsClosed,
   prevStep,
@@ -54,6 +55,7 @@ const AuthStep = () => {
       const newUser = await addMember(user).unwrap();
       dispatch(snackSuccess("Successfully Sign Up"));
       setCred({ username: "", password: "" });
+      dispatch(loggedIn());
       handleClose();
       return newUser;
     } catch (err) {

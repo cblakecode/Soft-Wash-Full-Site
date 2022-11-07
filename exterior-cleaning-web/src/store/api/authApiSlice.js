@@ -21,6 +21,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
         url: "/auth/logout",
         method: "POST",
       }),
+      invalidatesTags: ["Members"],
     }),
     refresh: builder.query({
       query: () => "/auth/refresh",

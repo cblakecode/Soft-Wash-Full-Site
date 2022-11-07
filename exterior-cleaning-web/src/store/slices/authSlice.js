@@ -15,6 +15,7 @@ const authSlice = createSlice({
     },
     logOut: (state, action) => {
       sessionStorage.clear();
+      state.isLogged = false;
       return initialState;
     },
     loggedIn: (state) => {
