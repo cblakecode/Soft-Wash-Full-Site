@@ -9,7 +9,7 @@ export const memberApiSlice = apiSlice.injectEndpoints({
         if (result?.data) {
           sessionStorage.setItem(
             "userStorage",
-            JSON.stringify({ ...result.data, isLoggedIn: true })
+            JSON.stringify({ ...result.data })
           );
         }
         return result.data ? { data: result.data } : { error: result.error };

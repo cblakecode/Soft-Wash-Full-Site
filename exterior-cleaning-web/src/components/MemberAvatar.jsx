@@ -20,19 +20,19 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 const MemberAvatar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [userName, setUserName] = useState("John Doe");
-  const name = useSelector((store) => store.auth.user?.name);
-  const { data, isSuccess } = useGetMemberQuery();
+  const [skip, setSkip] = useState(true);
+  const { name } = useSelector((store) => store.auth.user);
+  const { data, isSuccess } = useGetMemberQuery({ skip });
   const [logout] = useLogoutMutation();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isSuccess) {
+    if (!name) {
+      setSkip(false);
       setUserName(data?.name);
     }
-    if (name) {
-      setUserName(name);
-    }
-  }, [isSuccess, name, data]);
+    setUserName(name);
+  }, [name, data, isSuccess]);
 
   const stringAvatar = (name) => {
     const bigName = name?.toUpperCase();

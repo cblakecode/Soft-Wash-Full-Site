@@ -19,22 +19,18 @@ import { snackError, snackSuccess } from "../../../../store/slices/snackSlice";
 
 const AuthStep = () => {
   const userRef = useRef();
-  const [cred, setCred] = useState({
-    username: "",
-    password: "",
-  });
   const [confirm, setConfirm] = useState("");
   const [addMember, { isLoading }] = useAddMemberMutation();
   const dispatch = useDispatch();
   const { togglePassView } = useSelector((store) => store.member);
-  const user = useSelector((store) => store.auth.user);
+  const { user } = useSelector((store) => store.auth);
 
   useEffect(() => {
     userRef.current.focus();
   }, []);
 
   const handleUserChange = (e) => {
-    setCred({ ...cred, [e.target.name]: e.target.value });
+    dispatch(setCredentials({ [e.target.name]: e.target.value }));
   };
 
   const handleConfirmChange = (e) => {
@@ -44,9 +40,9 @@ const AuthStep = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await dispatch(setCredentials(cred));
-      await addMember({ ...user, ...cred }).unwrap();
-      console.log(user);
+      const token = await addMember(user).unwrap();
+      sessionStorage.setItem("authStorage", JSON.stringify(token));
+      sessionStorage.setItem("userStorage", JSON.stringify(user));
       dispatch(snackSuccess("Successfully Sign Up"));
       dispatch(loggedIn());
       dispatch(handleClose());

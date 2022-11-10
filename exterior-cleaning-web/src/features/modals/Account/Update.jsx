@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { toggleIsClosed } from "../../../store/slices/memberSlice";
+import { handleClose } from "../../../store/slices/modalSlice";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
@@ -21,12 +21,11 @@ const Update = () => {
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    // setData({ ...formData, [e.target.name]: e.target.value });
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  const handleClose = () => {
-    dispatch(toggleIsClosed());
+  const handleClosed = () => {
+    dispatch(handleClose());
     dispatch(originalData());
   };
 
@@ -113,7 +112,7 @@ const Update = () => {
         </Grid>
         <Grid item xs={12}>
           <Stack direction="row" justifyContent="space-between">
-            <Button onClick={handleClose}>Close</Button>
+            <Button onClick={handleClosed}>Close</Button>
             <Button variant="contained" type="submit">
               Update
             </Button>

@@ -1,4 +1,4 @@
-import React from "react";
+import { Suspense } from "react";
 import ContactModal from "../modals/ContactModal";
 import QuoteModal from "../modals/QuoteModal";
 import MembersModal from "../modals/MembersModal";
@@ -6,13 +6,13 @@ import Update from "../modals/Account/Update";
 import Delete from "../modals/Account/Delete";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import Grow from "@mui/material/Grow";
 import { handleClose } from "../../store/slices/modalSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 const modalPage = (page) => {
   switch (page) {
     case "contact":
-      console.log(page);
       return <ContactModal />;
     case "quote":
       return <QuoteModal />;
@@ -33,23 +33,32 @@ const ModalPopup = () => {
 
   return (
     <>
-      <Modal
-        open={isOpen}
-        onClose={() => dispatch(handleClose())}
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-      >
-        <Box
+      <Suspense>
+        <Modal
+          open={isOpen}
+          onClose={() => dispatch(handleClose())}
+          closeAfterTransition
           sx={{
-            backgroundColor: "common.white",
-            width: "60%",
-            height: "auto",
-            borderRadius: "10px",
-            p: "1rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          {modalPage(currentPage)}
-        </Box>
-      </Modal>
+          <Grow in={isOpen} mountOnEnter unmountOnExit>
+            <Box
+              sx={{
+                backgroundColor: "common.white",
+                width: "60%",
+                height: "auto",
+                borderRadius: "10px",
+                p: "1rem",
+              }}
+            >
+              {modalPage(currentPage)}
+            </Box>
+          </Grow>
+        </Modal>
+      </Suspense>
     </>
   );
 };
