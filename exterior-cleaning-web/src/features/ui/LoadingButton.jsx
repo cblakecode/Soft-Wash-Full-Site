@@ -6,9 +6,7 @@ import Button from "@mui/material/Button";
 const LoadingButton = (props) => {
   return (
     <Box sx={{ position: "relative" }}>
-      <Button {...props} disabled={props.loading}>
-        {props.name}
-      </Button>
+      <Button {...props}>{props.name}</Button>
       {props.loading && (
         <CircularProgress
           size={24}

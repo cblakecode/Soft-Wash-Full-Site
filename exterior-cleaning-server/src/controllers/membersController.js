@@ -64,13 +64,14 @@ const updateMember = asyncHandler(async (req, res) => {
 // @route DELETE /members
 // @access Private
 const deleteMember = asyncHandler(async (req, res) => {
-  const { id } = req.body;
+  const { _id } = req.body;
+  console.log(_id);
 
-  if (!id) {
-    return res.status.json({ message: "user id required" });
+  if (!_id) {
+    return res.status(400).json({ message: "user id required" });
   }
 
-  const member = await Member.findById(id).exec();
+  const member = await Member.findById(_id).exec();
 
   if (!member) {
     return res.status(400).json({ message: "user not found" });

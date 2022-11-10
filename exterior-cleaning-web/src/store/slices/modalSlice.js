@@ -15,8 +15,7 @@ const modalSlice = createSlice({
       state.isOpen = true;
     },
     handleClose: (state, action) => {
-      state.currentPage = null;
-      state.isOpen = false;
+      return initialState;
     },
     toggleLogin: (state) => {
       state.isLogin ? (state.isLogin = false) : (state.isLogin = true);

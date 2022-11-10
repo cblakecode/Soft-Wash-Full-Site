@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useGetMemberQuery } from "../store/api/memberApiSlice";
 import { useLogoutMutation } from "../store/api/authApiSlice";
 import { logOut } from "../store/slices/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
@@ -19,11 +19,20 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const MemberAvatar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { data: user, isSuccess } = useGetMemberQuery();
+  const [userName, setUserName] = useState("John Doe");
+  const name = useSelector((store) => store.auth.user?.name);
+  const { data, isSuccess } = useGetMemberQuery();
   const [logout] = useLogoutMutation();
   const dispatch = useDispatch();
 
-  const name = isSuccess ? user?.name : "John Doe";
+  useEffect(() => {
+    if (isSuccess) {
+      setUserName(data?.name);
+    }
+    if (name) {
+      setUserName(name);
+    }
+  }, [isSuccess, name, data]);
 
   const stringAvatar = (name) => {
     const bigName = name?.toUpperCase();
@@ -55,7 +64,7 @@ const MemberAvatar = () => {
           aria-controls="user-menu"
           onClick={handleOpen}
         >
-          <Avatar {...stringAvatar(name)} />
+          <Avatar {...stringAvatar(userName)} />
         </IconButton>
       </Tooltip>
       <Menu

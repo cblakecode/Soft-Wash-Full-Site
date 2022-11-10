@@ -10,7 +10,10 @@ import authReducer from "./slices/authSlice";
 
 const rehydrateState = () => {
   if (sessionStorage.getItem("userStorage") !== null) {
-    return { user: JSON.parse(sessionStorage.getItem("userStorage")) };
+    return {
+      user: JSON.parse(sessionStorage.getItem("userStorage")),
+      isLogged: true,
+    };
   }
 };
 

@@ -1,13 +1,10 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { handleOpen } from "../store/slices/modalSlice";
-// import { handleOpenQuote } from "../store/slices/quoteSlice";
+import { setCredentials } from "../store/slices/authSlice";
 import ModalPopup from "../features/ui/ModalPopup";
 import NavbarPages from "./NavbarPages";
-// import ContactModal from "../features/modals/ContactModal";
-// import QuoteModal from "../features/modals/QuoteModal";
-// import MembersModal from "../features/modals/MembersModal";
 import AppBar from "@mui/material/AppBar";
 import HideOnScroll from "../Utilities/HideOnScroll";
 import HouseIcon from "@mui/icons-material/House";
@@ -30,7 +27,16 @@ const fullButtonStyle = {
 };
 
 const Header = () => {
+  const { isLogged } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isLogged) {
+      dispatch(
+        setCredentials(JSON.parse(sessionStorage.getItem("userStorage")))
+      );
+    }
+  }, [isLogged, dispatch]);
 
   return (
     <Fragment>
@@ -127,9 +133,6 @@ const Header = () => {
           </Box>
         </AppBar>
       </HideOnScroll>
-      {/* <ContactModal />
-      <QuoteModal />
-      <MembersModal /> */}
       <ModalPopup />
     </Fragment>
   );

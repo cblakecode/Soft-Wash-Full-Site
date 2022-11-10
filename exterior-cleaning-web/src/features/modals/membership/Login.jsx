@@ -2,7 +2,6 @@ import { useRef, useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import LoadingButton from "../../ui/LoadingButton";
@@ -42,11 +41,11 @@ const Login = () => {
         JSON.stringify({ username: username })
       );
       sessionStorage.setItem("authStorage", JSON.stringify(token));
-      // await dispatch(setCredentials({ ...userData, user: { username } }));
       await getMember().unwrap();
       setUser("");
       setPwd("");
       dispatch(loggedIn());
+      dispatch(handleClose());
       dispatch(snackSuccess("Welcome Back!"));
     } catch (err) {
       if (!err?.originalStatus) {
@@ -67,7 +66,7 @@ const Login = () => {
   const handlePwdInput = (e) => setPwd(e.target.value);
 
   return (
-    <Box component="form" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <Stack direction="column" spacing={4}>
         <Typography variant="h4" textAlign="center">
           Login
@@ -124,15 +123,11 @@ const Login = () => {
             >
               Sign Up
             </Button>
-            <LoadingButton
-              name="Login"
-              loading={isLoading}
-              props={{ variant: "contained", type: "submit" }}
-            />
+            <LoadingButton name="Login" disabled={isLoading} type="submit" />
           </Grid>
         </Grid>
       </Stack>
-    </Box>
+    </form>
   );
 };
 

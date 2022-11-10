@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggleIsClosed } from "../../../store/slices/memberSlice";
+import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -58,18 +59,6 @@ const Update = () => {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            name="password"
-            label="Confirm Password"
-            type="password"
-            value={userData.password}
-            onChange={handleChange}
-            fullWidth
-            required
-            autoComplete="off"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
             name="name"
             label="Name"
             value={userData.name}
@@ -106,6 +95,19 @@ const Update = () => {
             value={userData.address}
             fullWidth
             onChange={handleChange}
+            autoComplete="off"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Divider variant="middle" sx={{ mb: "1rem" }} />
+          <TextField
+            name="password"
+            label="Confirm Password"
+            type="password"
+            value={userData.password}
+            onChange={handleChange}
+            fullWidth
+            required
             autoComplete="off"
           />
         </Grid>

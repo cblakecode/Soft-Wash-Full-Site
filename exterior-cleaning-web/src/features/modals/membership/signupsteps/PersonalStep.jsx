@@ -31,7 +31,7 @@ const PersonalStep = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(setCredentials({ user: user }));
+    dispatch(setCredentials(user));
     dispatch(nextStep());
   };
 

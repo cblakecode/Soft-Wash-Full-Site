@@ -27,7 +27,7 @@ const AuthStep = () => {
   const [addMember, { isLoading }] = useAddMemberMutation();
   const dispatch = useDispatch();
   const { togglePassView } = useSelector((store) => store.member);
-  const { user } = useSelector((store) => store.auth);
+  const user = useSelector((store) => store.auth.user);
 
   useEffect(() => {
     userRef.current.focus();
@@ -44,13 +44,13 @@ const AuthStep = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      await dispatch(setCredentials(cred));
+      await addMember({ ...user, ...cred }).unwrap();
       console.log(user);
-      const newUser = await addMember(user).unwrap();
       dispatch(snackSuccess("Successfully Sign Up"));
-      setCred({ username: "", password: "" });
       dispatch(loggedIn());
       dispatch(handleClose());
-      return newUser;
+      return;
     } catch (err) {
       if (!err?.status) {
         dispatch(snackError("server not responding"));
@@ -122,7 +122,6 @@ const AuthStep = () => {
             type={togglePassView ? "text" : "password"}
             ref={userRef}
             value={confirm}
-            onFocus={() => dispatch(setCredentials(cred))}
             onChange={handleConfirmChange}
             InputProps={{
               pattern: `^${user?.password}$`,
@@ -157,11 +156,7 @@ const AuthStep = () => {
           <Button type="button" onClick={() => dispatch(prevStep())}>
             Prev
           </Button>
-          <LoadingButton
-            name="Sign In"
-            loading={isLoading}
-            props={{ variant: "contained", type: "submit" }}
-          />
+          <LoadingButton name="Sign In" disabled={isLoading} type="submit" />
         </Grid>
       </Grid>
     </Box>

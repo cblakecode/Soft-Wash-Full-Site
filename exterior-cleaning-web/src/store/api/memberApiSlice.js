@@ -5,7 +5,6 @@ export const memberApiSlice = apiSlice.injectEndpoints({
     getMember: builder.query({
       queryFn: async (arg, api, extraOptions, baseQuery) => {
         const user = await JSON.parse(sessionStorage.getItem("userStorage"));
-        // const user = await api.getState().auth.user?.username;
         const result = await baseQuery(`members/${user?.username}`);
         if (result?.data) {
           sessionStorage.setItem(
@@ -32,9 +31,8 @@ export const memberApiSlice = apiSlice.injectEndpoints({
       query: ({ _id }) => ({
         url: "/members",
         method: "DELETE",
-        body: _id,
+        body: { _id },
       }),
-      invalidatesTags: ["Members"],
     }),
   }),
 });
