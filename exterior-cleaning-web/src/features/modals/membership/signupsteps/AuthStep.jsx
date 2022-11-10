@@ -11,11 +11,8 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import LoadingButton from "../../../ui/LoadingButton";
 import { loggedIn } from "../../../../store/slices/authSlice";
-import {
-  toggleIsClosed,
-  prevStep,
-  showPassword,
-} from "../../../../store/slices/memberSlice";
+import { handleClose } from "../../../../store/slices/modalSlice";
+import { prevStep, showPassword } from "../../../../store/slices/memberSlice";
 import { useAddMemberMutation } from "../../../../store/api/authApiSlice";
 import { setCredentials } from "../../../../store/slices/authSlice";
 import { snackError, snackSuccess } from "../../../../store/slices/snackSlice";
@@ -44,10 +41,6 @@ const AuthStep = () => {
     setConfirm(e.target.value);
   };
 
-  const handleClose = () => {
-    dispatch(toggleIsClosed());
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -56,7 +49,7 @@ const AuthStep = () => {
       dispatch(snackSuccess("Successfully Sign Up"));
       setCred({ username: "", password: "" });
       dispatch(loggedIn());
-      handleClose();
+      dispatch(handleClose());
       return newUser;
     } catch (err) {
       if (!err?.status) {
@@ -156,7 +149,7 @@ const AuthStep = () => {
           />
         </Grid>
         <Grid item xs={6}>
-          <Button variant="outlined" onClick={handleClose}>
+          <Button variant="outlined" onClick={() => dispatch(handleClose())}>
             Close
           </Button>
         </Grid>

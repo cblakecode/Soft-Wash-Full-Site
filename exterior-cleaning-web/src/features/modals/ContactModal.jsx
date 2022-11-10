@@ -1,128 +1,113 @@
-import React from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import SnackAlert from "../ui/SnackAlert";
 import { useSelector, useDispatch } from "react-redux";
-import { handleContactClose } from "../../store/slices/modalSlice";
+import { handleClose } from "../../store/slices/modalSlice";
 import { handleInputChange } from "../../store/slices/contactSlice";
 import sendContact from "../../store/actions/sendContact";
 import LoadingButton from "../ui/LoadingButton";
 
 const Modalcontact = () => {
-  const { contactOpen } = useSelector((store) => store.modal);
-  const { formData } = useSelector(
-    (store) => store.contact
-  );
+  const { formData } = useSelector((store) => store.contact);
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+    message: "",
+  });
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    await dispatch(handleInputChange(data));
     dispatch(sendContact(formData));
+    setData({ name: "", email: "", mobile: "", message: "" });
   };
 
   const handleChange = (e) => {
-    dispatch(handleInputChange({ [e.target.name]: e.target.value }));
+    setData({ ...data, [e.target.name]: e.target.value });
   };
 
   return (
-    <Box>
+    <Box component="form" onSubmit={handleSubmit}>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Typography textAlign="center" variant="h4">
+            Contact Us
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Name"
+            name="name"
+            variant="outlined"
+            placeholder="Enter First and Last Name"
+            value={data.name}
+            onChange={handleChange}
+            autoComplete="off"
+            required
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Email"
+            name="email"
+            variant="outlined"
+            placeholder="Enter Your Email"
+            type="email"
+            value={data.email}
+            onChange={handleChange}
+            autoComplete="off"
+            required
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Phone"
+            name="mobile"
+            variant="outlined"
+            placeholder="ex. 123-456-3489"
+            value={data.mobile}
+            onChange={handleChange}
+            autoComplete="off"
+            required
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Message"
+            name="message"
+            variant="outlined"
+            placeholder="Send a message"
+            value={data.message}
+            onChange={handleChange}
+            rows={4}
+            multiline
+            required
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Button
+            variant="text"
+            size="large"
+            onClick={() => dispatch(handleClose())}
+          >
+            Close
+          </Button>
+        </Grid>
+        <Grid item xs={6} sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <LoadingButton name="Send" variant="contained" type="submit" />
+        </Grid>
+      </Grid>
       <SnackAlert sent="Message Sent!" failed="Message Failed!" />
-      <Modal
-        open={contactOpen}
-        onClose={() => dispatch(handleContactClose())}
-        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-      >
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          sx={{
-            backgroundColor: "common.white",
-            width: "50%",
-            height: "auto",
-            borderRadius: "10px",
-            pb: "1rem",
-            px: "1rem",
-          }}
-        >
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Typography textAlign="center" variant="h4">
-                Contact Us
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Name"
-                name="name"
-                variant="outlined"
-                placeholder="Enter First and Last Name"
-                value={formData.fullName}
-                onChange={handleChange}
-                required
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Email"
-                name="email"
-                variant="outlined"
-                placeholder="Enter Your Email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Phone"
-                name="mobile"
-                variant="outlined"
-                placeholder="ex. 123-456-3489"
-                value={formData.mobile}
-                onChange={handleChange}
-                required
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Message"
-                name="message"
-                variant="outlined"
-                placeholder="Send a message"
-                value={formData.message}
-                onChange={handleChange}
-                rows={4}
-                multiline
-                required
-                fullWidth
-              />
-            </Grid>
-            <Grid
-              item
-              xs={6}
-            >
-              <Button
-                variant="text"
-                size="large"
-                onClick={() => dispatch(handleContactClose())}
-              >
-                Close
-              </Button>
-                </Grid>
-              <Grid item xs={6} sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <LoadingButton name="Send" variant="contained" type="submit" />
-              </Grid>
-          </Grid>
-        </Box>
-      </Modal>
     </Box>
   );
 };

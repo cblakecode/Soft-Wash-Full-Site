@@ -9,8 +9,6 @@ const initialState = {
     message: "",
   },
   isLoading: false,
-  isSuccess: false,
-  isError: false,
 };
 
 const resetFormData = {
@@ -25,12 +23,7 @@ const contactSlice = createSlice({
   initialState,
   reducers: {
     handleInputChange: (state, action) => {
-      const target = action.payload;
-      state.formData = { ...state.formData, ...target };
-    },
-    handleClose: (state, action) => {
-      state.isError = false;
-      state.isSuccess = false;
+      state.formData = action.payload;
     },
   },
   extraReducers: {
@@ -50,5 +43,5 @@ const contactSlice = createSlice({
   },
 });
 
-export const { handleInputChange, handleClose } = contactSlice.actions;
+export const { handleInputChange } = contactSlice.actions;
 export default contactSlice.reducer;

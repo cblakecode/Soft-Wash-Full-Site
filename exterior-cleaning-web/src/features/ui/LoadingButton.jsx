@@ -3,13 +3,13 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
-const LoadingButton = ({ name, loading, props }) => {
+const LoadingButton = (props) => {
   return (
     <Box sx={{ position: "relative" }}>
-      <Button {...props} disabled={loading}>
-        {name}
+      <Button {...props} disabled={props.loading}>
+        {props.name}
       </Button>
-      {loading && (
+      {props.loading && (
         <CircularProgress
           size={24}
           sx={{

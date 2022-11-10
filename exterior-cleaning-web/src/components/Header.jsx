@@ -1,12 +1,13 @@
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { handleContactOpen } from "../store/slices/modalSlice";
-import { handleOpenQuote } from "../store/slices/quoteSlice";
+import { handleOpen } from "../store/slices/modalSlice";
+// import { handleOpenQuote } from "../store/slices/quoteSlice";
+import ModalPopup from "../features/ui/ModalPopup";
 import NavbarPages from "./NavbarPages";
-import ContactModal from "../features/modals/ContactModal";
-import QuoteModal from "../features/modals/QuoteModal";
-import MembersModal from "../features/modals/MembersModal";
+// import ContactModal from "../features/modals/ContactModal";
+// import QuoteModal from "../features/modals/QuoteModal";
+// import MembersModal from "../features/modals/MembersModal";
 import AppBar from "@mui/material/AppBar";
 import HideOnScroll from "../Utilities/HideOnScroll";
 import HouseIcon from "@mui/icons-material/House";
@@ -94,14 +95,14 @@ const Header = () => {
               color="secondary"
               size="small"
               sx={fullButtonStyle}
-              onClick={() => dispatch(handleContactOpen())}
+              onClick={() => dispatch(handleOpen("contact"))}
             >
               Contact
             </Button>
             <IconButton
               sx={iconButtonStyle}
               color="secondary"
-              onClick={() => dispatch(handleContactOpen())}
+              onClick={() => dispatch(handleOpen("contact"))}
             >
               <EmailIcon />
             </IconButton>
@@ -111,14 +112,14 @@ const Header = () => {
               color="secondary"
               size="small"
               sx={fullButtonStyle}
-              onClick={() => dispatch(handleOpenQuote())}
+              onClick={() => dispatch(handleOpen("quote"))}
             >
               Quote
             </Button>
             <IconButton
               sx={iconButtonStyle}
               color="secondary"
-              onClick={() => dispatch(handleOpenQuote())}
+              onClick={() => dispatch(handleOpen("quote"))}
             >
               <RequestQuoteIcon />
             </IconButton>
@@ -126,9 +127,10 @@ const Header = () => {
           </Box>
         </AppBar>
       </HideOnScroll>
-      <ContactModal />
+      {/* <ContactModal />
       <QuoteModal />
-      <MembersModal />
+      <MembersModal /> */}
+      <ModalPopup />
     </Fragment>
   );
 };

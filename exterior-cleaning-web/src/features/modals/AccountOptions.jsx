@@ -2,7 +2,6 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Update from "./Account/Update";
 import Delete from "./Account/Delete";
-import Upgrade from "./Account/Upgrade";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleIsClosed } from "../../store/slices/memberSlice";
 
@@ -12,8 +11,6 @@ const accountPage = (page) => {
       return <Update />;
     case "delete":
       return <Delete />;
-    case "upgrade":
-      return <Upgrade />;
     default:
       return;
   }

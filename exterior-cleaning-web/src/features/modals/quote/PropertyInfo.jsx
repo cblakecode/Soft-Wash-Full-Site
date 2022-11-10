@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -6,9 +6,9 @@ import Grid from "@mui/material/Grid";
 import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { handleClose } from "../../../store/slices/modalSlice";
 import {
-  handleCloseQuote,
   nextActiveStep,
   prevActiveStep,
   changePropertyValues,
@@ -16,18 +16,24 @@ import {
 } from "../../../store/slices/quoteSlice";
 
 const PropertyInfo = () => {
-  const { clientData: {property} } = useSelector((store) => store.quote);
-  const { squareFeet, siding, date, time, techQuote } = property;
+  const [propertyData, setPropertyData] = useState({
+    squareFeet: "",
+    date: "",
+    siding: "vinyl",
+    time: "",
+    techQuote: "",
+  });
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(calculateQuote());
+    await dispatch(changePropertyValues(propertyData));
+    dispatch(calculateQuote());
     dispatch(nextActiveStep());
   };
 
   const handleChange = (e) => {
-    dispatch(changePropertyValues({ [e.target.name]: e.target.value }));
+    setPropertyData({ ...propertyData, [e.target.name]: e.target.value });
   };
 
   return (
@@ -51,7 +57,7 @@ const PropertyInfo = () => {
           <TextField
             label="Enter Property Sqft"
             name="squareFeet"
-            value={squareFeet}
+            value={propertyData.squareFeet}
             inputProps={{
               inputMode: "numeric",
               pattern: "[0-9]*",
@@ -72,7 +78,7 @@ const PropertyInfo = () => {
             onChange={handleChange}
             label="Siding Material"
             name="siding"
-            value={siding}
+            value={propertyData.siding}
             required
           >
             <MenuItem value="vinyl">Vinyl</MenuItem>
@@ -88,13 +94,12 @@ const PropertyInfo = () => {
               renderInput={(params) => (
                 <TextField {...params} required fullWidth />
               )}
-              value={date}
+              value={propertyData.date}
               onChange={(newValue) => {
-                dispatch(
-                  changePropertyValues({
-                    date: newValue,
-                  })
-                );
+                setPropertyData({
+                  ...propertyData,
+                  date: new Date(newValue),
+                });
               }}
             />
           </Grid>
@@ -102,7 +107,7 @@ const PropertyInfo = () => {
             <TextField
               label="Preferred Clean Time Range"
               name="time"
-              value={time}
+              value={propertyData.time}
               onChange={handleChange}
               select
               required
@@ -119,7 +124,7 @@ const PropertyInfo = () => {
             label="Additional items to be quoted on site by service tech"
             placeholder="ex. back patio, driveway, balcony, etc."
             name="techQuote"
-            value={techQuote}
+            value={propertyData.techQuote}
             onChange={handleChange}
             multiline
             rows={3}
@@ -127,10 +132,7 @@ const PropertyInfo = () => {
           />
         </Grid>
         <Grid item xs={6}>
-          <Button
-            variant="outlined"
-            onClick={() => dispatch(handleCloseQuote())}
-          >
+          <Button variant="outlined" onClick={() => dispatch(handleClose())}>
             Close
           </Button>
         </Grid>

@@ -1,40 +1,37 @@
-import React from 'react';
+import React from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { useDispatch } from "react-redux";
-import { toggleIsOpen } from "../store/slices/memberSlice";
+// import { toggleIsOpen } from "../store/slices/memberSlice";
+import { handleOpen } from "../store/slices/modalSlice";
 import IconButton from "@mui/material/IconButton";
 
-
 const SignUpButton = () => {
+  const dispatch = useDispatch();
 
-const dispatch = useDispatch();
-
-
-
-   return ( 
+  return (
     <Box>
-        <Button
+      <Button
         variant="outlined"
         endIcon={<AccountBoxIcon />}
         color="secondary"
         size="small"
         sx={{ mx: 1, display: { xs: "none", lg: "flex" } }}
-        onClick={() => dispatch(toggleIsOpen())}
-        >
+        onClick={() => dispatch(handleOpen("member"))}
+      >
         Membership
-        </Button>
-        
-        <IconButton
+      </Button>
+
+      <IconButton
         sx={{ display: { xs: "flex", lg: "none" } }}
         color="secondary"
-        onClick={() => dispatch(toggleIsOpen())}
-        >
+        onClick={() => dispatch(handleOpen("member"))}
+      >
         <AccountBoxIcon />
-        </IconButton>
+      </IconButton>
     </Box>
-   );
-}
+  );
+};
 
 export default SignUpButton;

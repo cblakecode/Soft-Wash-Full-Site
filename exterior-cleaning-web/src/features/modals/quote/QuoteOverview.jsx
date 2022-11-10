@@ -6,12 +6,10 @@ import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingButton from "../../ui/LoadingButton";
-import moment from "moment";
+import { format } from "date-fns";
 import sendQuote from "../../../store/actions/sendQuote";
-import {
-  handleCloseQuote,
-  prevActiveStep,
-} from "../../../store/slices/quoteSlice";
+import { handleClose } from "../../../store/slices/modalSlice";
+import { prevActiveStep } from "../../../store/slices/quoteSlice";
 
 const QuoteOverview = () => {
   const dispatch = useDispatch();
@@ -90,8 +88,9 @@ const QuoteOverview = () => {
               <Typography>Date/Time:</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography>{`${moment(date).format(
-                "MM DD YYYY"
+              <Typography>{`${format(
+                date,
+                "MM/dd/yyyy"
               )} between ${time}`}</Typography>
             </Grid>
             <Grid item xs={6}>
@@ -112,7 +111,7 @@ const QuoteOverview = () => {
           type="button"
           variant="outlined"
           endIcon={<CloseRoundedIcon />}
-          onClick={() => dispatch(handleCloseQuote())}
+          onClick={() => dispatch(handleClose())}
         >
           Close
         </Button>

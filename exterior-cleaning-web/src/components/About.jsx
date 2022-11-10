@@ -9,7 +9,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import StarIcon from "@mui/icons-material/Star";
 import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
-import { handleContactOpen } from "../store/slices/modalSlice";
+import { handleOpen } from "../store/slices/modalSlice";
 
 const About = () => {
   const dispatch = useDispatch();
@@ -21,10 +21,10 @@ const About = () => {
         minHeight: "90vh",
         mt: "1rem",
         pb: "1.5rem",
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
       }}
     >
-      <Grid container spacing={8} sx={{"&.MuiGrid-root": {mt: "0"}}}>
+      <Grid container spacing={8} sx={{ "&.MuiGrid-root": { mt: "0" } }}>
         <Grid item xs={12}>
           <Typography variant="h3" textAlign="center" fontWeight="500">
             About Us
@@ -64,8 +64,8 @@ const About = () => {
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
-            px: {xs: "1rem", md: 0},
-            textAlign: {xs: "center", md: "left"}
+            px: { xs: "1rem", md: 0 },
+            textAlign: { xs: "center", md: "left" },
           }}
         >
           <Typography variant="h6">
@@ -84,7 +84,7 @@ const About = () => {
             variant="contained"
             size="large"
             sx={{ mt: "1rem" }}
-            onClick={() => dispatch(handleContactOpen())}
+            onClick={() => dispatch(handleOpen("contact"))}
           >
             Contact Us
           </Button>

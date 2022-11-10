@@ -7,11 +7,12 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import LoadingButton from "../../ui/LoadingButton";
 import { useDispatch } from "react-redux";
-import { toggleIsClosed, signUpOpen } from "../../../store/slices/memberSlice";
+import { handleClose } from "../../../store/slices/modalSlice";
 import { useLoginMutation } from "../../../store/api/authApiSlice";
 import { loggedIn } from "../../../store/slices/authSlice";
 import { snackError, snackSuccess } from "../../../store/slices/snackSlice";
 import { useLazyGetMemberQuery } from "../../../store/api/memberApiSlice";
+import { toggleLogin } from "../../../store/slices/modalSlice";
 
 const Login = () => {
   const userRef = useRef();
@@ -106,7 +107,7 @@ const Login = () => {
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Button variant="text" onClick={() => dispatch(toggleIsClosed())}>
+            <Button variant="text" onClick={() => dispatch(handleClose())}>
               Close
             </Button>
           </Grid>
@@ -118,7 +119,7 @@ const Login = () => {
             <Button
               variant="outlined"
               type="button"
-              onClick={() => dispatch(signUpOpen())}
+              onClick={() => dispatch(toggleLogin())}
               sx={{ mr: "1rem" }}
             >
               Sign Up

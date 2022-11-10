@@ -5,15 +5,17 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
+import { handleClose } from "../../../store/slices/modalSlice";
 import {
-  handleCloseQuote,
   nextActiveStep,
   changePersonalValues,
 } from "../../../store/slices/quoteSlice";
 
 const ClientInfo = () => {
   const dispatch = useDispatch();
-  const { clientData: {personal} } = useSelector((store) => store.quote);
+  const {
+    clientData: { personal },
+  } = useSelector((store) => store.quote);
   const { firstName, lastName, email, mobile, address } = personal;
 
   const handleSubmit = (e) => {
@@ -108,10 +110,7 @@ const ClientInfo = () => {
           />
         </Grid>
         <Grid item xs={6}>
-          <Button
-            variant="outlined"
-            onClick={() => dispatch(handleCloseQuote())}
-          >
+          <Button variant="outlined" onClick={() => dispatch(handleClose())}>
             Close
           </Button>
         </Grid>

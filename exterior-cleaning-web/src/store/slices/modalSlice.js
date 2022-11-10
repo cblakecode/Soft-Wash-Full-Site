@@ -1,41 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  contactOpen: false,
-  quoteOpen: false,
-  loginOpen: false,
+  isLogin: true,
+  isOpen: false,
+  currentPage: null,
 };
 
 const modalSlice = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    handleContactOpen: (state, action) => {
-      state.contactOpen = true;
+    handleOpen: (state, action) => {
+      state.currentPage = action.payload;
+      state.isOpen = true;
     },
-    handleContactClose: (state, action) => {
-      state.contactOpen = false;
+    handleClose: (state, action) => {
+      state.currentPage = null;
+      state.isOpen = false;
     },
-    handleQuoteOpen: (state, action) => {
-      state.quoteOpen = true;
-    },
-    handleQuoteClose: (state, action) => {
-      state.quoteOpen = false;
-    },
-    handleLoginOpen: (state, action) => {
-      state.loginOpen = false;
-    },
-    handleLoginClose: (state, action) => {
-      state.loginOpen = false;
+    toggleLogin: (state) => {
+      state.isLogin ? (state.isLogin = false) : (state.isLogin = true);
     },
   },
 });
 
-export const {
-  handleContactOpen,
-  handleContactClose,
-  handleQuoteOpen,
-  handleQuoteClose,
-} = modalSlice.actions;
+export const { handleClose, handleOpen, toggleLogin } = modalSlice.actions;
 
 export default modalSlice.reducer;

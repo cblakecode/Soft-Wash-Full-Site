@@ -9,13 +9,13 @@ import Paper from "@mui/material/Paper";
 import Image from "../images/yellow-house.png";
 import CardMedia from "@mui/material/CardMedia";
 import { useDispatch } from "react-redux";
-import { handleOpenQuote } from "../store/slices/quoteSlice";
+import { handleOpen } from "../store/slices/modalSlice";
 
 const Hero = () => {
   const dispatch = useDispatch();
 
   return (
-    <Paper sx={{borderRadius: "13px", mt: "1rem"}} elevation={4}>
+    <Paper sx={{ borderRadius: "13px", mt: "1rem" }} elevation={4}>
       <Box
         sx={{
           display: { xs: "flex", lg: "grid" },
@@ -23,7 +23,7 @@ const Hero = () => {
           justifyContent: "center",
           backgroundColor: "primary.main",
           maxHeight: "90vh",
-          minHeight: "90vh"
+          minHeight: "90vh",
         }}
       >
         <Box
@@ -34,10 +34,22 @@ const Hero = () => {
             justifyContent: "center",
           }}
         >
-          <Typography variant="h1" fontWeight="bold" color="common.white" textAlign="center" fontSize={{xs: "11vw", md: "6rem"}}>
+          <Typography
+            variant="h1"
+            fontWeight="bold"
+            color="common.white"
+            textAlign="center"
+            fontSize={{ xs: "11vw", md: "6rem" }}
+          >
             Got Mildew!?
           </Typography>
-          <Typography variant="h5" color="common.white" textAlign="center" fontSize={{xs: "4vw", md: "2rem"}} sx={{mt: "1rem"}} >
+          <Typography
+            variant="h5"
+            color="common.white"
+            textAlign="center"
+            fontSize={{ xs: "4vw", md: "2rem" }}
+            sx={{ mt: "1rem" }}
+          >
             You've Come To The Right Place.
           </Typography>
           <Button
@@ -45,18 +57,22 @@ const Hero = () => {
             variant="contained"
             size="large"
             endIcon={<RequestQuoteIcon />}
-            onClick={() => dispatch(handleOpenQuote())}
+            onClick={() => dispatch(handleOpen("quote"))}
             sx={{
               width: "25%",
               mt: "1rem",
               flexWrap: "nowrap",
-              display: {xs: "none", sm: "flex"}
+              display: { xs: "none", sm: "flex" },
             }}
           >
             Quote
           </Button>
-          <IconButton sx={{display: {xs: "flex", sm: "none"}, mt: "1rem"}} size="large" color="secondary" >
-            <RequestQuoteIcon fontSize="inherit"/>
+          <IconButton
+            sx={{ display: { xs: "flex", sm: "none" }, mt: "1rem" }}
+            size="large"
+            color="secondary"
+          >
+            <RequestQuoteIcon fontSize="inherit" />
           </IconButton>
         </Box>
         <Box

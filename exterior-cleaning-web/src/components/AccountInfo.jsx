@@ -8,7 +8,8 @@ import { useDispatch } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import AccountOptions from "../features/modals/AccountOptions";
-import { accountOptions } from "../store/slices/memberSlice";
+// import { accountOptions } from "../store/slices/memberSlice";
+import { handleOpen } from "../store/slices/modalSlice";
 import { useGetMemberQuery } from "../store/api/memberApiSlice";
 
 const textStyles = {
@@ -136,32 +137,22 @@ const AccountInfo = () => {
         </Grid>
       </Grid>
       <Grid item container px="1rem" mt="1rem" columnSpacing={4}>
-        <Grid item xs={4}>
-          <Button
-            variant="contained"
-            color="success"
-            fullWidth
-            onClick={() => dispatch(accountOptions("upgrade"))}
-          >
-            Upgrade
-          </Button>
-        </Grid>
-        <Grid item xs={4} display="flex" justifyContent="center">
+        <Grid item xs={6} display="flex" justifyContent="center">
           <Button
             variant="contained"
             color="primary"
             fullWidth
-            onClick={() => dispatch(accountOptions("update"))}
+            onClick={() => dispatch(handleOpen("update"))}
           >
             Edit
           </Button>
         </Grid>
-        <Grid item xs={4} display="flex" justifyContent="flex-end">
+        <Grid item xs={6} display="flex" justifyContent="flex-end">
           <Button
             variant="contained"
             color="error"
             fullWidth
-            onClick={() => dispatch(accountOptions("delete"))}
+            onClick={() => dispatch(handleOpen("delete"))}
           >
             Delete
           </Button>

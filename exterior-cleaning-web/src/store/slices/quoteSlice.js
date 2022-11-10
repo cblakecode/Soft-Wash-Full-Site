@@ -47,17 +47,11 @@ const quoteSlice = createSlice({
   name: "quote",
   initialState,
   reducers: {
-    handleCloseQuote: (state) => {
-      state.activeStep = 0;
-      state.isOpen = false;
-      state.clientData = resetData;
-    },
-    handleOpenQuote: (state, action) => {
-      state.isOpen = true;
-    },
     changePersonalValues: (state, action) => {
-      const value = action.payload;
-      state.clientData.personal = { ...state.clientData.personal, ...value };
+      state.clientData.personal = {
+        ...state.clientData.personal,
+        ...action.payload,
+      };
     },
     changePropertyValues: (state, action) => {
       const value = action.payload;
@@ -119,8 +113,6 @@ const quoteSlice = createSlice({
 
 const { actions, reducer } = quoteSlice;
 export const {
-  handleCloseQuote,
-  handleOpenQuote,
   calculateQuote,
   resetForm,
   nextActiveStep,

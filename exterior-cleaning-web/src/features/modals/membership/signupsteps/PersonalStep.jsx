@@ -7,12 +7,9 @@ import Button from "@mui/material/Button";
 import React from "react";
 import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
-import {
-  toggleIsClosed,
-  loginOpen,
-  nextStep,
-} from "../../../../store/slices/memberSlice";
+import { nextStep } from "../../../../store/slices/memberSlice";
 import { setCredentials } from "../../../../store/slices/authSlice";
+import { toggleLogin, handleClose } from "../../../../store/slices/modalSlice";
 
 const PersonalStep = () => {
   const [user, setUser] = useState({
@@ -29,11 +26,7 @@ const PersonalStep = () => {
   };
 
   const handleLogin = () => {
-    dispatch(loginOpen());
-  };
-
-  const handleClose = () => {
-    dispatch(toggleIsClosed());
+    dispatch(toggleLogin());
   };
 
   const handleSubmit = (e) => {
@@ -88,7 +81,7 @@ const PersonalStep = () => {
         />
         <Grid container>
           <Grid item xs={6}>
-            <Button variant="text" onClick={handleClose}>
+            <Button variant="text" onClick={() => dispatch(handleClose())}>
               Close
             </Button>
           </Grid>
