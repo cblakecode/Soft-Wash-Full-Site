@@ -71,6 +71,7 @@ const AuthStep = () => {
             label="Enter Username (must be 6-12 characters long)"
             name="username"
             ref={userRef}
+            autoComplete="off"
             value={user?.username}
             inputProps={{ minLength: "6", maxLength: "12" }}
             onChange={handleUserChange}
@@ -84,6 +85,7 @@ const AuthStep = () => {
             type={togglePassView ? "text" : "password"}
             name="password"
             ref={userRef}
+            autoComplete="off"
             value={user?.password}
             onChange={handleUserChange}
             InputProps={{
@@ -117,6 +119,7 @@ const AuthStep = () => {
             name="confirmPass"
             type={togglePassView ? "text" : "password"}
             ref={userRef}
+            autoComplete="off"
             value={confirm}
             onChange={handleConfirmChange}
             InputProps={{

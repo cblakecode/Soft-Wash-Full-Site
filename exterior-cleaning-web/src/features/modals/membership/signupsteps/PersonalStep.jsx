@@ -48,6 +48,7 @@ const PersonalStep = () => {
           required
           name="name"
           label="Enter First and Last Name"
+          autoComplete="off"
           value={user?.name}
           onChange={handleChange}
           inputProps={{ pattern: "^\\D+\\s\\D+$" }}
@@ -60,6 +61,7 @@ const PersonalStep = () => {
             pattern: "^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$",
           }}
           label="Enter Mobile Number"
+          autoComplete="off"
           value={user?.phone}
           onChange={handleChange}
         />
@@ -68,6 +70,7 @@ const PersonalStep = () => {
           name="email"
           type="email"
           label="Enter Valid Email"
+          autoComplete="off"
           value={user?.email}
           onChange={handleChange}
         />
@@ -75,6 +78,7 @@ const PersonalStep = () => {
           required
           name="address"
           label="Enter Property Address (ex. 123 Cleaning st, Mount Pleasant 29486)"
+          autoComplete="off"
           value={user?.address}
           onChange={handleChange}
           inputProps={{ pattern: "^\\d+\\s\\w+[, ]\\D+\\s\\d{5,6}$" }}

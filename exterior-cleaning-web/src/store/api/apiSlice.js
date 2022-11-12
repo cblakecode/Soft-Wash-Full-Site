@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { logOut } from "../slices/authSlice";
 
-const baseQuery = fetchBaseQuery({
+const customBaseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000",
   credentials: "include",
   prepareHeaders: (headers) => {
@@ -14,16 +14,20 @@ const baseQuery = fetchBaseQuery({
 });
 
 export const baseQueryWithReauth = async (args, api, extraOptions) => {
-  let result = await baseQuery(args, api, extraOptions);
+  let result = await customBaseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 403) {
-    const refreshResult = await baseQuery("/auth/refresh", api, extraOptions);
+    const refreshResult = await customBaseQuery(
+      "/auth/refresh",
+      api,
+      extraOptions
+    );
     if (refreshResult?.data) {
       sessionStorage.setItem(
         "authStorage",
         JSON.stringify({ ...refreshResult.data })
       );
-      result = await baseQuery(args, api, extraOptions);
+      result = await customBaseQuery(args, api, extraOptions);
     } else {
       api.dispatch(logOut());
     }

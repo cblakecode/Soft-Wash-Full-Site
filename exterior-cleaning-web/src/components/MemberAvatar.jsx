@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useGetMemberQuery } from "../store/api/memberApiSlice";
 import { useLogoutMutation } from "../store/api/authApiSlice";
 import { logOut } from "../store/slices/authSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
@@ -16,32 +15,30 @@ import ListItemText from "@mui/material/ListItemText";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PaymentIcon from "@mui/icons-material/Payment";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+// import { useGetMemberQuery } from "../store/api/memberApiSlice";
+import { apiSlice } from "../store/api/apiSlice";
 
 const MemberAvatar = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [userName, setUserName] = useState("John Doe");
-  const [skip, setSkip] = useState(true);
-  const { name } = useSelector((store) => store.auth.user);
-  const { data, isSuccess } = useGetMemberQuery({ skip });
-  const [logout] = useLogoutMutation();
   const dispatch = useDispatch();
+  const { currentData } = apiSlice.endpoints.getMember.useQueryState();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [name, setName] = useState("John Doe");
+  const [logout] = useLogoutMutation();
 
   useEffect(() => {
-    if (!name) {
-      setSkip(false);
-      setUserName(data?.name);
+    if (currentData?.name) {
+      setName(currentData.name);
     }
-    setUserName(name);
-  }, [name, data, isSuccess]);
+  }, [currentData]);
 
-  const stringAvatar = (name) => {
+  function stringAvatar(name) {
     const bigName = name?.toUpperCase();
     const arr = bigName.split(" ");
 
     return {
       children: `${arr[0][0]}${arr[1][0]}`,
     };
-  };
+  }
 
   const handleOpen = (e) => {
     setAnchorEl(e.currentTarget);
@@ -64,7 +61,7 @@ const MemberAvatar = () => {
           aria-controls="user-menu"
           onClick={handleOpen}
         >
-          <Avatar {...stringAvatar(userName)} />
+          <Avatar {...stringAvatar(name)} />
         </IconButton>
       </Tooltip>
       <Menu

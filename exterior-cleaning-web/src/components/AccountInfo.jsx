@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Paper from "@mui/material/Paper";
@@ -8,7 +7,6 @@ import { useDispatch } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import AccountOptions from "../features/modals/AccountOptions";
-// import { accountOptions } from "../store/slices/memberSlice";
 import { handleOpen } from "../store/slices/modalSlice";
 import { useGetMemberQuery } from "../store/api/memberApiSlice";
 
@@ -24,17 +22,8 @@ const labelStyles = {
 };
 
 const AccountInfo = () => {
-  const { data: user, isSuccess } = useGetMemberQuery();
+  const { currentData: user } = useGetMemberQuery();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (isSuccess) {
-      sessionStorage.setItem(
-        "userStorage",
-        JSON.stringify({ ...user, isLoggedIn: true })
-      );
-    }
-  }, [isSuccess, user]);
 
   const name = user?.name || "John Doe";
 

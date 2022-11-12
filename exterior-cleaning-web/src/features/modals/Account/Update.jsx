@@ -1,3 +1,4 @@
+import { apiSlice } from "../../../store/api/apiSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { handleClose } from "../../../store/slices/modalSlice";
@@ -9,16 +10,15 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { originalData } from "../../../store/slices/loggedInSlice";
 import {
-  useGetMemberQuery,
+  // useGetMemberQuery,
   useUpdateMemberMutation,
 } from "../../../store/api/memberApiSlice";
 
 const Update = () => {
-  const { data: user } = useGetMemberQuery();
+  const dispatch = useDispatch();
+  const { currentData: user } = apiSlice.endpoints.getMember.useQueryState();
   const [userData, setUserData] = useState({ ...user, password: "" });
   const [updateMember] = useUpdateMemberMutation();
-
-  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -31,6 +31,7 @@ const Update = () => {
 
   const handleSubmit = async (e) => {
     try {
+      sessionStorage.setItem("userStorage", JSON.stringify(userData));
       const response = await updateMember(userData).unwrap();
       return response;
     } catch (error) {

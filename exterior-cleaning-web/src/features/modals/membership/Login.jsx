@@ -10,6 +10,7 @@ import { handleClose } from "../../../store/slices/modalSlice";
 import { useLoginMutation } from "../../../store/api/authApiSlice";
 import { loggedIn } from "../../../store/slices/authSlice";
 import { snackError, snackSuccess } from "../../../store/slices/snackSlice";
+import { setCredentials } from "../../../store/slices/authSlice";
 import { useLazyGetMemberQuery } from "../../../store/api/memberApiSlice";
 import { toggleLogin } from "../../../store/slices/modalSlice";
 
@@ -36,12 +37,14 @@ const Login = () => {
     e.preventDefault();
     try {
       const token = await login({ username, password }).unwrap();
-      sessionStorage.setItem(
-        "userStorage",
-        JSON.stringify({ username: username })
-      );
+      await dispatch(setCredentials({ username }));
+      getMember().unwrap();
+      // sessionStorage.setItem(
+      //   "userStorage",
+      //   JSON.stringify({ username: username })
+      // );
       sessionStorage.setItem("authStorage", JSON.stringify(token));
-      await getMember().unwrap();
+      // await getMember(username).unwrap();
       setUser("");
       setPwd("");
       dispatch(loggedIn());

@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 // @route GET /members
 // @access Private
 const getMember = asyncHandler(async (req, res) => {
-  const username = req.params.username;
+  const { username } = req.params;
 
   const member = await Member.findOne({ username })
     .select("-password")
@@ -65,7 +65,6 @@ const updateMember = asyncHandler(async (req, res) => {
 // @access Private
 const deleteMember = asyncHandler(async (req, res) => {
   const { _id } = req.body;
-  console.log(_id);
 
   if (!_id) {
     return res.status(400).json({ message: "user id required" });
@@ -81,6 +80,7 @@ const deleteMember = asyncHandler(async (req, res) => {
 
   const reply = `Username ${result.username} with ID ${result._id} deleted`;
 
+  res.clearCookie("jwt", { httpOnly: true, sameSite: "none", secure: true });
   res.json(reply);
 });
 

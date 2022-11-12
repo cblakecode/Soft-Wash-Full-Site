@@ -8,6 +8,17 @@ export const authApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...credentials },
       }),
+      onQueryStarted: async (_, { queryFulfilled }) => {
+        try {
+          const { data } = await queryFulfilled;
+          sessionStorage.setItem(
+            "authStorage",
+            JSON.stringify(data?.accessToken)
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      },
     }),
     addMember: builder.mutation({
       query: (user) => ({
@@ -21,7 +32,6 @@ export const authApiSlice = apiSlice.injectEndpoints({
         url: "/auth/logout",
         method: "POST",
       }),
-      invalidatesTags: ["Members"],
     }),
     refresh: builder.query({
       query: () => "/auth/refresh",
