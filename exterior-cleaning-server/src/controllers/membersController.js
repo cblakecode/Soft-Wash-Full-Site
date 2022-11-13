@@ -1,5 +1,6 @@
 const Member = require("../models/Members");
 const asyncHandler = require("express-async-handler");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 // @desc get members
@@ -30,7 +31,6 @@ const updateMember = asyncHandler(async (req, res) => {
   if (!_id || !username || !password) {
     return res.status(400).json({ message: "all fields are required" });
   }
-  console.log("hello");
   const member = await Member.findById(_id).exec();
 
   if (!member) {
@@ -41,6 +41,21 @@ const updateMember = asyncHandler(async (req, res) => {
 
   if (duplicate && duplicate?._id.toString() !== _id) {
     return res.status(409).json({ message: "Duplicate username" });
+  }
+
+  if (username !== member.username) {
+    const refreshToken = jwt.sign(
+      { username },
+      process.env.REFRESH_TOKEN_SECRET,
+      { expiresIn: "1d" }
+    );
+
+    res.cookie("jwt", refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
   }
 
   member.username = username;

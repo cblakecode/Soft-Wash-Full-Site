@@ -1,13 +1,18 @@
-import React from "react";
+import { useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import InstagramIcon from "@mui/icons-material/Instagram";
+import { handleOpen } from "../store/slices/modalSlice";
 
 const Footer = () => {
+  const dispatch = useDispatch();
+
+  const openModal = (e) => {
+    e.preventDefault();
+    dispatch(handleOpen("contact"));
+  };
+
   return (
     <Box sx={{ height: "auto", py: "2rem", backgroundColor: "primary.main" }}>
       <Grid container spacing={6} rowSpacing={12}>
@@ -19,25 +24,7 @@ const Footer = () => {
         <Grid
           item
           xs={12}
-          md={4}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "row",
-          }}
-        >
-          <IconButton color="secondary">
-            <FacebookIcon />
-          </IconButton>
-          <IconButton color="secondary">
-            <InstagramIcon />
-          </IconButton>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          md={4}
+          md={6}
           sx={{
             display: "flex",
             justifyContent: "center",
@@ -45,14 +32,19 @@ const Footer = () => {
             flexDirection: "column",
           }}
         >
-          <Link href="#" underline="hover" color="secondary">
+          <Link
+            href="/"
+            underline="hover"
+            color="secondary"
+            onClick={openModal}
+          >
             {"support@exteriorcleaningofsc.com"}
           </Link>
           <Typography color="secondary">843-200-0485</Typography>
         </Grid>
         <Grid
           item
-          md={4}
+          md={6}
           sx={{
             display: { xs: "none", md: "flex" },
             justifyContent: "center",

@@ -6,7 +6,7 @@ const customBaseQuery = fetchBaseQuery({
   credentials: "include",
   prepareHeaders: (headers) => {
     const token = JSON.parse(sessionStorage.getItem("authStorage"));
-    if (token?.accessToken) {
+    if (token) {
       headers.set("authorization", `Bearer ${token.accessToken}`);
     }
     return headers;

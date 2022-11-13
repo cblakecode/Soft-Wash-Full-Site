@@ -1,4 +1,4 @@
-import React from "react";
+import { forwardRef } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
 import { handleOpen } from "../store/slices/modalSlice";
 
-const About = () => {
+const About = forwardRef(function About(props, ref) {
   const dispatch = useDispatch();
 
   return (
@@ -23,6 +23,7 @@ const About = () => {
         pb: "1.5rem",
         backgroundColor: "#fff",
       }}
+      ref={ref}
     >
       <Grid container spacing={8} sx={{ "&.MuiGrid-root": { mt: "0" } }}>
         <Grid item xs={12}>
@@ -92,6 +93,6 @@ const About = () => {
       </Grid>
     </Box>
   );
-};
+});
 
 export default About;

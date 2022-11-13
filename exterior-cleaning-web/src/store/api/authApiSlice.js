@@ -1,3 +1,4 @@
+import { loggedIn } from "../slices/authSlice";
 import { apiSlice } from "./apiSlice";
 
 export const authApiSlice = apiSlice.injectEndpoints({
@@ -8,13 +9,11 @@ export const authApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...credentials },
       }),
-      onQueryStarted: async (_, { queryFulfilled }) => {
+      onQueryStarted: async (credentials, { queryFulfilled, dispatch }) => {
         try {
           const { data } = await queryFulfilled;
-          sessionStorage.setItem(
-            "authStorage",
-            JSON.stringify(data?.accessToken)
-          );
+          await sessionStorage.setItem("authStorage", JSON.stringify(data));
+          dispatch(loggedIn());
         } catch (error) {
           console.log(error.error.data.message);
         }

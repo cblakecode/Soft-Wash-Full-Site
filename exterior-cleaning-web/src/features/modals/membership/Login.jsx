@@ -8,7 +8,7 @@ import LoadingButton from "../../ui/LoadingButton";
 import { useDispatch } from "react-redux";
 import { handleClose } from "../../../store/slices/modalSlice";
 import { useLoginMutation } from "../../../store/api/authApiSlice";
-import { loggedIn } from "../../../store/slices/authSlice";
+// import { loggedIn } from "../../../store/slices/authSlice";
 import { snackError, snackSuccess } from "../../../store/slices/snackSlice";
 import { setCredentials } from "../../../store/slices/authSlice";
 import { toggleLogin } from "../../../store/slices/modalSlice";
@@ -28,16 +28,13 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = await login({ username, password }).unwrap();
-      await dispatch(setCredentials({ username }));
-      await sessionStorage.setItem("authStorage", JSON.stringify(token));
-      dispatch(loggedIn());
+      await login({ username, password }).unwrap();
+      dispatch(setCredentials({ username }));
       setUser("");
       setPwd("");
       dispatch(handleClose());
       dispatch(snackSuccess("Welcome Back!"));
     } catch (err) {
-      console.log(err);
       dispatch(snackError(err.data.message));
     }
   };

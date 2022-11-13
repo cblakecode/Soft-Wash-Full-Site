@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import { Suspense, forwardRef } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -40,9 +40,9 @@ const listServices = [
   },
 ];
 
-const Services = () => {
+const Services = forwardRef(function Services(props, ref) {
   return (
-    <Paper elevation={4} sx={{borderRadius: "13px", mt: "1rem"}}>
+    <Paper elevation={4} sx={{ borderRadius: "13px", mt: "1rem" }} ref={ref}>
       <Box
         sx={{
           minHeight: "90vh",
@@ -68,7 +68,7 @@ const Services = () => {
             display: "flex",
             flexDirection: "row",
             alignItems: "stretch",
-            mt: "3rem"
+            mt: "3rem",
           }}
         >
           <Suspense>
@@ -89,6 +89,6 @@ const Services = () => {
       </Box>
     </Paper>
   );
-};
+});
 
 export default Services;

@@ -5,8 +5,8 @@ import contactReducer from "./slices/contactSlice";
 import quoteReducer from "./slices/quoteSlice";
 import snackReducer from "./slices/snackSlice";
 import memberReducer from "./slices/memberSlice";
-import loggedInReducer from "./slices/loggedInSlice";
 import authReducer from "./slices/authSlice";
+import scrollReducer from "./slices/scrollSlice";
 
 const rehydrateState = () => {
   if (sessionStorage.getItem("userStorage") !== null) {
@@ -26,7 +26,7 @@ const store = configureStore({
     snack: snackReducer,
     auth: authReducer,
     member: memberReducer,
-    loggedIn: loggedInReducer,
+    scroll: scrollReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(

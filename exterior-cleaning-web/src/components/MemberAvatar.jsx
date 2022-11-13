@@ -13,13 +13,14 @@ import Divider from "@mui/material/Divider";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import LogoutIcon from "@mui/icons-material/Logout";
-import PaymentIcon from "@mui/icons-material/Payment";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useGetMemberQuery } from "../store/api/memberApiSlice";
 
 const MemberAvatar = () => {
   const dispatch = useDispatch();
-  const { username } = useSelector((store) => store.auth.user);
+  const { username, name: memberName } = useSelector(
+    (store) => store.auth.user
+  );
   const { userName } = useGetMemberQuery(username, {
     selectFromResult: ({ data }) => ({
       userName: data?.name,
@@ -28,7 +29,7 @@ const MemberAvatar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [logout] = useLogoutMutation();
 
-  const name = userName || "John Doe";
+  const name = userName || memberName || "John Doe";
 
   function stringAvatar(name) {
     const bigName = name?.toUpperCase();
@@ -78,12 +79,6 @@ const MemberAvatar = () => {
             <AccountCircleIcon color="primary" />
           </ListItemIcon>
           <ListItemText>Account</ListItemText>
-        </MenuItem>
-        <MenuItem component={Link} to={"/payment"} onClick={handleClose}>
-          <ListItemIcon>
-            <PaymentIcon color="success" />
-          </ListItemIcon>
-          <ListItemText>Payment</ListItemText>
         </MenuItem>
         <Divider />
         <MenuItem component={Link} to={"/"} onClick={handleLogout}>
