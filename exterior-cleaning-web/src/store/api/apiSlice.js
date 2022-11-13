@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { logOut } from "../slices/authSlice";
 
 const customBaseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:5000",
+  baseUrl: "https://exterior-cleaning-web.onrender.com",
   credentials: "include",
   prepareHeaders: (headers) => {
     const token = JSON.parse(sessionStorage.getItem("authStorage"));

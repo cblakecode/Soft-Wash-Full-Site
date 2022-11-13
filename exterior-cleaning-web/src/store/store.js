@@ -32,7 +32,7 @@ const store = configureStore({
     getDefaultMiddleware({ serializableCheck: false }).concat(
       apiSlice.middleware
     ),
-  devTools: true,
+  devTools: false,
   preloadedState: {
     auth: rehydrateState(),
   },
