@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -6,10 +6,10 @@ import IconButton from "@mui/material/IconButton";
 import Card from "@mui/material/Card";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import Paper from "@mui/material/Paper";
-import Image from "../images/yellow-house.png";
 import CardMedia from "@mui/material/CardMedia";
 import { useDispatch } from "react-redux";
 import { handleOpen } from "../store/slices/modalSlice";
+import Image from "../images/yellow-house.png";
 
 const Hero = () => {
   const dispatch = useDispatch();
@@ -88,6 +88,7 @@ const Hero = () => {
                 component="img"
                 heigth="100%"
                 image={Image}
+                loading="lazy"
                 alt="yellow house"
               />
             </Card>

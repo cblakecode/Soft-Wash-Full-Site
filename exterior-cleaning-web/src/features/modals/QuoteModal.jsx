@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import SnackAlert from "../ui/SnackAlert";
 import { useSelector } from "react-redux";
 import ClientInfo from "./quote/ClientInfo";
 import PropertyInfo from "./quote/PropertyInfo";
@@ -39,7 +38,6 @@ const QuoteModal = () => {
         })}
       </Stepper>
       {getStepContent(activeStep)}
-      <SnackAlert />
     </Box>
   );
 };

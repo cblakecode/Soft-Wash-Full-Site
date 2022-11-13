@@ -6,13 +6,20 @@ import { snackClose } from "../../store/slices/snackSlice";
 
 const SnackAlert = () => {
   const dispatch = useDispatch();
-  const { isSuccess, isOpen, alertMessage } = useSelector((store) => store.snack);
+  const { isSuccess, isOpen, alertMessage } = useSelector(
+    (store) => store.snack
+  );
+
+  const handleClose = (e) => {
+    dispatch(snackClose());
+  };
+
   return (
     <Snackbar
       open={isOpen}
-      autoHideDuration={5000}
+      autoHideDuration={3000}
       anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-      onClose={() => dispatch(snackClose())}
+      onClose={handleClose}
     >
       {isSuccess ? (
         <Alert severity="success" sx={{ width: "100%" }}>

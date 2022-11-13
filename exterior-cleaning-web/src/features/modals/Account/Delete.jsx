@@ -6,24 +6,36 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { handleClose } from "../../../store/slices/modalSlice";
 import { logOut } from "../../../store/slices/authSlice";
-import { useDeleteMemberMutation } from "../../../store/api/memberApiSlice";
+import {
+  useDeleteMemberMutation,
+  useGetMemberQuery,
+} from "../../../store/api/memberApiSlice";
+import { snackError, snackSuccess } from "../../../store/slices/snackSlice";
 
 const Delete = () => {
   const navigate = useNavigate();
-  const { user } = useSelector((store) => store.auth);
+  const { username } = useSelector((store) => store.auth.user);
+  const { _id } = useGetMemberQuery(username, {
+    selectFromResult: ({ data }) => ({
+      _id: data?._id,
+    }),
+  });
   const dispatch = useDispatch();
   const [deleteMember] = useDeleteMemberMutation();
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
-      await deleteMember(user).unwrap();
+      const reply = await deleteMember(_id).unwrap();
       dispatch(logOut());
       dispatch(handleClose());
       navigate("/");
+      dispatch(snackSuccess(reply));
       return;
     } catch (error) {
-      console.log(error);
+      if (error.status !== 403) {
+        dispatch(snackError(error.data.message));
+      }
     }
   };
 

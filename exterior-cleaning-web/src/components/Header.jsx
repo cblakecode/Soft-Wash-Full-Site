@@ -1,9 +1,8 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, Suspense, lazy } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { handleOpen } from "../store/slices/modalSlice";
 import { setCredentials } from "../store/slices/authSlice";
-import ModalPopup from "../features/ui/ModalPopup";
 import NavbarPages from "./NavbarPages";
 import AppBar from "@mui/material/AppBar";
 import HideOnScroll from "../Utilities/HideOnScroll";
@@ -15,6 +14,8 @@ import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import EmailIcon from "@mui/icons-material/Email";
 import IconButton from "@mui/material/IconButton";
 import UserNav from "./UserNav";
+import SnackAlert from "../features/ui/SnackAlert";
+const ModalPopup = lazy(() => import("../features/ui/ModalPopup"));
 
 const iconButtonStyle = {
   display: { xs: "none", sm: "flex", lg: "none" },
@@ -133,7 +134,10 @@ const Header = () => {
           </Box>
         </AppBar>
       </HideOnScroll>
-      <ModalPopup />
+      <Suspense>
+        <ModalPopup />
+      </Suspense>
+      <SnackAlert />
     </Fragment>
   );
 };

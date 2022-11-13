@@ -16,7 +16,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
             JSON.stringify(data?.accessToken)
           );
         } catch (error) {
-          console.log(error);
+          console.log(error.error.data.message);
         }
       },
     }),
@@ -32,9 +32,6 @@ export const authApiSlice = apiSlice.injectEndpoints({
         url: "/auth/logout",
         method: "POST",
       }),
-    }),
-    refresh: builder.query({
-      query: () => "/auth/refresh",
     }),
   }),
 });

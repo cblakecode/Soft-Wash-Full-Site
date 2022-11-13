@@ -3,7 +3,7 @@ import Avatar from "@mui/material/Avatar";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import AccountOptions from "../features/modals/AccountOptions";
@@ -22,7 +22,8 @@ const labelStyles = {
 };
 
 const AccountInfo = () => {
-  const { currentData: user } = useGetMemberQuery();
+  const { username } = useSelector((store) => store.auth.user);
+  const { currentData: user } = useGetMemberQuery(username);
   const dispatch = useDispatch();
 
   const name = user?.name || "John Doe";

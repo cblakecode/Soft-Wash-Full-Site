@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLogoutMutation } from "../store/api/authApiSlice";
 import { logOut } from "../store/slices/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
@@ -15,21 +15,20 @@ import ListItemText from "@mui/material/ListItemText";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PaymentIcon from "@mui/icons-material/Payment";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-// import { useGetMemberQuery } from "../store/api/memberApiSlice";
-import { apiSlice } from "../store/api/apiSlice";
+import { useGetMemberQuery } from "../store/api/memberApiSlice";
 
 const MemberAvatar = () => {
   const dispatch = useDispatch();
-  const { currentData } = apiSlice.endpoints.getMember.useQueryState();
+  const { username } = useSelector((store) => store.auth.user);
+  const { userName } = useGetMemberQuery(username, {
+    selectFromResult: ({ data }) => ({
+      userName: data?.name,
+    }),
+  });
   const [anchorEl, setAnchorEl] = useState(null);
-  const [name, setName] = useState("John Doe");
   const [logout] = useLogoutMutation();
 
-  useEffect(() => {
-    if (currentData?.name) {
-      setName(currentData.name);
-    }
-  }, [currentData]);
+  const name = userName || "John Doe";
 
   function stringAvatar(name) {
     const bigName = name?.toUpperCase();

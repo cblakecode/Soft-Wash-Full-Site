@@ -80,7 +80,7 @@ const login = asyncHandler(async (req, res) => {
   const foundMember = await Member.findOne({ username }).exec();
 
   if (!foundMember) {
-    return res.status(401).json({ message: "unauthorized" });
+    return res.status(401).json({ message: "Member Does Not Exist" });
   }
 
   const match = await bcrypt.compare(password, foundMember.password);

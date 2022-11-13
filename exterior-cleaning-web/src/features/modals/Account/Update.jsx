@@ -1,6 +1,6 @@
-import { apiSlice } from "../../../store/api/apiSlice";
+// import { apiSlice } from "../../../store/api/apiSlice";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { handleClose } from "../../../store/slices/modalSlice";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
@@ -8,15 +8,17 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { originalData } from "../../../store/slices/loggedInSlice";
+// import { originalData } from "../../../store/slices/loggedInSlice";
 import {
-  // useGetMemberQuery,
+  selectUserResult,
   useUpdateMemberMutation,
 } from "../../../store/api/memberApiSlice";
+import { snackError, snackSuccess } from "../../../store/slices/snackSlice";
 
 const Update = () => {
   const dispatch = useDispatch();
-  const { currentData: user } = apiSlice.endpoints.getMember.useQueryState();
+  const { username } = useSelector((store) => store.auth.user);
+  const user = useSelector((store) => selectUserResult(store, username));
   const [userData, setUserData] = useState({ ...user, password: "" });
   const [updateMember] = useUpdateMemberMutation();
 
@@ -26,16 +28,20 @@ const Update = () => {
 
   const handleClosed = () => {
     dispatch(handleClose());
-    dispatch(originalData());
   };
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      sessionStorage.setItem("userStorage", JSON.stringify(userData));
+      await handleClose();
       const response = await updateMember(userData).unwrap();
+      handleClosed();
+      dispatch(snackSuccess(response.message));
       return response;
     } catch (error) {
-      console.log(error);
+      if (error.status !== 403) {
+        dispatch(snackError(error.data.message));
+      }
     }
   };
 

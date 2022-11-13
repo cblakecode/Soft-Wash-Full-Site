@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import ContactModal from "../modals/ContactModal";
 import QuoteModal from "../modals/QuoteModal";
 import MembersModal from "../modals/MembersModal";
@@ -33,32 +32,30 @@ const ModalPopup = () => {
 
   return (
     <>
-      <Suspense>
-        <Modal
-          open={isOpen}
-          onClose={() => dispatch(handleClose())}
-          closeAfterTransition
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Grow in={isOpen} mountOnEnter unmountOnExit>
-            <Box
-              sx={{
-                backgroundColor: "common.white",
-                width: "60%",
-                height: "auto",
-                borderRadius: "10px",
-                p: "1rem",
-              }}
-            >
-              {modalPage(currentPage)}
-            </Box>
-          </Grow>
-        </Modal>
-      </Suspense>
+      <Modal
+        open={isOpen}
+        onClose={() => dispatch(handleClose())}
+        closeAfterTransition
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Grow in={isOpen} mountOnEnter unmountOnExit>
+          <Box
+            sx={{
+              backgroundColor: "common.white",
+              width: "60%",
+              height: "auto",
+              borderRadius: "10px",
+              p: "1rem",
+            }}
+          >
+            {modalPage(currentPage)}
+          </Box>
+        </Grow>
+      </Modal>
     </>
   );
 };

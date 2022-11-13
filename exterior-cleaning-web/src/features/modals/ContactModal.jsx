@@ -4,7 +4,6 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import SnackAlert from "../ui/SnackAlert";
 import { useSelector, useDispatch } from "react-redux";
 import { handleClose } from "../../store/slices/modalSlice";
 import { handleInputChange } from "../../store/slices/contactSlice";
@@ -107,7 +106,6 @@ const Modalcontact = () => {
           <LoadingButton name="Send" variant="contained" type="submit" />
         </Grid>
       </Grid>
-      <SnackAlert sent="Message Sent!" failed="Message Failed!" />
     </Box>
   );
 };

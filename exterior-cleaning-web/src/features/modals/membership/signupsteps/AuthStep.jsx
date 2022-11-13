@@ -43,20 +43,12 @@ const AuthStep = () => {
       const token = await addMember(user).unwrap();
       sessionStorage.setItem("authStorage", JSON.stringify(token));
       sessionStorage.setItem("userStorage", JSON.stringify(user));
-      dispatch(snackSuccess("Successfully Sign Up"));
+      dispatch(snackSuccess("Successful Sign Up"));
       dispatch(loggedIn());
       dispatch(handleClose());
       return;
     } catch (err) {
-      if (!err?.status) {
-        dispatch(snackError("server not responding"));
-      } else if (err.status === 400) {
-        dispatch(snackError("All Fields are Required"));
-      } else if (err.status === 409) {
-        dispatch(snackError("Username or Email already exists"));
-      } else {
-        dispatch(snackError("Sign Up Failed"));
-      }
+      dispatch(snackError(err.data.message));
     }
   };
 
