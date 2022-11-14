@@ -8,9 +8,8 @@ import { Provider } from "react-redux";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { disableReactDevTools } from "@fvilers/disable-react-devtools";
-import { processResult } from "immer/dist/internal";
 
-if (processResult.env.NODE_ENV === "production") disableReactDevTools();
+if (process.env.NODE_ENV === "production") disableReactDevTools();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
