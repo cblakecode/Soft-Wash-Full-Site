@@ -1,6 +1,6 @@
 import { useState, Fragment } from "react";
 import { useDispatch } from "react-redux";
-import { targetScroll } from "../store/slices/scrollSlice";
+import { targetScroll } from "../app/slices/scrollSlice";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";

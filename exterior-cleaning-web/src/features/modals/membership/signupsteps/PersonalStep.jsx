@@ -7,9 +7,9 @@ import Button from "@mui/material/Button";
 import React from "react";
 import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
-import { nextStep } from "../../../../store/slices/memberSlice";
-import { setCredentials } from "../../../../store/slices/authSlice";
-import { toggleLogin, handleClose } from "../../../../store/slices/modalSlice";
+import { nextStep } from "../../../../app/slices/memberSlice";
+import { setCredentials } from "../../../../app/slices/authSlice";
+import { toggleLogin, handleClose } from "../../../../app/slices/modalSlice";
 
 const PersonalStep = () => {
   const [user, setUser] = useState({

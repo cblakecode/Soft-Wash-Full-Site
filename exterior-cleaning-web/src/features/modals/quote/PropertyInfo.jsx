@@ -7,13 +7,13 @@ import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useDispatch } from "react-redux";
-import { handleClose } from "../../../store/slices/modalSlice";
+import { handleClose } from "../../../app/slices/modalSlice";
 import {
   nextActiveStep,
   prevActiveStep,
   changePropertyValues,
   calculateQuote,
-} from "../../../store/slices/quoteSlice";
+} from "../../../app/slices/quoteSlice";
 
 const PropertyInfo = () => {
   const [propertyData, setPropertyData] = useState({

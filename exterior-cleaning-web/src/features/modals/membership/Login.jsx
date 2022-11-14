@@ -6,12 +6,11 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import LoadingButton from "../../ui/LoadingButton";
 import { useDispatch } from "react-redux";
-import { handleClose } from "../../../store/slices/modalSlice";
-import { useLoginMutation } from "../../../store/api/authApiSlice";
-// import { loggedIn } from "../../../store/slices/authSlice";
-import { snackError, snackSuccess } from "../../../store/slices/snackSlice";
-import { setCredentials } from "../../../store/slices/authSlice";
-import { toggleLogin } from "../../../store/slices/modalSlice";
+import { handleClose } from "../../../app/slices/modalSlice";
+import { useLoginMutation } from "../../../app/api/authApiSlice";
+import { snackError, snackSuccess } from "../../../app/slices/snackSlice";
+import { setCredentials } from "../../../app/slices/authSlice";
+import { toggleLogin } from "../../../app/slices/modalSlice";
 
 const Login = () => {
   const userRef = useRef();

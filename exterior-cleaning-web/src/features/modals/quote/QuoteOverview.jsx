@@ -7,9 +7,9 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingButton from "../../ui/LoadingButton";
 import { format } from "date-fns";
-import sendQuote from "../../../store/actions/sendQuote";
-import { handleClose } from "../../../store/slices/modalSlice";
-import { prevActiveStep } from "../../../store/slices/quoteSlice";
+import sendQuote from "../../../app/actions/sendQuote";
+import { handleClose } from "../../../app/slices/modalSlice";
+import { prevActiveStep } from "../../../app/slices/quoteSlice";
 
 const QuoteOverview = () => {
   const dispatch = useDispatch();

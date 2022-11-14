@@ -6,7 +6,7 @@ import Delete from "../modals/Account/Delete";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Grow from "@mui/material/Grow";
-import { handleClose } from "../../store/slices/modalSlice";
+import { handleClose } from "../../app/slices/modalSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 const modalPage = (page) => {

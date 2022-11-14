@@ -1,8 +1,8 @@
 import { Fragment, useEffect, Suspense, lazy } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { handleOpen } from "../store/slices/modalSlice";
-import { setCredentials } from "../store/slices/authSlice";
+import { handleOpen } from "../app/slices/modalSlice";
+import { setCredentials } from "../app/slices/authSlice";
 import NavbarPages from "./NavbarPages";
 import AppBar from "@mui/material/AppBar";
 import HideOnScroll from "../Utilities/HideOnScroll";

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useLogoutMutation } from "../store/api/authApiSlice";
-import { logOut } from "../store/slices/authSlice";
+import { useLogoutMutation } from "../app/api/authApiSlice";
+import { logOut } from "../app/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
@@ -14,7 +14,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useGetMemberQuery } from "../store/api/memberApiSlice";
+import { useGetMemberQuery } from "../app/api/memberApiSlice";
 
 const MemberAvatar = () => {
   const dispatch = useDispatch();

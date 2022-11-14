@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Update from "./Account/Update";
 import Delete from "./Account/Delete";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleIsClosed } from "../../store/slices/memberSlice";
+import { toggleIsClosed } from "../../app/slices/memberSlice";
 
 const accountPage = (page) => {
   switch (page) {

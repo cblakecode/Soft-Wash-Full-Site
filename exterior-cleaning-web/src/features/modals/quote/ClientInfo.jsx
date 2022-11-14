@@ -5,11 +5,11 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
-import { handleClose } from "../../../store/slices/modalSlice";
+import { handleClose } from "../../../app/slices/modalSlice";
 import {
   nextActiveStep,
   changePersonalValues,
-} from "../../../store/slices/quoteSlice";
+} from "../../../app/slices/quoteSlice";
 
 const ClientInfo = () => {
   const dispatch = useDispatch();

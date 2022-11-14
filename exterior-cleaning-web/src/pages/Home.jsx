@@ -5,7 +5,7 @@ import Hero from "../components/Hero";
 import Services from "../components/Services";
 import About from "../components/About";
 import Footer from "../components/Footer";
-import { resetScroll } from "../store/slices/scrollSlice";
+import { resetScroll } from "../app/slices/scrollSlice";
 
 const Home = () => {
   const dispatch = useDispatch();

@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import AccountOptions from "../features/modals/AccountOptions";
-import { handleOpen } from "../store/slices/modalSlice";
-import { useGetMemberQuery } from "../store/api/memberApiSlice";
+import { handleOpen } from "../app/slices/modalSlice";
+import { useGetMemberQuery } from "../app/api/memberApiSlice";
 
 const textStyles = {
   fontSize: "3rem",

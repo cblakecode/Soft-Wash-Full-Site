@@ -10,12 +10,12 @@ import IconButton from "@mui/material/IconButton";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import LoadingButton from "../../../ui/LoadingButton";
-import { loggedIn } from "../../../../store/slices/authSlice";
-import { handleClose } from "../../../../store/slices/modalSlice";
-import { prevStep, showPassword } from "../../../../store/slices/memberSlice";
-import { useAddMemberMutation } from "../../../../store/api/authApiSlice";
-import { setCredentials } from "../../../../store/slices/authSlice";
-import { snackError, snackSuccess } from "../../../../store/slices/snackSlice";
+import { loggedIn } from "../../../../app/slices/authSlice";
+import { handleClose } from "../../../../app/slices/modalSlice";
+import { prevStep, showPassword } from "../../../../app/slices/memberSlice";
+import { useAddMemberMutation } from "../../../../app/api/authApiSlice";
+import { setCredentials } from "../../../../app/slices/authSlice";
+import { snackError, snackSuccess } from "../../../../app/slices/snackSlice";
 
 const AuthStep = () => {
   const userRef = useRef();

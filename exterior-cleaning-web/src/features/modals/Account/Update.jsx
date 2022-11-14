@@ -1,19 +1,17 @@
-// import { apiSlice } from "../../../store/api/apiSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { handleClose } from "../../../store/slices/modalSlice";
+import { handleClose } from "../../../app/slices/modalSlice";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-// import { originalData } from "../../../store/slices/loggedInSlice";
 import {
   selectUserResult,
   useUpdateMemberMutation,
-} from "../../../store/api/memberApiSlice";
-import { snackError, snackSuccess } from "../../../store/slices/snackSlice";
+} from "../../../app/api/memberApiSlice";
+import { snackError, snackSuccess } from "../../../app/slices/snackSlice";
 
 const Update = () => {
   const dispatch = useDispatch();

@@ -4,13 +4,13 @@ import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { handleClose } from "../../../store/slices/modalSlice";
-import { logOut } from "../../../store/slices/authSlice";
+import { handleClose } from "../../../app/slices/modalSlice";
+import { logOut } from "../../../app/slices/authSlice";
 import {
   useDeleteMemberMutation,
   useGetMemberQuery,
-} from "../../../store/api/memberApiSlice";
-import { snackError, snackSuccess } from "../../../store/slices/snackSlice";
+} from "../../../app/api/memberApiSlice";
+import { snackError, snackSuccess } from "../../../app/slices/snackSlice";
 
 const Delete = () => {
   const navigate = useNavigate();

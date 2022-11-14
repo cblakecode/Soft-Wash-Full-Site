@@ -5,9 +5,9 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useSelector, useDispatch } from "react-redux";
-import { handleClose } from "../../store/slices/modalSlice";
-import { handleInputChange } from "../../store/slices/contactSlice";
-import sendContact from "../../store/actions/sendContact";
+import { handleClose } from "../../app/slices/modalSlice";
+import { handleInputChange } from "../../app/slices/contactSlice";
+import sendContact from "../../app/actions/sendContact";
 import LoadingButton from "../ui/LoadingButton";
 
 const Modalcontact = () => {

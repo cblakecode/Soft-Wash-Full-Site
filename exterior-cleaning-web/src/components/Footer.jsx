@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import { handleOpen } from "../store/slices/modalSlice";
+import { handleOpen } from "../app/slices/modalSlice";
 
 const Footer = () => {
   const dispatch = useDispatch();

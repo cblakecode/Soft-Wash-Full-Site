@@ -2,7 +2,7 @@ import React from "react";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { useDispatch, useSelector } from "react-redux";
-import { snackClose } from "../../store/slices/snackSlice";
+import { snackClose } from "../../app/slices/snackSlice";
 
 const SnackAlert = () => {
   const dispatch = useDispatch();

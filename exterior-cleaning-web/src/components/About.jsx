@@ -9,7 +9,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import StarIcon from "@mui/icons-material/Star";
 import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
-import { handleOpen } from "../store/slices/modalSlice";
+import { handleOpen } from "../app/slices/modalSlice";
 
 const About = forwardRef(function About(props, ref) {
   const dispatch = useDispatch();

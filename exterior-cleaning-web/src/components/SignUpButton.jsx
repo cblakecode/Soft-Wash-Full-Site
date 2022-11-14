@@ -3,8 +3,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { useDispatch } from "react-redux";
-// import { toggleIsOpen } from "../store/slices/memberSlice";
-import { handleOpen } from "../store/slices/modalSlice";
+import { handleOpen } from "../app/slices/modalSlice";
 import IconButton from "@mui/material/IconButton";
 
 const SignUpButton = () => {
