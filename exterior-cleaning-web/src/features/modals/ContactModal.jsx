@@ -4,14 +4,12 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { handleClose } from "../../app/slices/modalSlice";
-import { handleInputChange } from "../../app/slices/contactSlice";
 import sendContact from "../../app/actions/sendContact";
 import LoadingButton from "../ui/LoadingButton";
 
 const Modalcontact = () => {
-  const { formData } = useSelector((store) => store.contact);
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -22,8 +20,7 @@ const Modalcontact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(handleInputChange(data));
-    dispatch(sendContact(formData));
+    dispatch(sendContact(data));
     setData({ name: "", email: "", mobile: "", message: "" });
   };
 

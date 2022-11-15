@@ -28,7 +28,7 @@ const PropertyInfo = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(changePropertyValues(propertyData));
-    dispatch(calculateQuote());
+    await dispatch(calculateQuote());
     dispatch(nextActiveStep());
   };
 

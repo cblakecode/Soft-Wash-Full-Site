@@ -71,6 +71,7 @@ const Hero = () => {
             sx={{ display: { xs: "flex", sm: "none" }, mt: "1rem" }}
             size="large"
             color="secondary"
+            onClick={() => dispatch(handleOpen("quote"))}
           >
             <RequestQuoteIcon fontSize="inherit" />
           </IconButton>
